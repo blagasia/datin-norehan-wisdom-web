@@ -1,6 +1,8 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { products } from '@/data/products';
 
 interface Product {
   id: number;
@@ -13,56 +15,29 @@ interface Product {
 const ProductItem = ({ product }: { product: Product }) => {
   return (
     <div className="group bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 transition-all duration-300 hover:shadow-md">
-      <div className="relative h-56 overflow-hidden">
-        <img 
-          src={product.image} 
-          alt={product.name} 
-          className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
-        />
-        <div className="absolute top-2 right-2 bg-natural-purple px-3 py-1 text-xs font-medium rounded-full">
-          {product.category}
+      <Link to={`/products/${product.id}`} className="block">
+        <div className="relative h-56 overflow-hidden">
+          <img 
+            src={product.image} 
+            alt={product.name} 
+            className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+          />
+          <div className="absolute top-2 right-2 bg-natural-purple px-3 py-1 text-xs font-medium rounded-full">
+            {product.category}
+          </div>
         </div>
-      </div>
-      <div className="p-4">
-        <h3 className="font-playfair text-lg font-semibold mb-1">{product.name}</h3>
-        <p className="text-natural-gray font-semibold">{product.price}</p>
-        <Button className="w-full mt-4 btn-outline">View Product</Button>
-      </div>
+        <div className="p-4">
+          <h3 className="font-playfair text-lg font-semibold mb-1">{product.name}</h3>
+          <p className="text-natural-gray font-semibold">{product.price}</p>
+          <Button className="w-full mt-4 btn-outline">View Product</Button>
+        </div>
+      </Link>
     </div>
   );
 };
 
 const Products = () => {
-  const featuredProducts: Product[] = [
-    {
-      id: 1,
-      name: "Organic Detox Tea",
-      price: "RM 89",
-      image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9",
-      category: "Detox"
-    },
-    {
-      id: 2,
-      name: "Natural Collagen Boost",
-      price: "RM 139",
-      image: "https://images.unsplash.com/photo-1518495973542-4542c06a5843",
-      category: "Collagen"
-    },
-    {
-      id: 3,
-      name: "Herbal Wellness Tonic",
-      price: "RM 109",
-      image: "https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07",
-      category: "Herbal"
-    },
-    {
-      id: 4,
-      name: "Natural Beauty Elixir",
-      price: "RM 129",
-      image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
-      category: "Beauty"
-    }
-  ];
+  const featuredProducts = products.slice(0, 4);
 
   return (
     <section className="py-16 md:py-24 bg-natural-purple/20">
@@ -79,7 +54,9 @@ const Products = () => {
         </div>
         
         <div className="text-center mt-12">
-          <Button className="btn-primary">View All Products</Button>
+          <Link to="/products">
+            <Button className="btn-primary">View All Products</Button>
+          </Link>
         </div>
       </div>
     </section>
