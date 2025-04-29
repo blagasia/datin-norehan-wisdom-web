@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ShoppingCart, Package, Star } from 'lucide-react';
 import { products } from '@/data/products';
+import TikTokVideo from '@/components/TikTokVideo';
 
 const ProductDetail = () => {
   const { productId } = useParams();
@@ -85,6 +86,16 @@ const ProductDetail = () => {
                 </Button>
                 <Button className="btn-outline flex-1">Buy Now</Button>
               </div>
+            </div>
+          </div>
+
+          {/* TikTok Video */}
+          <div className="mt-16">
+            <h2 className="font-playfair text-2xl md:text-3xl font-bold mb-8 text-center">
+              See Our Product in Action
+            </h2>
+            <div className="max-w-2xl mx-auto">
+              <TikTokVideo videoId={product.tiktokVideoId || ''} />
             </div>
           </div>
 
