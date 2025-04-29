@@ -35,7 +35,9 @@ const Navbar = () => {
               {link.name}
             </Link>
           ))}
-          <Button className="btn-primary">Shop Now</Button>
+          <Link to="/products">
+            <Button className="btn-primary">Shop Now</Button>
+          </Link>
         </nav>
 
         {/* Mobile menu button */}
@@ -62,7 +64,9 @@ const Navbar = () => {
                 {link.name}
               </Link>
             ))}
-            <Button className="btn-primary w-full">Shop Now</Button>
+            <Link to="/products" onClick={() => setMobileMenuOpen(false)}>
+              <Button className="btn-primary w-full">Shop Now</Button>
+            </Link>
           </nav>
         </div>
       )}
