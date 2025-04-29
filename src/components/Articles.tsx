@@ -2,7 +2,7 @@
 import React from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
-import { Article } from 'lucide-react';
+import { FileText } from 'lucide-react';
 
 interface ArticleType {
   id: number;
@@ -52,7 +52,7 @@ const ArticleCard = ({ article }: { article: ArticleType }) => {
         </div>
       ) : (
         <div className="h-48 bg-natural-green/30 flex items-center justify-center">
-          <Article size={48} className="text-natural-dark/50" />
+          <FileText size={48} className="text-natural-dark/50" />
         </div>
       )}
       <CardHeader>
