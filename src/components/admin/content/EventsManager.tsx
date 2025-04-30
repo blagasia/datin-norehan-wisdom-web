@@ -155,7 +155,7 @@ const EventsManager = () => {
           <TableBody>
             {filteredEvents.length > 0 ? (
               filteredEvents.map((event) => (
-                <TableRow key={event.id}>
+                <TableRow key={event.id.toString()}>
                   <TableCell className="font-medium">{event.title}</TableCell>
                   <TableCell>
                     {event.isInPerson ? 'In Person' : 'Virtual'} - {event.type}
@@ -179,7 +179,7 @@ const EventsManager = () => {
                         </DialogHeader>
                         <div className="flex justify-end gap-2 mt-4">
                           <Button variant="outline">Cancel</Button>
-                          <Button variant="destructive" onClick={() => handleDeleteEvent(event.id)}>
+                          <Button variant="destructive" onClick={() => handleDeleteEvent(event.id.toString())}>
                             Delete
                           </Button>
                         </div>

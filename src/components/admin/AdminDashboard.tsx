@@ -9,7 +9,7 @@ import ProductsManager from './content/ProductsManager';
 import ArticlesManager from './content/ArticlesManager';
 import TikTokManager from './content/TikTokManager';
 import PageEditor from './content/PageEditor';
-import { Database, Folder, FolderOpen, BrandTiktok, Columns } from 'lucide-react';
+import { Database, Folder, FolderOpen, Video, Columns } from 'lucide-react';
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -57,7 +57,7 @@ const AdminDashboard = () => {
               Articles
             </TabsTrigger>
             <TabsTrigger value="tiktok" className="flex items-center gap-2">
-              <BrandTiktok className="h-4 w-4" />
+              <Video className="h-4 w-4" />
               TikTok
             </TabsTrigger>
             <TabsTrigger value="pages" className="flex items-center gap-2">
