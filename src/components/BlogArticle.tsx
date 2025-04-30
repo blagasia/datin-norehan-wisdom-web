@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
 import { FileText, Image, Video, Newspaper, Book, AudioLines } from 'lucide-react';
@@ -12,12 +13,20 @@ export interface BlogArticleProps {
   date: string;
   author: string;
   category: string;
-  type: 'article' | 'video' | 'audio' | 'image' | 'pdf' | 'infographic';
+  type: 'article' | 'video' | 'audio' | 'image' | 'pdf' | 'infographic' | 'event' | 'reflection';
   image?: string;
   readTime?: string;
   likes?: number;
   comments?: number;
   featured?: boolean;
+  videoId?: string;
+  audioUrl?: string;
+  content?: string;
+  hasPDF?: boolean;
+  eventDate?: string;
+  eventLocation?: string;
+  upcoming?: boolean;
+  quote?: string;
 }
 
 const BlogArticle = ({ article }: { article: BlogArticleProps }) => {
@@ -34,6 +43,10 @@ const BlogArticle = ({ article }: { article: BlogArticleProps }) => {
         return <FileText size={24} className="text-natural-gray" />;
       case 'infographic':
         return <Newspaper size={24} className="text-natural-gray" />;
+      case 'event':
+        return <Newspaper size={24} className="text-natural-gray" />;
+      case 'reflection':
+        return <Book size={24} className="text-natural-gray" />;
       default:
         return <Book size={24} className="text-natural-gray" />;
     }
@@ -41,56 +54,48 @@ const BlogArticle = ({ article }: { article: BlogArticleProps }) => {
 
   return (
     <Card className={`overflow-hidden h-full flex flex-col hover:shadow-md transition-shadow duration-300 ${article.featured ? 'border-natural-peach' : ''}`}>
-      {article.image ? (
-        <div className="h-48 overflow-hidden relative">
+      <Link to={`/articles/${article.id}`} className="h-48 overflow-hidden relative">
+        {article.image ? (
           <img 
             src={article.image} 
             alt={article.title} 
-            className="w-full h-full object-cover object-center"
+            className="w-full h-full object-cover object-center hover:scale-105 transition-transform duration-300"
           />
-          <div className="absolute top-2 right-2 flex gap-2">
-            {article.type !== 'article' && (
-              <Badge variant="secondary" className="text-xs bg-white/80 backdrop-blur-sm">
-                {article.type.charAt(0).toUpperCase() + article.type.slice(1)}
-              </Badge>
-            )}
-            {article.featured && (
-              <Badge className="text-xs bg-natural-peach/90 text-white">
-                Featured
-              </Badge>
-            )}
+        ) : (
+          <div className="h-48 bg-natural-green/30 flex items-center justify-center relative">
+            {renderContentTypeIcon()}
           </div>
+        )}
+        <div className="absolute top-2 right-2 flex gap-2">
+          {article.type !== 'article' && (
+            <Badge variant="secondary" className="text-xs bg-white/80 backdrop-blur-sm">
+              {article.type.charAt(0).toUpperCase() + article.type.slice(1)}
+            </Badge>
+          )}
+          {article.featured && (
+            <Badge className="text-xs bg-natural-peach/90 text-white">
+              Featured
+            </Badge>
+          )}
         </div>
-      ) : (
-        <div className="h-48 bg-natural-green/30 flex items-center justify-center relative">
-          {renderContentTypeIcon()}
-          <div className="absolute top-2 right-2 flex gap-2">
-            {article.type !== 'article' && (
-              <Badge variant="secondary" className="text-xs">
-                {article.type.charAt(0).toUpperCase() + article.type.slice(1)}
-              </Badge>
-            )}
-            {article.featured && (
-              <Badge className="text-xs bg-natural-peach/90 text-white">
-                Featured
-              </Badge>
-            )}
-          </div>
-        </div>
-      )}
+      </Link>
       <CardHeader>
         <div className="flex justify-between items-start mb-1">
           <div className="text-xs font-medium text-natural-gray">{article.category} • {article.date}</div>
           {article.readTime && <div className="text-xs text-natural-gray">{article.readTime} read</div>}
         </div>
-        <CardTitle className="font-playfair">{article.title}</CardTitle>
+        <Link to={`/articles/${article.id}`}>
+          <CardTitle className="font-playfair hover:text-natural-peach transition-colors">{article.title}</CardTitle>
+        </Link>
         <div className="text-xs text-natural-gray mt-1">By {article.author}</div>
       </CardHeader>
       <CardContent className="flex-grow">
         <CardDescription>{article.excerpt}</CardDescription>
       </CardContent>
       <CardFooter className="flex justify-between items-center">
-        <Button variant="outline" className="hover:bg-natural-green/30 hover:text-natural-dark">Read More</Button>
+        <Link to={`/articles/${article.id}`}>
+          <Button variant="outline" className="hover:bg-natural-green/30 hover:text-natural-dark">Read More</Button>
+        </Link>
         {(article.likes !== undefined || article.comments !== undefined) && (
           <div className="flex gap-3 text-xs text-natural-gray">
             {article.likes !== undefined && (
