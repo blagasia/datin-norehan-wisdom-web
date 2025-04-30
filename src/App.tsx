@@ -30,8 +30,8 @@ const App = () => (
       <LoyaltyProvider>
         <Toaster />
         <Sonner />
-        <PromotionManager />
         <BrowserRouter>
+          <PromotionManager />
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/products" element={<Products />} />

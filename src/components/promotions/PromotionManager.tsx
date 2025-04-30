@@ -7,8 +7,16 @@ import PromoPopup from './PromoPopup';
 
 const PromotionManager = () => {
   const [activePromotion, setActivePromotion] = useState<Promotion | null>(null);
-  const location = useLocation();
-  const currentPath = location.pathname;
+  
+  // Wrap the useLocation hook in a try-catch to prevent errors outside Router context
+  let currentPath = '/';
+  try {
+    const location = useLocation();
+    currentPath = location.pathname;
+  } catch (error) {
+    console.error('PromotionManager: Failed to use router hook, falling back to default path', error);
+    // Continue with default path
+  }
 
   useEffect(() => {
     try {
