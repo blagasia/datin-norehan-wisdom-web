@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
 import { ritualProducts, RitualProduct } from '@/data/rituals';
-import { Package, Palette, Gift } from 'lucide-react';
+import { Package, Palette, Gift, Star, ArrowRight } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 interface RitualProductsProps {
@@ -44,13 +44,47 @@ const RitualProductItem = ({ product }: { product: RitualProduct }) => {
           <h3 className="font-playfair text-lg font-semibold mb-1">{product.name}</h3>
           <p className="text-natural-gray font-semibold mb-2">{product.price}</p>
           <p className="text-sm text-natural-gray line-clamp-2 mb-4">{product.description}</p>
+          
+          {/* Bundle Contents Preview for bundles */}
+          {product.bundleType === 'bundle' && product.bundleContents && (
+            <div className="mb-4 py-3 px-2 bg-brand-sage-mist/10 rounded border border-brand-sage-mist/20">
+              <p className="text-xs font-medium mb-2 flex items-center">
+                <Package className="h-3 w-3 mr-1" />
+                Bundle Includes:
+              </p>
+              <div className="flex gap-2 overflow-x-auto pb-2 hide-scrollbar">
+                {product.bundleContents.map((item, index) => (
+                  <div key={index} className="flex-shrink-0 w-16">
+                    <div className="w-14 h-14 rounded-full bg-white border border-brand-sage-mist/30 p-1 overflow-hidden">
+                      {item.image ? (
+                        <img 
+                          src={item.image} 
+                          alt={item.name}
+                          className="w-full h-full object-cover rounded-full"
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-brand-blush-rose/10 rounded-full flex items-center justify-center">
+                          <span className="text-xs text-brand-deep-teal">{item.quantity}x</span>
+                        </div>
+                      )}
+                    </div>
+                    <p className="text-[10px] text-center mt-1 line-clamp-1">{item.name}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+          
           <div className="flex gap-2">
             {product.bundleType === 'kit' ? (
               <Button className="flex-1 bg-brand-gilded-gold hover:bg-brand-gilded-gold/90 text-white">
                 Build Your Kit
               </Button>
             ) : (
-              <Button className="flex-1">View Details</Button>
+              <Button className="flex-1 group-hover:bg-brand-deep-teal group-hover:text-white transition-colors">
+                View Details
+                <ArrowRight className="h-4 w-4 ml-2 opacity-0 group-hover:opacity-100 transition-opacity" />
+              </Button>
             )}
           </div>
         </div>
@@ -84,6 +118,17 @@ const RitualProducts = ({ category }: RitualProductsProps) => {
           <p className="text-brand-soft-gray">No products found in this category.</p>
         </div>
       )}
+      
+      {/* Add some custom styling for the scrollbar hiding */}
+      <style jsx>{`
+        .hide-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+        .hide-scrollbar {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+      `}</style>
     </div>
   );
 };
