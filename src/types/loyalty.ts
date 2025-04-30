@@ -44,6 +44,8 @@ export interface Customer {
   joinedDate: string;
   birthDate?: string;
   loyaltyId?: string;
+  referralCode?: string;
+  referredBy?: string;
   preferences?: {
     categories?: string[];
     communicationPreference?: 'email' | 'sms' | 'both' | 'none';
@@ -58,6 +60,33 @@ export interface LoyaltyUser {
   level: LoyaltyLevel;
   joinedDate: string;
   rewards: string[]; // IDs of claimed rewards
+  referrals?: Referral[];
+  commissionTier?: CommissionTier;
+}
+
+export interface Referral {
+  id: string;
+  referrerId: string;
+  referredCustomerId: string;
+  date: string;
+  status: 'pending' | 'completed' | 'expired';
+  productId?: string;
+  purchaseAmount?: number;
+  commissionEarned?: number;
+}
+
+export interface CommissionTier {
+  id: string;
+  name: string;
+  minReferralValue: number;
+  baseCommissionRate: number;
+}
+
+export interface ProductCommission {
+  productId: string;
+  commissionRate: number; // Base percentage
+  flatCommission?: number; // Optional flat amount
+  isActive: boolean;
 }
 
 export interface Promotion {

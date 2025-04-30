@@ -10,7 +10,8 @@ import ArticlesManager from './content/ArticlesManager';
 import TikTokManager from './content/TikTokManager';
 import PageEditor from './content/PageEditor';
 import LoyaltyManager from './content/LoyaltyManager';
-import { Database, Folder, FolderOpen, Video, Columns, Gift } from 'lucide-react';
+import ReferralManager from './content/ReferralManager';
+import { Database, Folder, FolderOpen, Video, Columns, Gift, Tag } from 'lucide-react';
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -44,7 +45,7 @@ const AdminDashboard = () => {
 
       <main className="container mx-auto px-4 py-8">
         <Tabs defaultValue="events" className="w-full">
-          <TabsList className="grid grid-cols-6 mb-8">
+          <TabsList className="grid grid-cols-7 mb-8">
             <TabsTrigger value="events" className="flex items-center gap-2">
               <Database className="h-4 w-4" />
               Events
@@ -64,6 +65,10 @@ const AdminDashboard = () => {
             <TabsTrigger value="loyalty" className="flex items-center gap-2">
               <Gift className="h-4 w-4" />
               Loyalty
+            </TabsTrigger>
+            <TabsTrigger value="referrals" className="flex items-center gap-2">
+              <Tag className="h-4 w-4" />
+              Referrals
             </TabsTrigger>
             <TabsTrigger value="pages" className="flex items-center gap-2">
               <Columns className="h-4 w-4" />
@@ -89,6 +94,10 @@ const AdminDashboard = () => {
           
           <TabsContent value="loyalty" className="bg-white p-6 rounded-md shadow-sm">
             <LoyaltyManager />
+          </TabsContent>
+          
+          <TabsContent value="referrals" className="bg-white p-6 rounded-md shadow-sm">
+            <ReferralManager />
           </TabsContent>
           
           <TabsContent value="pages" className="bg-white p-6 rounded-md shadow-sm">

@@ -6,9 +6,12 @@ import {
   LoyaltyLevel,
   LoyaltyPoints, 
   LoyaltyReward,
-  LoyaltyTransaction
+  LoyaltyTransaction,
+  Referral,
+  CommissionTier
 } from '@/types/loyalty';
 import { loyaltyTiers, loyaltyRewards } from '@/data/loyalty';
+import { commissionTiers, generateReferralCode, calculateCommission, getCommissionTier, sampleReferrals } from '@/data/referral';
 import { useToast } from '@/hooks/use-toast';
 
 interface LoyaltyContextType {
@@ -19,11 +22,17 @@ interface LoyaltyContextType {
   currentTier: LoyaltyLevel;
   nextTier: LoyaltyLevel | null;
   pointsToNextTier: number | null;
+  referrals: Referral[];
+  commissionTier: CommissionTier | null;
+  totalReferralValue: number;
+  totalCommissionEarned: number;
   login: (email: string, password: string) => Promise<boolean>;
   logout: () => void;
   register: (customerData: Partial<Customer>) => Promise<boolean>;
   claimReward: (rewardId: string) => Promise<boolean>;
   addPoints: (points: number, description: string) => Promise<boolean>;
+  generateReferralLink: () => string;
+  trackReferral: (referralCode: string, productId: string, amount: number) => Promise<boolean>;
 }
 
 const LoyaltyContext = createContext<LoyaltyContextType | undefined>(undefined);
@@ -132,6 +141,9 @@ export const LoyaltyProvider: React.FC<LoyaltyProviderProps> = ({ children }) =>
       return false;
     }
     
+    // Generate referral code for the new customer
+    const referralCode = generateReferralCode(`cus_${Date.now()}`);
+    
     // Create new customer
     const newCustomer: Customer = {
       id: `cus_${Date.now()}`,
@@ -140,6 +152,8 @@ export const LoyaltyProvider: React.FC<LoyaltyProviderProps> = ({ children }) =>
       phone: customerData.phone || '',
       joinedDate: new Date().toISOString(),
       birthDate: customerData.birthDate,
+      referralCode: referralCode,
+      referredBy: customerData.referredBy,
       preferences: customerData.preferences || {
         communicationPreference: 'email',
       },
@@ -157,12 +171,14 @@ export const LoyaltyProvider: React.FC<LoyaltyProviderProps> = ({ children }) =>
           date: new Date().toISOString(),
           description: 'Welcome bonus',
           points: 100,
-          type: 'earned'
+          type: 'earned' as const
         }]
       },
       level: 'bronze',
       joinedDate: new Date().toISOString(),
-      rewards: []
+      rewards: [],
+      referrals: [],
+      commissionTier: commissionTiers[0] // Start at the lowest tier
     };
     
     // Link the two accounts
@@ -171,9 +187,16 @@ export const LoyaltyProvider: React.FC<LoyaltyProviderProps> = ({ children }) =>
     setCustomer(newCustomer);
     setLoyaltyUser(newLoyaltyUser);
     
+    let message = "Welcome to our loyalty program! You've earned 100 welcome points.";
+    
+    // If the user was referred by someone, track that referral
+    if (customerData.referredBy) {
+      message += " Your referral has been recorded.";
+    }
+    
     toast({
       title: "Registration successful",
-      description: "Welcome to our loyalty program! You've earned 100 welcome points.",
+      description: message,
     });
     return true;
   };
@@ -299,6 +322,117 @@ export const LoyaltyProvider: React.FC<LoyaltyProviderProps> = ({ children }) =>
     return true;
   };
 
+  // Referral system functions
+  const generateReferralLink = () => {
+    if (!customer || !customer.referralCode) {
+      return "";
+    }
+    
+    // In a real app, this would generate a proper link to your site with the referral code
+    return `https://datinnorehan.com/join?ref=${customer.referralCode}`;
+  };
+
+  const trackReferral = async (referralCode: string, productId: string, amount: number): Promise<boolean> => {
+    // Find customer with this referral code
+    const storedCustomers = localStorage.getItem('allCustomers');
+    let referrer: Customer | null = null;
+    
+    if (storedCustomers) {
+      try {
+        const customers: Customer[] = JSON.parse(storedCustomers);
+        referrer = customers.find(c => c.referralCode === referralCode) || null;
+      } catch (e) {
+        console.error('Failed to parse stored customers', e);
+      }
+    }
+    
+    if (!referrer || !referrer.loyaltyId) {
+      toast({
+        title: "Invalid referral",
+        description: "The referral code is not valid",
+        variant: "destructive"
+      });
+      return false;
+    }
+    
+    // Find referrer's loyalty account
+    const storedLoyaltyUsers = localStorage.getItem('allLoyaltyUsers');
+    let referrerLoyalty: LoyaltyUser | null = null;
+    
+    if (storedLoyaltyUsers) {
+      try {
+        const loyaltyUsers: LoyaltyUser[] = JSON.parse(storedLoyaltyUsers);
+        referrerLoyalty = loyaltyUsers.find(lu => lu.id === referrer?.loyaltyId) || null;
+      } catch (e) {
+        console.error('Failed to parse stored loyalty users', e);
+      }
+    }
+    
+    if (!referrerLoyalty) {
+      toast({
+        title: "Error processing referral",
+        description: "Could not find referrer's loyalty account",
+        variant: "destructive"
+      });
+      return false;
+    }
+    
+    // Calculate commission
+    const commission = calculateCommission(
+      productId, 
+      amount, 
+      referrerLoyalty.commissionTier?.id
+    );
+    
+    // Create new referral record
+    const newReferral: Referral = {
+      id: `ref_${Date.now()}`,
+      referrerId: referrerLoyalty.id,
+      referredCustomerId: customer?.id || 'unknown',
+      date: new Date().toISOString(),
+      status: 'completed',
+      productId,
+      purchaseAmount: amount,
+      commissionEarned: commission
+    };
+    
+    // Update referrer's loyalty account
+    const updatedReferrerLoyalty = {
+      ...referrerLoyalty,
+      referrals: [
+        ...(referrerLoyalty.referrals || []),
+        newReferral
+      ]
+    };
+    
+    // Update referrer's commission tier based on new total referral value
+    const totalReferralValue = [...(updatedReferrerLoyalty.referrals || [])].reduce(
+      (sum, ref) => sum + (ref.purchaseAmount || 0),
+      0
+    );
+    
+    updatedReferrerLoyalty.commissionTier = getCommissionTier(totalReferralValue);
+    
+    // Save updated loyalty user to localStorage
+    if (storedLoyaltyUsers) {
+      try {
+        const loyaltyUsers: LoyaltyUser[] = JSON.parse(storedLoyaltyUsers);
+        const updatedLoyaltyUsers = loyaltyUsers.map(lu => 
+          lu.id === referrerLoyalty?.id ? updatedReferrerLoyalty : lu
+        );
+        localStorage.setItem('allLoyaltyUsers', JSON.stringify(updatedLoyaltyUsers));
+      } catch (e) {
+        console.error('Failed to update stored loyalty users', e);
+      }
+    }
+    
+    toast({
+      title: "Referral tracked",
+      description: "The referral has been successfully processed",
+    });
+    return true;
+  };
+
   // Calculate current tier and next tier
   const currentTier = loyaltyUser?.level || 'bronze';
   
@@ -314,6 +448,23 @@ export const LoyaltyProvider: React.FC<LoyaltyProviderProps> = ({ children }) =>
 
   // Get available rewards
   const availableRewards = loyaltyRewards.filter(reward => reward.isActive);
+  
+  // For demo purposes, if no referrals exist yet, use sample referrals
+  const referrals = loyaltyUser?.referrals || (loyaltyUser ? sampleReferrals : []);
+  
+  // Calculate total referral value and commission earned
+  const totalReferralValue = referrals.reduce(
+    (sum, ref) => sum + (ref.purchaseAmount || 0),
+    0
+  );
+  
+  const totalCommissionEarned = referrals.reduce(
+    (sum, ref) => sum + (ref.commissionEarned || 0),
+    0
+  );
+  
+  // Get current commission tier
+  const commissionTier = loyaltyUser?.commissionTier || null;
 
   const value = {
     isLoggedIn: !!customer,
@@ -323,11 +474,17 @@ export const LoyaltyProvider: React.FC<LoyaltyProviderProps> = ({ children }) =>
     currentTier,
     nextTier,
     pointsToNextTier,
+    referrals,
+    commissionTier,
+    totalReferralValue,
+    totalCommissionEarned,
     login,
     logout,
     register,
     claimReward,
-    addPoints
+    addPoints,
+    generateReferralLink,
+    trackReferral
   };
   
   return (
