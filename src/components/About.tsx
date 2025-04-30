@@ -2,7 +2,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
-import { Quote } from 'lucide-react';
+import { Quote, ArrowRight } from 'lucide-react';
 
 const About = () => {
   return (
@@ -15,6 +15,9 @@ const About = () => {
             </h2>
             <p className="text-natural-gray mb-6 leading-relaxed">
               With grace that matches her wisdom, Datin Norehan has journeyed through life with a singular purpose — to harness nature's gifts and transform them into healing treasures. Her story begins with a humble appreciation for traditional remedies passed through generations of her family.
+            </p>
+            <p className="text-natural-gray mb-6 leading-relaxed">
+              From her early days studying ancient Malaysian herbal traditions to her groundbreaking work combining modern science with ancestral wisdom, Datin Norehan has dedicated over three decades to perfecting her craft. Her journey through remote villages and prestigious research institutions has gifted her with a unique perspective on holistic wellness.
             </p>
             <p className="text-natural-gray mb-6 leading-relaxed">
               Each product under the Datin Norehan brand reflects not just ingredients, but a philosophy of living in harmony with nature. Her meticulous approach ensures that every formulation honors the delicate balance between scientific understanding and ancestral wisdom.
@@ -30,8 +33,11 @@ const About = () => {
               <p className="text-right mt-3 font-medium text-natural-dark/70">— Datin Norehan</p>
             </div>
             
-            <Link to="/about">
-              <Button className="btn-outline">Explore Our Story</Button>
+            <Link to="/story">
+              <Button className="btn-outline flex items-center">
+                Explore Our Founder's Journey
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
             </Link>
           </div>
           
