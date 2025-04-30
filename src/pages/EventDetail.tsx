@@ -564,7 +564,4 @@ const EventDetail = () => {
   );
 };
 
-// Import missing icon
-import { Bell } from 'lucide-react';
-
 export default EventDetail;
