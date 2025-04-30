@@ -1,10 +1,9 @@
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import EventsGrid from '@/components/events/EventsGrid';
 import FeaturedEvent from '@/components/events/FeaturedEvent';
-import { virtualEvents } from '@/data/virtualEvents';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -12,8 +11,31 @@ import { QrCode, Calendar, MapPin } from 'lucide-react';
 import TikTokContent from '@/components/TikTokContent';
 
 const VirtualEvents = () => {
-  // Filter in-person events
-  const inPersonEvents = virtualEvents.filter(event => event.isInPerson);
+  const [events, setEvents] = useState([]);
+  const [inPersonEvents, setInPersonEvents] = useState([]);
+  
+  // Load events from localStorage if available (set by EventsManager)
+  useEffect(() => {
+    // Default to data from virtualEvents.ts if no managed content is found
+    const { virtualEvents } = require('@/data/virtualEvents');
+    let eventsData = [...virtualEvents];
+    
+    const savedEvents = localStorage.getItem('cmsEvents');
+    if (savedEvents) {
+      try {
+        const parsedEvents = JSON.parse(savedEvents);
+        if (Array.isArray(parsedEvents) && parsedEvents.length > 0) {
+          eventsData = parsedEvents;
+        }
+      } catch (e) {
+        console.error('Error parsing saved events:', e);
+      }
+    }
+    
+    setEvents(eventsData);
+    // Filter in-person events
+    setInPersonEvents(eventsData.filter(event => event.isInPerson));
+  }, []);
   
   return (
     <div className="min-h-screen flex flex-col">

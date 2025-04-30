@@ -17,6 +17,7 @@ import Philosophy from "./pages/Philosophy";
 import Story from "./pages/Story";
 import VirtualEvents from "./pages/VirtualEvents";
 import EventDetail from "./pages/EventDetail";
+import Admin from "./pages/Admin";
 
 const queryClient = new QueryClient();
 
@@ -39,6 +40,7 @@ const App = () => (
           <Route path="/contact" element={<Contact />} />
           <Route path="/events" element={<VirtualEvents />} />
           <Route path="/events/:eventId" element={<EventDetail />} />
+          <Route path="/admin" element={<Admin />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -1,35 +1,51 @@
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import TikTokVideo from '@/components/TikTokVideo';
 import { Button } from '@/components/ui/button';
 
-// Sample TikTok videos related to the brand's content
-// In a real app, these would likely come from a database or API
-const tikTokVideos = [
+// Default TikTok videos if no user-managed content is found
+const defaultTikTokVideos = [
   {
-    id: "7309308101889242378", // Example TikTok video ID
+    id: "7309308101889242378",
     title: "Natural skincare tips",
     category: "tips"
   },
   {
-    id: "7305418278915120390", // Example TikTok video ID
+    id: "7305418278915120390",
     title: "Workshop preview: DIY remedies",
     category: "events"
   },
   {
-    id: "7290938496971303211", // Example TikTok video ID
+    id: "7290938496971303211",
     title: "Natural ingredients spotlight",
     category: "products"
   },
   {
-    id: "7287034233679590662", // Example TikTok video ID
+    id: "7287034233679590662",
     title: "Event highlight: Herbal masterclass",
     category: "events"
   }
 ];
 
 const TikTokContent = () => {
+  const [tikTokVideos, setTikTokVideos] = useState(defaultTikTokVideos);
+
+  // Load videos from localStorage if available (set by TikTokManager)
+  useEffect(() => {
+    const savedVideos = localStorage.getItem('tikTokVideos');
+    if (savedVideos) {
+      try {
+        const parsedVideos = JSON.parse(savedVideos);
+        if (Array.isArray(parsedVideos) && parsedVideos.length > 0) {
+          setTikTokVideos(parsedVideos);
+        }
+      } catch (e) {
+        console.error('Error parsing saved TikTok videos:', e);
+      }
+    }
+  }, []);
+
   return (
     <section className="py-16 bg-white border-t border-natural-purple/10">
       <div className="container mx-auto px-4">
@@ -52,7 +68,7 @@ const TikTokContent = () => {
           
           <TabsContent value="events" className="space-y-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {tikTokVideos.filter(video => video.category === 'events').map((video, index) => (
+              {tikTokVideos.filter(video => video.category === 'events').map((video) => (
                 <div key={video.id} className="rounded-lg overflow-hidden shadow-sm border border-natural-purple/10 hover:shadow-md transition-all">
                   <TikTokVideo videoId={video.id} />
                   <div className="p-4">
@@ -65,7 +81,7 @@ const TikTokContent = () => {
           
           <TabsContent value="tips" className="space-y-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {tikTokVideos.filter(video => video.category === 'tips').map((video, index) => (
+              {tikTokVideos.filter(video => video.category === 'tips').map((video) => (
                 <div key={video.id} className="rounded-lg overflow-hidden shadow-sm border border-natural-purple/10 hover:shadow-md transition-all">
                   <TikTokVideo videoId={video.id} />
                   <div className="p-4">
@@ -78,7 +94,7 @@ const TikTokContent = () => {
           
           <TabsContent value="products" className="space-y-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {tikTokVideos.filter(video => video.category === 'products').map((video, index) => (
+              {tikTokVideos.filter(video => video.category === 'products').map((video) => (
                 <div key={video.id} className="rounded-lg overflow-hidden shadow-sm border border-natural-purple/10 hover:shadow-md transition-all">
                   <TikTokVideo videoId={video.id} />
                   <div className="p-4">
