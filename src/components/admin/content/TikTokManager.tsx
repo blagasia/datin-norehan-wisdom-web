@@ -213,7 +213,7 @@ const TikTokManager = () => {
                 No videos found in this category.
               </div>
             )}
-          </CardContent>
+          </Tabs>
         </CardContent>
       </Card>
       
