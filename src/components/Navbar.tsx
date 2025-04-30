@@ -1,6 +1,7 @@
+
 import React, { useState, useEffect } from 'react';
 import { NavLink, Link } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ShoppingBag, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetClose, SheetTrigger } from '@/components/ui/sheet';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -23,8 +24,8 @@ const Navbar = () => {
     };
   }, []);
 
-  const navItemClasses = "text-sm font-medium hover:text-natural-purple transition-colors";
-  const activeNavItemClasses = "text-natural-purple font-semibold";
+  const navItemClasses = "text-sm font-medium hover:text-brand-gilded-gold transition-colors";
+  const activeNavItemClasses = "text-brand-gilded-gold font-semibold";
 
   const navItems = [
     { name: 'Home', path: '/' },
@@ -33,6 +34,7 @@ const Navbar = () => {
     { name: 'Events', path: '/events' },
     { name: 'Ask Datin', path: '/ask' },
     { name: 'About', path: '/about' },
+    { name: 'Loyalty', path: '/loyalty' },
   ];
 
   const renderNavItems = () => (
@@ -50,16 +52,6 @@ const Navbar = () => {
           </NavLink>
         </li>
       ))}
-      <li>
-        <NavLink
-          to="/loyalty"
-          className={({ isActive }) =>
-            `${navItemClasses} ${isActive ? activeNavItemClasses : ''}`
-          }
-        >
-          Loyalty
-        </NavLink>
-      </li>
     </>
   );
 
@@ -81,7 +73,7 @@ const Navbar = () => {
               <div className="flex items-center gap-4">
                 <LoyaltyWidget />
                 <Link to="/contact">
-                  <Button variant="outline">Contact</Button>
+                  <Button variant="outline" className="border-brand-gilded-gold/30 hover:bg-brand-gilded-gold/10">Contact</Button>
                 </Link>
               </div>
             </nav>
@@ -94,11 +86,16 @@ const Navbar = () => {
                     <Menu className="h-6 w-6" />
                   </Button>
                 </SheetTrigger>
-                <SheetContent side="right">
+                <SheetContent side="right" className="bg-white border-l border-brand-blush-rose/20">
                   <nav className="flex flex-col h-full">
+                    <div className="py-4 border-b border-brand-blush-rose/20">
+                      <Link to="/" className="text-xl font-playfair font-bold">
+                        Datin Norehan
+                      </Link>
+                    </div>
                     <ul className="flex flex-col gap-4 mt-8">{renderNavItems()}</ul>
                     <Link to="/contact" className="mt-auto mb-8 w-full">
-                      <Button className="w-full">Contact</Button>
+                      <Button className="w-full bg-brand-blush-rose hover:bg-brand-blush-rose/90 text-brand-dark">Contact</Button>
                     </Link>
                   </nav>
                 </SheetContent>

@@ -89,20 +89,20 @@ const PromoPopup = ({ promotion, onClose }: PromoPopupProps) => {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md bg-gradient-to-br from-brand-creamy-ivory to-white border-brand-blush-rose/30">
         <DialogHeader>
-          <DialogTitle className="font-playfair text-xl">
+          <DialogTitle className="font-playfair text-xl text-brand-dark">
             {promotion.content.heading}
           </DialogTitle>
           {promotion.content.subheading && (
-            <DialogDescription>
+            <DialogDescription className="text-brand-soft-gray">
               {promotion.content.subheading}
             </DialogDescription>
           )}
         </DialogHeader>
         
         {promotion.content.imageUrl && (
-          <div className="w-full h-48 rounded-md overflow-hidden mb-4">
+          <div className="w-full h-48 rounded-md overflow-hidden mb-4 border border-brand-blush-rose/20">
             <img 
               src={promotion.content.imageUrl} 
               alt={promotion.title} 
@@ -114,50 +114,54 @@ const PromoPopup = ({ promotion, onClose }: PromoPopupProps) => {
         <form onSubmit={handleSubmit} className="space-y-4">
           {promotion.content.formFields?.includes('name') && (
             <div className="grid w-full items-center gap-1.5">
-              <Label htmlFor="name">Name</Label>
+              <Label htmlFor="name" className="text-brand-dark">Name</Label>
               <Input 
                 id="name" 
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
+                className="border-brand-blush-rose/30 focus:border-brand-blush-rose focus:ring-brand-blush-rose"
               />
             </div>
           )}
           
           {promotion.content.formFields?.includes('email') && (
             <div className="grid w-full items-center gap-1.5">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email" className="text-brand-dark">Email</Label>
               <Input 
                 id="email" 
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                className="border-brand-blush-rose/30 focus:border-brand-blush-rose focus:ring-brand-blush-rose"
               />
             </div>
           )}
           
           {promotion.content.formFields?.includes('phone') && (
             <div className="grid w-full items-center gap-1.5">
-              <Label htmlFor="phone">Phone</Label>
+              <Label htmlFor="phone" className="text-brand-dark">Phone</Label>
               <Input 
                 id="phone" 
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 required
+                className="border-brand-blush-rose/30 focus:border-brand-blush-rose focus:ring-brand-blush-rose"
               />
             </div>
           )}
           
           {promotion.content.formFields?.includes('birthdate') && (
             <div className="grid w-full items-center gap-1.5">
-              <Label htmlFor="birthdate">Birth Date</Label>
+              <Label htmlFor="birthdate" className="text-brand-dark">Birth Date</Label>
               <Input 
                 id="birthdate" 
                 type="date"
                 value={birthdate}
                 onChange={(e) => setBirthdate(e.target.value)}
                 required
+                className="border-brand-blush-rose/30 focus:border-brand-blush-rose focus:ring-brand-blush-rose"
               />
             </div>
           )}
@@ -168,20 +172,29 @@ const PromoPopup = ({ promotion, onClose }: PromoPopupProps) => {
               checked={agreeToTerms}
               onCheckedChange={(checked) => setAgreeToTerms(checked === true)}
               required
+              className="border-brand-blush-rose text-brand-gilded-gold"
             />
             <label
               htmlFor="terms"
-              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              className="text-sm font-medium leading-none text-brand-dark peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
             >
               I agree to the terms and privacy policy
             </label>
           </div>
           
           <DialogFooter className="sm:justify-start">
-            <Button type="submit">
-              {promotion.content.buttonText}
+            <Button 
+              type="submit"
+              className="bg-brand-blush-rose hover:bg-brand-blush-rose/90 text-brand-dark"
+            >
+              {promotion.content.buttonText || "Submit"}
             </Button>
-            <Button type="button" variant="secondary" onClick={handleClose}>
+            <Button 
+              type="button" 
+              variant="outline" 
+              onClick={handleClose}
+              className="border-brand-blush-rose/30 hover:bg-brand-blush-rose/10 text-brand-dark"
+            >
               Maybe Later
             </Button>
           </DialogFooter>
