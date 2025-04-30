@@ -114,7 +114,7 @@ export const blogArticles: BlogArticleProps[] = [
     author: "Datin Norehan",
     category: "Reflections",
     type: "reflection",
-    image: "https://images.unsplash.com/photo-1581092578324-ed0f11ec797","",
+    image: "https://images.unsplash.com/photo-1581092578324-ed0f11ec797",
     readTime: "7 min",
     likes: 89,
     comments: 32,
@@ -122,3 +122,4 @@ export const blogArticles: BlogArticleProps[] = [
     content: "My journey with natural healing began long before DNA became a company. As a child, I watched my grandmother transform plants from our garden into remedies that helped our neighbors with everything from fever to heartbreak. These weren't separate acts—the physical healing and emotional comfort were always intertwined.\n\nAt university, I studied biochemistry, driven by a desire to understand scientifically what my grandmother understood intuitively. Those years in the laboratory gave me a different perspective on the plants I'd grown up with. I could now name the compounds that made tumeric reduce inflammation or explain why certain herbal combinations worked synergistically.\n\nYet something was missing in this analytical approach. I found myself drawn back to the holistic wisdom of my grandmother, where healing wasn't just about addressing symptoms but nurturing the whole person. When I began formulating the first DNA products in my kitchen, I was consciously bridging these worlds.\n\nEach formulation became a dialogue between traditional knowledge and scientific understanding. I would start with my grandmother's recipes, then refine them with my biochemical knowledge, always testing them on myself before sharing them with others.\n\nWhat began as personal healing journey has evolved into a mission to preserve and evolve Malaysian herbal traditions. Through DNA, we're not just selling products, but protecting a cultural heritage that might otherwise be lost to modernization.\n\nThe most fulfilling aspect of this work is witnessing the revival of interest in traditional wisdom among younger Malaysians. When a young mother tells me she's growing ulam in her apartment to make remedies for her children, just as her great-grandmother might have done in a kampung decades ago, I see the unbroken thread of our healing traditions continuing.\n\nEvery product we create carries not just ingredients, but stories, wisdom, and the healing intentions of generations before us. This is what makes our work at DNA more than a business—it's a living heritage, evolving with each person who participates in it."
   }
 ];
+
