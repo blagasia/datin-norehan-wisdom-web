@@ -3,7 +3,7 @@ import React from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
-import { Check, Award, Heart, Star, Quote } from 'lucide-react';
+import { Check, Award, Heart, Star, Quote, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const About = () => {
