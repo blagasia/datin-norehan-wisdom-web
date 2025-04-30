@@ -5,7 +5,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { ShoppingCart, Package, Star } from 'lucide-react';
+import { ShoppingCart, Package, Star, Check } from 'lucide-react';
 import { products } from '@/data/products';
 import TikTokVideo from '@/components/TikTokVideo';
 
@@ -43,7 +43,7 @@ const ProductDetail = () => {
                 <img 
                   src={product.image} 
                   alt={product.name}
-                  className="w-full h-full object-cover object-center"
+                  className="w-full h-full object-cover object-center transition-all duration-500 hover:scale-105"
                 />
               </div>
               <div className="absolute top-4 right-4 bg-natural-purple px-3 py-1 text-sm font-medium rounded-full">
@@ -67,6 +67,29 @@ const ProductDetail = () => {
               </div>
               <p className="text-2xl font-semibold text-natural-dark mb-6">{product.price}</p>
               <p className="text-natural-gray mb-8">{product.description}</p>
+              
+              <div className="bg-natural-green/10 rounded-lg p-5 mb-8">
+                <h3 className="font-playfair text-lg font-semibold mb-3">Key Benefits</h3>
+                <ul className="space-y-2">
+                  {product.benefits?.map((benefit, index) => (
+                    <li key={index} className="flex items-start">
+                      <Check className="h-5 w-5 text-natural-green mr-2 shrink-0 mt-0.5" />
+                      <span>{benefit}</span>
+                    </li>
+                  )) || (
+                    <>
+                      <li className="flex items-start">
+                        <Check className="h-5 w-5 text-natural-green mr-2 shrink-0 mt-0.5" />
+                        <span>100% Natural Ingredients</span>
+                      </li>
+                      <li className="flex items-start">
+                        <Check className="h-5 w-5 text-natural-green mr-2 shrink-0 mt-0.5" />
+                        <span>Free from harmful chemicals</span>
+                      </li>
+                    </>
+                  )}
+                </ul>
+              </div>
               
               <div className="grid grid-cols-2 gap-4 mb-8">
                 <div className="border border-natural-green/30 rounded-lg p-4 text-center">
@@ -113,15 +136,26 @@ const ProductDetail = () => {
                   <p className="mb-4">
                     {product.longDescription || `${product.name} is one of our premium wellness products, carefully crafted with 100% natural ingredients to enhance your well-being. This product is free from harmful chemicals, artificial preservatives, and synthetic additives.`}
                   </p>
-                  <p className="mb-4">
-                    Each bottle of our {product.name} is handcrafted in small batches to ensure quality and efficacy. We source only the finest natural ingredients from trusted suppliers who share our commitment to sustainability and ethical practices.
-                  </p>
+                  
+                  {product.usage && (
+                    <div className="mb-4">
+                      <h4 className="text-lg font-semibold mb-2">How to Use</h4>
+                      <p>{product.usage}</p>
+                    </div>
+                  )}
+                  
                   <h4 className="text-lg font-semibold mb-2">Benefits</h4>
                   <ul className="list-disc pl-5 mb-4">
-                    <li>Supports overall wellbeing</li>
-                    <li>Made with premium natural ingredients</li>
-                    <li>Free from harmful chemicals and additives</li>
-                    <li>Sustainably sourced and ethically produced</li>
+                    {product.benefits?.map((benefit, index) => (
+                      <li key={index}>{benefit}</li>
+                    )) || (
+                      <>
+                        <li>Supports overall wellbeing</li>
+                        <li>Made with premium natural ingredients</li>
+                        <li>Free from harmful chemicals and additives</li>
+                        <li>Sustainably sourced and ethically produced</li>
+                      </>
+                    )}
                   </ul>
                 </div>
               </TabsContent>
@@ -132,10 +166,16 @@ const ProductDetail = () => {
                     We pride ourselves on using only the highest quality natural and organic ingredients in our products:
                   </p>
                   <ul className="list-disc pl-5 mb-4">
-                    <li><span className="font-medium">Organic Herbs</span> - Sustainably harvested and carefully selected</li>
-                    <li><span className="font-medium">Plant Extracts</span> - Obtained through natural extraction processes</li>
-                    <li><span className="font-medium">Essential Oils</span> - Pure and therapeutic grade</li>
-                    <li><span className="font-medium">Natural Preservatives</span> - To maintain freshness without harmful chemicals</li>
+                    {product.ingredients?.map((ingredient, index) => (
+                      <li key={index}><span className="font-medium">{ingredient}</span></li>
+                    )) || (
+                      <>
+                        <li><span className="font-medium">Organic Herbs</span> - Sustainably harvested and carefully selected</li>
+                        <li><span className="font-medium">Plant Extracts</span> - Obtained through natural extraction processes</li>
+                        <li><span className="font-medium">Essential Oils</span> - Pure and therapeutic grade</li>
+                        <li><span className="font-medium">Natural Preservatives</span> - To maintain freshness without harmful chemicals</li>
+                      </>
+                    )}
                   </ul>
                   <p className="text-sm italic">
                     *All of our products are free from parabens, sulfates, artificial colors, and synthetic fragrances.
