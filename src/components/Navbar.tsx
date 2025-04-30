@@ -53,6 +53,13 @@ const Navbar = () => {
     { name: 'Beauty Solutions', path: '/products?category=Beauty', description: 'Radiance from within' },
   ];
 
+  const ritualsItems = [
+    { name: 'Premium Accessories', path: '/rituals', description: 'Elevate your wellness experience' },
+    { name: 'Custom Ritual Kits', path: '/rituals/custom', description: 'Create your personalized ritual set' },
+    { name: 'Ready Bundles', path: '/rituals/bundles', description: 'Curated collections for optimal results' },
+    { name: 'Gift Options', path: '/rituals/gifts', description: 'Perfect presents for loved ones' },
+  ];
+
   const wisdomItems = [
     { name: 'Articles', path: '/articles', description: 'Free wellness knowledge', icon: Book },
     { name: 'Events & Workshops', path: '/events', description: 'Interactive learning experiences', icon: Calendar },
@@ -137,6 +144,26 @@ const Navbar = () => {
                       </ul>
                     </NavigationMenuContent>
                   </NavigationMenuItem>
+                  
+                  <NavigationMenuItem>
+                    <NavigationMenuTrigger className="bg-transparent hover:bg-transparent hover:text-brand-gilded-gold">
+                      DNA Rituals
+                    </NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                      <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                        {ritualsItems.map((item) => (
+                          <ListItem
+                            key={item.name}
+                            title={item.name}
+                            href={item.path}
+                          >
+                            {item.description}
+                          </ListItem>
+                        ))}
+                      </ul>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+                  
                   <NavigationMenuItem>
                     <NavigationMenuTrigger className="bg-transparent hover:bg-transparent hover:text-brand-gilded-gold">
                       DNA Wisdom
@@ -204,6 +231,19 @@ const Navbar = () => {
                         <h3 className="font-medium mb-1">DNA Elixirs</h3>
                         <ul className="space-y-2 pl-2">
                           {elixirsItems.map((item) => (
+                            <li key={item.name}>
+                              <Link to={item.path} className="text-sm text-brand-soft-gray hover:text-brand-gilded-gold">
+                                {item.name}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      
+                      <div className="border-l-2 border-brand-blush-rose/30 pl-3 mb-4">
+                        <h3 className="font-medium mb-1">DNA Rituals</h3>
+                        <ul className="space-y-2 pl-2">
+                          {ritualsItems.map((item) => (
                             <li key={item.name}>
                               <Link to={item.path} className="text-sm text-brand-soft-gray hover:text-brand-gilded-gold">
                                 {item.name}

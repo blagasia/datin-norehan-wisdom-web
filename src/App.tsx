@@ -19,6 +19,9 @@ import VirtualEvents from "./pages/VirtualEvents";
 import EventDetail from "./pages/EventDetail";
 import Admin from "./pages/Admin";
 import Loyalty from "./pages/Loyalty";
+import Rituals from "./pages/Rituals";
+import RitualDetail from "./pages/RitualDetail";
+import RitualCustom from "./pages/RitualCustom";
 import { LoyaltyProvider } from "@/context/LoyaltyContext";
 import PromotionManager from "@/components/promotions/PromotionManager";
 
@@ -47,6 +50,9 @@ const App = () => (
             <Route path="/events/:eventId" element={<EventDetail />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/loyalty" element={<Loyalty />} />
+            <Route path="/rituals" element={<Rituals />} />
+            <Route path="/rituals/:productId" element={<RitualDetail />} />
+            <Route path="/rituals/custom" element={<RitualCustom />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
