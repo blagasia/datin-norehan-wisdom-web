@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
@@ -10,12 +9,16 @@ import { Calendar, Clock, Users, Video, Share2, Download, MapPin, User } from 'l
 import { virtualEvents } from '@/data/virtualEvents';
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import EventRegistrationForm from '@/components/events/EventRegistrationForm';
+import TicketPurchaseForm from '@/components/events/TicketPurchaseForm';
+import EventTicket from '@/components/events/EventTicket';
 import NotFound from './NotFound';
 import EventModules from '@/components/events/EventModules';
+import { Ticket } from '@/types/ticket';
 
 const EventDetail = () => {
   const { eventId } = useParams<{ eventId: string }>();
   const [activeTab, setActiveTab] = useState("overview");
+  const [purchasedTicket, setPurchasedTicket] = useState<Ticket | null>(null);
   
   const event = virtualEvents.find(e => e.id === Number(eventId));
   
@@ -26,6 +29,10 @@ const EventDetail = () => {
   const isFull = event.currentParticipants >= event.maxParticipants;
   const isLowAttendance = event.currentParticipants < event.minParticipants;
   
+  const handleTicketPurchased = (ticket: Ticket) => {
+    setPurchasedTicket(ticket);
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
@@ -49,6 +56,12 @@ const EventDetail = () => {
                     <Badge variant={event.status === 'upcoming' ? 'secondary' : 'outline'} className="text-xs">
                       {event.status.charAt(0).toUpperCase() + event.status.slice(1)}
                     </Badge>
+                    
+                    {event.isInPerson && (
+                      <Badge className="bg-amber-100 text-amber-700">
+                        In-Person Event
+                      </Badge>
+                    )}
                   </div>
                   
                   <h1 className="font-playfair text-3xl md:text-4xl font-bold mb-4">{event.title}</h1>
@@ -65,13 +78,22 @@ const EventDetail = () => {
                     </div>
                     
                     <div className="flex items-center text-natural-gray">
-                      <MapPin className="w-4 h-4 mr-1" />
-                      <span className="text-sm">
-                        {event.platform === 'zoom' && 'Zoom'}
-                        {event.platform === 'teams' && 'Microsoft Teams'}
-                        {event.platform === 'meet' && 'Google Meet'}
-                        {event.platform === 'native' && 'Datin\'s Studio'}
-                      </span>
+                      {event.isInPerson ? (
+                        <>
+                          <MapPin className="w-4 h-4 mr-1" />
+                          <span className="text-sm">{event.location}</span>
+                        </>
+                      ) : (
+                        <>
+                          <MapPin className="w-4 h-4 mr-1" />
+                          <span className="text-sm">
+                            {event.platform === 'zoom' && 'Zoom'}
+                            {event.platform === 'teams' && 'Microsoft Teams'}
+                            {event.platform === 'meet' && 'Google Meet'}
+                            {event.platform === 'native' && 'Datin\'s Studio'}
+                          </span>
+                        </>
+                      )}
                     </div>
                   </div>
                   
@@ -92,18 +114,33 @@ const EventDetail = () => {
                     <Sheet>
                       <SheetTrigger asChild>
                         <Button disabled={isFull} className="bg-natural-green hover:bg-natural-green/90 text-white">
-                          {isFull ? 'Sold Out' : 'Register Now'}
+                          {isFull ? 'Sold Out' : event.isInPerson ? 'Purchase Ticket' : 'Register Now'}
                         </Button>
                       </SheetTrigger>
                       <SheetContent className="w-full sm:max-w-md overflow-y-auto">
                         <SheetHeader>
-                          <SheetTitle>Register for Event</SheetTitle>
+                          <SheetTitle>{event.isInPerson ? 'Purchase Ticket' : 'Register for Event'}</SheetTitle>
                           <SheetDescription>
-                            Complete the form to secure your spot for "{event.title}"
+                            {event.isInPerson 
+                              ? `Purchase your ticket for "${event.title}"`
+                              : `Complete the form to secure your spot for "${event.title}"`}
                           </SheetDescription>
                         </SheetHeader>
                         <div className="mt-6">
-                          <EventRegistrationForm event={event} />
+                          {event.isInPerson ? (
+                            purchasedTicket ? (
+                              <div className="space-y-4">
+                                <EventTicket ticket={purchasedTicket} event={event} />
+                                <p className="text-center text-sm text-natural-gray mt-4">
+                                  Your ticket has been emailed to you. You can also save or print it from here.
+                                </p>
+                              </div>
+                            ) : (
+                              <TicketPurchaseForm event={event} onTicketPurchased={handleTicketPurchased} />
+                            )
+                          ) : (
+                            <EventRegistrationForm event={event} />
+                          )}
                         </div>
                       </SheetContent>
                     </Sheet>
@@ -119,13 +156,30 @@ const EventDetail = () => {
                 <div className="md:w-1/3">
                   <div className="bg-white rounded-xl border border-natural-green/20 p-6 shadow-md">
                     <div className="mb-4">
-                      <div className="text-2xl font-bold mb-2">
-                        {event.price === 'Free' ? (
-                          <span className="text-natural-green">Free</span>
-                        ) : (
-                          <span>RM {event.price}</span>
-                        )}
-                      </div>
+                      {event.isInPerson && event.ticketTypes ? (
+                        <div>
+                          <div className="text-lg font-bold mb-2">Ticket Options</div>
+                          <div className="space-y-2">
+                            {event.ticketTypes.map((ticket) => (
+                              <div key={ticket.id} className="flex justify-between items-center p-2 border-b">
+                                <div>
+                                  <div className="font-medium">{ticket.name}</div>
+                                  <div className="text-xs text-natural-gray">{ticket.description}</div>
+                                </div>
+                                <div className="font-bold">RM {ticket.price}</div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="text-2xl font-bold mb-2">
+                          {event.price === 'Free' ? (
+                            <span className="text-natural-green">Free</span>
+                          ) : (
+                            <span>RM {event.price}</span>
+                          )}
+                        </div>
+                      )}
                       
                       {event.type === 'course' && event.modules && (
                         <div className="text-natural-gray text-sm mb-2">
@@ -163,18 +217,33 @@ const EventDetail = () => {
                     <Sheet>
                       <SheetTrigger asChild>
                         <Button disabled={isFull} className="w-full">
-                          {isFull ? 'Sold Out' : 'Register Now'}
+                          {isFull ? 'Sold Out' : event.isInPerson ? 'Purchase Ticket' : 'Register Now'}
                         </Button>
                       </SheetTrigger>
                       <SheetContent className="w-full sm:max-w-md overflow-y-auto">
                         <SheetHeader>
-                          <SheetTitle>Register for Event</SheetTitle>
+                          <SheetTitle>{event.isInPerson ? 'Purchase Ticket' : 'Register for Event'}</SheetTitle>
                           <SheetDescription>
-                            Complete the form to secure your spot for "{event.title}"
+                            {event.isInPerson 
+                              ? `Purchase your ticket for "${event.title}"`
+                              : `Complete the form to secure your spot for "${event.title}"`}
                           </SheetDescription>
                         </SheetHeader>
                         <div className="mt-6">
-                          <EventRegistrationForm event={event} />
+                          {event.isInPerson ? (
+                            purchasedTicket ? (
+                              <div className="space-y-4">
+                                <EventTicket ticket={purchasedTicket} event={event} />
+                                <p className="text-center text-sm text-natural-gray mt-4">
+                                  Your ticket has been emailed to you. You can also save or print it from here.
+                                </p>
+                              </div>
+                            ) : (
+                              <TicketPurchaseForm event={event} onTicketPurchased={handleTicketPurchased} />
+                            )
+                          ) : (
+                            <EventRegistrationForm event={event} />
+                          )}
                         </div>
                       </SheetContent>
                     </Sheet>
@@ -222,6 +291,7 @@ const EventDetail = () => {
                   {event.type === 'course' && <TabsTrigger value="modules">Modules</TabsTrigger>}
                   <TabsTrigger value="instructor">Host</TabsTrigger>
                   <TabsTrigger value="materials">Materials</TabsTrigger>
+                  {event.isInPerson && <TabsTrigger value="venue">Venue</TabsTrigger>}
                 </TabsList>
                 
                 <TabsContent value="overview" className="space-y-6">
@@ -347,6 +417,56 @@ const EventDetail = () => {
                     </div>
                   </div>
                 </TabsContent>
+                
+                {event.isInPerson && (
+                  <TabsContent value="venue">
+                    <div className="space-y-6">
+                      <div>
+                        <h3 className="font-playfair text-xl font-bold mb-3">Venue Information</h3>
+                        <p className="text-natural-gray mb-4">
+                          {event.title} will take place at {event.location}. Here's what you need to know:
+                        </p>
+                        
+                        <div className="rounded-lg overflow-hidden h-64 mb-4">
+                          {/* This would be replaced with an actual map integration like Google Maps */}
+                          <div className="w-full h-full bg-natural-green/10 flex items-center justify-center">
+                            <MapPin size={32} className="text-natural-gray opacity-50" />
+                            <span className="ml-2 font-medium">Map location: {event.location}</span>
+                          </div>
+                        </div>
+                        
+                        <div className="space-y-4">
+                          <div>
+                            <h4 className="font-medium mb-2">Getting There</h4>
+                            <p className="text-natural-gray">
+                              The venue is easily accessible by public transportation. The nearest train station is Central Station,
+                              a 5-minute walk away. Parking is available at the venue for RM 10 per entry.
+                            </p>
+                          </div>
+                          
+                          <div>
+                            <h4 className="font-medium mb-2">Check-in Process</h4>
+                            <p className="text-natural-gray">
+                              Please arrive 15-30 minutes before the event starts. Present your ticket QR code at the registration counter.
+                              Our staff will scan your ticket and provide you with event materials and name badge.
+                            </p>
+                          </div>
+                          
+                          <div>
+                            <h4 className="font-medium mb-2">Facilities</h4>
+                            <ul className="list-disc pl-5 space-y-1 text-natural-gray">
+                              <li>Free WiFi available throughout the venue</li>
+                              <li>Wheelchair accessible</li>
+                              <li>Restrooms on each floor</li>
+                              <li>Cafeteria and refreshment area</li>
+                              <li>Prayer room available</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </TabsContent>
+                )}
               </Tabs>
             </div>
           </div>

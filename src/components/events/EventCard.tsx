@@ -1,9 +1,11 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Calendar, Users, Video, Clock, MapPin, CircleCheck, CircleX } from 'lucide-react';
+import { Calendar, Users, Video, Clock, MapPin, CircleCheck, CircleX, MapPinIcon } from 'lucide-react';
+import { TicketType } from '@/types/ticket';
 
 export interface VirtualEventProps {
   id: number;
@@ -24,6 +26,9 @@ export interface VirtualEventProps {
   tags?: string[];
   modules?: number;
   status: 'upcoming' | 'ongoing' | 'completed' | 'cancelled';
+  isInPerson?: boolean;
+  location?: string;
+  ticketTypes?: TicketType[];
 }
 
 const EventCard = ({ event }: { event: VirtualEventProps }) => {

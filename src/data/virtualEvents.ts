@@ -1,4 +1,3 @@
-
 import { VirtualEventProps } from '@/components/events/EventCard';
 
 export const virtualEvents: VirtualEventProps[] = [
@@ -130,5 +129,97 @@ export const virtualEvents: VirtualEventProps[] = [
     modules: 16,
     tags: ["certification", "coaching", "professional", "business"],
     status: "upcoming"
+  },
+  {
+    id: 8,
+    title: "Tropical Plants & Remedies Exhibition",
+    description: "Join us for an in-person event featuring rare tropical plants and learn about their medicinal properties from Datin Norehan herself.",
+    date: "August 20, 2025",
+    time: "9:00 AM MYT",
+    duration: "Full day (9:00 AM - 5:00 PM)",
+    type: "workshop",
+    image: "https://images.unsplash.com/photo-1588771930296-88c2cb03f386?q=80&w=1000",
+    instructor: "Datin Norehan",
+    price: 79,
+    maxParticipants: 100,
+    currentParticipants: 45,
+    minParticipants: 30,
+    platform: "native",
+    tags: ["in-person", "exhibition", "tropical plants"],
+    status: "upcoming",
+    isInPerson: true,
+    location: "Kuala Lumpur Convention Center, Hall 3",
+    ticketTypes: [
+      {
+        id: "standard",
+        name: "Standard Entry",
+        price: 79,
+        description: "General admission to the exhibition",
+        available: 70,
+        sold: 30
+      },
+      {
+        id: "vip",
+        name: "VIP Experience",
+        price: 149,
+        description: "VIP access with private tour and exclusive workshop",
+        available: 20,
+        sold: 10
+      },
+      {
+        id: "early-bird",
+        name: "Early Bird Special",
+        price: 59,
+        description: "Early entry (8:00 AM) with complimentary refreshments",
+        available: 10,
+        sold: 5
+      }
+    ]
+  },
+  {
+    id: 9,
+    title: "Natural Wellness Symposium 2025",
+    description: "A premier gathering of natural wellness experts featuring presentations, workshops, and networking opportunities.",
+    date: "September 5-7, 2025",
+    time: "9:00 AM MYT",
+    duration: "3 days",
+    type: "course",
+    image: "https://images.unsplash.com/photo-1540317580384-e5d43616b9aa?q=80&w=1000",
+    instructor: "Datin Norehan & Guest Speakers",
+    price: 299,
+    maxParticipants: 200,
+    currentParticipants: 120,
+    minParticipants: 50,
+    platform: "native",
+    tags: ["symposium", "in-person", "networking", "workshops"],
+    status: "upcoming",
+    isInPerson: true,
+    location: "JW Marriott Kuala Lumpur",
+    ticketTypes: [
+      {
+        id: "standard",
+        name: "Standard Pass",
+        price: 299,
+        description: "Access to all general sessions and workshops",
+        available: 150,
+        sold: 100
+      },
+      {
+        id: "premium",
+        name: "Premium Pass",
+        price: 499,
+        description: "Standard access plus VIP dinner and exclusive masterclass",
+        available: 30,
+        sold: 15
+      },
+      {
+        id: "single-day",
+        name: "Single Day Pass",
+        price: 129,
+        description: "Access for one day of your choice",
+        available: 20,
+        sold: 5
+      }
+    ]
   }
 ];
