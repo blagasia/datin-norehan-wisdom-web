@@ -209,6 +209,14 @@ export const LoyaltyProvider: React.FC<LoyaltyProviderProps> = ({ children }) =>
     }
     
     // Update loyalty user
+    const newTransaction: LoyaltyTransaction = {
+      id: `trx_${Date.now()}`,
+      date: new Date().toISOString(),
+      description: `Redeemed: ${reward.title}`,
+      points: -reward.pointsCost,
+      type: 'redeemed' as const // Explicitly define as 'redeemed'
+    };
+    
     const updatedLoyaltyUser = {
       ...loyaltyUser,
       points: {
@@ -216,13 +224,7 @@ export const LoyaltyProvider: React.FC<LoyaltyProviderProps> = ({ children }) =>
         available: loyaltyUser.points.available - reward.pointsCost,
         history: [
           ...loyaltyUser.points.history,
-          {
-            id: `trx_${Date.now()}`,
-            date: new Date().toISOString(),
-            description: `Redeemed: ${reward.title}`,
-            points: -reward.pointsCost,
-            type: 'redeemed'
-          }
+          newTransaction
         ]
       },
       rewards: [...loyaltyUser.rewards, rewardId]
@@ -253,7 +255,7 @@ export const LoyaltyProvider: React.FC<LoyaltyProviderProps> = ({ children }) =>
       date: new Date().toISOString(),
       description,
       points,
-      type: 'earned'
+      type: 'earned' as const // Explicitly define as 'earned'
     };
     
     // Update loyalty user

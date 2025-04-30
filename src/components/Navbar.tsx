@@ -1,15 +1,14 @@
-
 import React, { useState, useEffect } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetClose, SheetTrigger } from '@/components/ui/sheet';
-import { useMobileScreen } from '@/hooks/use-mobile';
+import { useIsMobile } from '@/hooks/use-mobile';
 import LoyaltyWidget from '@/components/loyalty/LoyaltyWidget';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const isMobile = useMobileScreen();
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const handleScroll = () => {

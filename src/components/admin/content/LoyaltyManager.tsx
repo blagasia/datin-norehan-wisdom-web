@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -209,7 +208,7 @@ const LoyaltyManager = () => {
                             </div>
                             <div>
                               {promo.isActive ? (
-                                <Badge variant="success">Active</Badge>
+                                <Badge variant="secondary">Active</Badge>
                               ) : (
                                 <Badge variant="outline">Inactive</Badge>
                               )}
