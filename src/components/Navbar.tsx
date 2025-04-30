@@ -66,6 +66,14 @@ const Navbar = () => {
     { name: 'E-Books', path: '/articles?type=pdf', description: 'Premium digital publications', icon: Book },
   ];
 
+  // New curations items for dropdown
+  const curationsItems = [
+    { name: 'Upcoming Collections', path: '/curations/upcoming', description: 'Preview our upcoming curation releases' },
+    { name: 'Exclusive Sets', path: '/curations/exclusive', description: 'Limited edition wellness collections' },
+    { name: 'Membership Access', path: '/curations/membership', description: 'Special access for loyal customers' },
+    { name: 'Register Interest', path: '/curations/register', description: 'Be notified when curations launch' },
+  ];
+
   const renderMainNavItems = () => (
     <>
       {mainNavItems.map((item) => (
@@ -183,11 +191,22 @@ const Navbar = () => {
                     </NavigationMenuContent>
                   </NavigationMenuItem>
                   <NavigationMenuItem>
-                    <NavigationMenuLink className={navItemClasses}>
-                      <Link to="/curations">
-                        DNA Curations <span className="text-xs text-brand-blush-rose ml-1">(Coming Soon)</span>
-                      </Link>
-                    </NavigationMenuLink>
+                    <NavigationMenuTrigger className="bg-transparent hover:bg-transparent hover:text-brand-gilded-gold">
+                      DNA Curations
+                    </NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                      <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2">
+                        {curationsItems.map((item) => (
+                          <ListItem
+                            key={item.name}
+                            title={item.name}
+                            href={item.path}
+                          >
+                            {item.description}
+                          </ListItem>
+                        ))}
+                      </ul>
+                    </NavigationMenuContent>
                   </NavigationMenuItem>
                   <NavigationMenuItem>
                     <NavigationMenuLink className={navItemClasses}>
@@ -268,7 +287,15 @@ const Navbar = () => {
                       
                       <div className="border-l-2 border-brand-blush-rose/30 pl-3 mb-6">
                         <h3 className="font-medium mb-1">DNA Curations</h3>
-                        <p className="text-xs text-brand-blush-rose">Coming Soon</p>
+                        <ul className="space-y-2 pl-2">
+                          {curationsItems.map((item) => (
+                            <li key={item.name}>
+                              <Link to={item.path} className="text-sm text-brand-soft-gray hover:text-brand-gilded-gold">
+                                {item.name}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
                       </div>
                     </div>
                     

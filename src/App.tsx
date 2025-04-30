@@ -53,6 +53,11 @@ const App = () => (
             <Route path="/rituals" element={<Rituals />} />
             <Route path="/rituals/:productId" element={<RitualDetail />} />
             <Route path="/rituals/custom" element={<RitualCustom />} />
+            {/* Curations routes */}
+            <Route path="/curations/upcoming" element={<NotFound />} />
+            <Route path="/curations/exclusive" element={<NotFound />} />
+            <Route path="/curations/membership" element={<NotFound />} />
+            <Route path="/curations/register" element={<NotFound />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
