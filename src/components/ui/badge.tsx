@@ -18,6 +18,7 @@ const badgeVariants = cva(
         outline: "text-foreground border-brand-blush-rose/50",
         gold: "border-transparent bg-brand-gilded-gold text-white hover:bg-brand-gilded-gold/80",
         teal: "border-transparent bg-brand-deep-teal text-white hover:bg-brand-deep-teal/80",
+        loyalty: "border-transparent bg-gradient-to-r from-brand-gilded-gold to-brand-deep-teal text-white hover:opacity-90",
       },
     },
     defaultVariants: {

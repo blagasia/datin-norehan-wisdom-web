@@ -3,13 +3,14 @@ import React, { useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
-import { useToast } from '@/components/ui/use-toast';
+import { useToast } from '@/hooks/use-toast';
 import EventsManager from './content/EventsManager';
 import ProductsManager from './content/ProductsManager';
 import ArticlesManager from './content/ArticlesManager';
 import TikTokManager from './content/TikTokManager';
 import PageEditor from './content/PageEditor';
-import { Database, Folder, FolderOpen, Video, Columns } from 'lucide-react';
+import LoyaltyManager from './content/LoyaltyManager';
+import { Database, Folder, FolderOpen, Video, Columns, Gift } from 'lucide-react';
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -43,7 +44,7 @@ const AdminDashboard = () => {
 
       <main className="container mx-auto px-4 py-8">
         <Tabs defaultValue="events" className="w-full">
-          <TabsList className="grid grid-cols-5 mb-8">
+          <TabsList className="grid grid-cols-6 mb-8">
             <TabsTrigger value="events" className="flex items-center gap-2">
               <Database className="h-4 w-4" />
               Events
@@ -59,6 +60,10 @@ const AdminDashboard = () => {
             <TabsTrigger value="tiktok" className="flex items-center gap-2">
               <Video className="h-4 w-4" />
               TikTok
+            </TabsTrigger>
+            <TabsTrigger value="loyalty" className="flex items-center gap-2">
+              <Gift className="h-4 w-4" />
+              Loyalty
             </TabsTrigger>
             <TabsTrigger value="pages" className="flex items-center gap-2">
               <Columns className="h-4 w-4" />
@@ -80,6 +85,10 @@ const AdminDashboard = () => {
           
           <TabsContent value="tiktok" className="bg-white p-6 rounded-md shadow-sm">
             <TikTokManager />
+          </TabsContent>
+          
+          <TabsContent value="loyalty" className="bg-white p-6 rounded-md shadow-sm">
+            <LoyaltyManager />
           </TabsContent>
           
           <TabsContent value="pages" className="bg-white p-6 rounded-md shadow-sm">

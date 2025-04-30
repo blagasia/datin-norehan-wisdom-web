@@ -18,33 +18,40 @@ import Story from "./pages/Story";
 import VirtualEvents from "./pages/VirtualEvents";
 import EventDetail from "./pages/EventDetail";
 import Admin from "./pages/Admin";
+import Loyalty from "./pages/Loyalty";
+import { LoyaltyProvider } from "@/context/LoyaltyContext";
+import PromotionManager from "@/components/promotions/PromotionManager";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/products" element={<Products />} />
-          <Route path="/products/:productId" element={<ProductDetail />} />
-          <Route path="/articles" element={<Articles />} />
-          <Route path="/articles/:articleId" element={<ArticleDetail />} />
-          <Route path="/ask" element={<Ask />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/philosophy" element={<Philosophy />} />
-          <Route path="/story" element={<Story />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/events" element={<VirtualEvents />} />
-          <Route path="/events/:eventId" element={<EventDetail />} />
-          <Route path="/admin" element={<Admin />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
+      <LoyaltyProvider>
+        <Toaster />
+        <Sonner />
+        <PromotionManager />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/products/:productId" element={<ProductDetail />} />
+            <Route path="/articles" element={<Articles />} />
+            <Route path="/articles/:articleId" element={<ArticleDetail />} />
+            <Route path="/ask" element={<Ask />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/philosophy" element={<Philosophy />} />
+            <Route path="/story" element={<Story />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/events" element={<VirtualEvents />} />
+            <Route path="/events/:eventId" element={<EventDetail />} />
+            <Route path="/admin" element={<Admin />} />
+            <Route path="/loyalty" element={<Loyalty />} />
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </LoyaltyProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );

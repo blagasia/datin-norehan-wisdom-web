@@ -16,6 +16,8 @@ const alertVariants = cva(
           "border-brand-sage-mist bg-brand-sage-mist/20 text-brand-dark",
         warning:
           "border-brand-gilded-gold/30 bg-brand-gilded-gold/10 text-brand-dark",
+        loyalty:
+          "border-brand-gilded-gold/50 bg-gradient-to-r from-brand-gilded-gold/10 to-brand-deep-teal/5 text-brand-dark",
       },
     },
     defaultVariants: {
