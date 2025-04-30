@@ -62,6 +62,7 @@ export interface LoyaltyUser {
   rewards: string[]; // IDs of claimed rewards
   referrals?: Referral[];
   commissionTier?: CommissionTier;
+  referralCode?: string; // Added referralCode to LoyaltyUser
 }
 
 export interface Referral {

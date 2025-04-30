@@ -7,8 +7,46 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Pagination, PaginationContent, PaginationItem, PaginationLink } from '@/components/ui/pagination';
 import { products } from '@/data/products';
+import { useLoyalty } from '@/context/LoyaltyContext';
+import { useToast } from '@/hooks/use-toast';
 
 const ProductItem = ({ product }: { product: any }) => {
+  const { toast } = useToast();
+  const { user } = useLoyalty();
+
+  const handleShareReferral = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    if (!user || !user.referralCode) {
+      toast({
+        title: "Sign in required",
+        description: "Please sign in to your loyalty account to share referrals",
+      });
+      return;
+    }
+
+    // Generate referral link
+    const referralLink = `${window.location.origin}/products/${product.id}?ref=${user.referralCode}`;
+    
+    // Copy to clipboard
+    navigator.clipboard.writeText(referralLink)
+      .then(() => {
+        toast({
+          title: "Referral Link Copied!",
+          description: "Share this link with friends to earn commission",
+        });
+      })
+      .catch(err => {
+        console.error('Failed to copy: ', err);
+        toast({
+          title: "Couldn't copy link",
+          description: "Please try again or copy manually",
+          variant: "destructive",
+        });
+      });
+  };
+
   return (
     <Card className="group bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 transition-all duration-300 hover:shadow-md">
       <Link to={`/products/${product.id}`}>
@@ -26,7 +64,25 @@ const ProductItem = ({ product }: { product: any }) => {
           <h3 className="font-playfair text-lg font-semibold mb-1">{product.name}</h3>
           <p className="text-natural-gray font-semibold mb-2">{product.price}</p>
           <p className="text-sm text-natural-gray line-clamp-2 mb-4">{product.description}</p>
-          <Button className="w-full btn-outline">View Product</Button>
+          <div className="flex gap-2">
+            <Button className="flex-1">View Product</Button>
+            {user && user.referralCode && (
+              <Button 
+                variant="outline" 
+                className="flex-none" 
+                onClick={handleShareReferral}
+                size="icon"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-share-2">
+                  <circle cx="18" cy="5" r="3"></circle>
+                  <circle cx="6" cy="12" r="3"></circle>
+                  <circle cx="18" cy="19" r="3"></circle>
+                  <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                  <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                </svg>
+              </Button>
+            )}
+          </div>
         </div>
       </Link>
     </Card>
