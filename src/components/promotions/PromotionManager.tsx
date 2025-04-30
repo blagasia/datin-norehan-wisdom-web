@@ -83,6 +83,7 @@ const PromotionManager = () => {
       }
     } catch (error) {
       console.error("Error in PromotionManager:", error);
+      // Don't let errors in promotion logic crash the entire app
     }
   }, [currentPath]);
 
@@ -103,11 +104,17 @@ const PromotionManager = () => {
     setActivePromotion(null);
   };
 
+  // Add additional error handling for the render
   if (!activePromotion || activePromotion.type !== 'popup') {
     return null;
   }
 
-  return <PromoPopup promotion={activePromotion} onClose={handleClosePromotion} />;
+  try {
+    return <PromoPopup promotion={activePromotion} onClose={handleClosePromotion} />;
+  } catch (error) {
+    console.error("Error rendering promotion popup:", error);
+    return null;
+  }
 };
 
 export default PromotionManager;

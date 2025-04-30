@@ -12,13 +12,13 @@ import { useToast } from '@/hooks/use-toast';
 
 const ProductItem = ({ product }: { product: any }) => {
   const { toast } = useToast();
-  const { user } = useLoyalty();
+  const { loyaltyUser, customer } = useLoyalty();
 
   const handleShareReferral = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     
-    if (!user || !user.referralCode) {
+    if (!customer || !customer.referralCode) {
       toast({
         title: "Sign in required",
         description: "Please sign in to your loyalty account to share referrals",
@@ -27,7 +27,7 @@ const ProductItem = ({ product }: { product: any }) => {
     }
 
     // Generate referral link
-    const referralLink = `${window.location.origin}/products/${product.id}?ref=${user.referralCode}`;
+    const referralLink = `${window.location.origin}/products/${product.id}?ref=${customer.referralCode}`;
     
     // Copy to clipboard
     navigator.clipboard.writeText(referralLink)
@@ -66,7 +66,7 @@ const ProductItem = ({ product }: { product: any }) => {
           <p className="text-sm text-natural-gray line-clamp-2 mb-4">{product.description}</p>
           <div className="flex gap-2">
             <Button className="flex-1">View Product</Button>
-            {user && user.referralCode && (
+            {customer && customer.referralCode && (
               <Button 
                 variant="outline" 
                 className="flex-none" 

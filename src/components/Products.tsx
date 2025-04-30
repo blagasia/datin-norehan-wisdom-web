@@ -16,13 +16,13 @@ interface Product {
 
 const ProductItem = ({ product }: { product: Product }) => {
   const { toast } = useToast();
-  const { user } = useLoyalty();
+  const { loyaltyUser, customer } = useLoyalty();
 
   const handleShareReferral = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     
-    if (!user || !user.referralCode) {
+    if (!customer || !customer.referralCode) {
       toast({
         title: "Sign in required",
         description: "Please sign in to your loyalty account to share referrals",
@@ -31,7 +31,7 @@ const ProductItem = ({ product }: { product: Product }) => {
     }
 
     // Generate referral link
-    const referralLink = `${window.location.origin}/products/${product.id}?ref=${user.referralCode}`;
+    const referralLink = `${window.location.origin}/products/${product.id}?ref=${customer.referralCode}`;
     
     // Copy to clipboard
     navigator.clipboard.writeText(referralLink)
@@ -69,7 +69,7 @@ const ProductItem = ({ product }: { product: Product }) => {
           <p className="text-natural-gray font-semibold">{product.price}</p>
           <div className="flex gap-2 mt-4">
             <Button className="flex-1 btn-outline">View Product</Button>
-            {user && user.referralCode && (
+            {customer && customer.referralCode && (
               <Button 
                 variant="secondary" 
                 className="flex-none" 
