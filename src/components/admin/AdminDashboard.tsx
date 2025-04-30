@@ -8,7 +8,8 @@ import EventsManager from './content/EventsManager';
 import ProductsManager from './content/ProductsManager';
 import ArticlesManager from './content/ArticlesManager';
 import TikTokManager from './content/TikTokManager';
-import { database, folder, folderOpen, tiktok } from 'lucide-react';
+import PageEditor from './content/PageEditor';
+import { Database, Folder, FolderOpen, BrandTiktok, Columns } from 'lucide-react';
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -42,22 +43,26 @@ const AdminDashboard = () => {
 
       <main className="container mx-auto px-4 py-8">
         <Tabs defaultValue="events" className="w-full">
-          <TabsList className="grid grid-cols-4 mb-8">
+          <TabsList className="grid grid-cols-5 mb-8">
             <TabsTrigger value="events" className="flex items-center gap-2">
-              <database className="h-4 w-4" />
+              <Database className="h-4 w-4" />
               Events
             </TabsTrigger>
             <TabsTrigger value="products" className="flex items-center gap-2">
-              <folder className="h-4 w-4" />
+              <Folder className="h-4 w-4" />
               Products
             </TabsTrigger>
             <TabsTrigger value="articles" className="flex items-center gap-2">
-              <folderOpen className="h-4 w-4" />
+              <FolderOpen className="h-4 w-4" />
               Articles
             </TabsTrigger>
             <TabsTrigger value="tiktok" className="flex items-center gap-2">
-              <tiktok className="h-4 w-4" />
+              <BrandTiktok className="h-4 w-4" />
               TikTok
+            </TabsTrigger>
+            <TabsTrigger value="pages" className="flex items-center gap-2">
+              <Columns className="h-4 w-4" />
+              Pages
             </TabsTrigger>
           </TabsList>
           
@@ -75,6 +80,10 @@ const AdminDashboard = () => {
           
           <TabsContent value="tiktok" className="bg-white p-6 rounded-md shadow-sm">
             <TikTokManager />
+          </TabsContent>
+          
+          <TabsContent value="pages" className="bg-white p-6 rounded-md shadow-sm">
+            <PageEditor />
           </TabsContent>
         </Tabs>
       </main>
