@@ -44,9 +44,11 @@ const About = () => {
           <div className="order-1 lg:order-2 flex justify-center">
             <div className="relative">
               <div className="w-72 h-72 md:w-96 md:h-96 rounded-full overflow-hidden border-8 border-natural-green/30 shadow-lg">
-                <div className="w-full h-full bg-natural-purple/20 flex items-center justify-center">
-                  <h3 className="font-playfair text-2xl text-natural-dark">Datin Norehan</h3>
-                </div>
+                <img 
+                  src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158" 
+                  alt="Datin Norehan"
+                  className="w-full h-full object-cover" 
+                />
               </div>
               <div className="absolute -bottom-8 -right-8 bg-natural-peach/80 rounded-lg p-6 shadow-md">
                 <p className="font-playfair text-lg italic">
