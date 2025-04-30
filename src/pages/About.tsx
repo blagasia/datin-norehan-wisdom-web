@@ -3,7 +3,8 @@ import React from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
-import { Check, Award, Heart, Star } from 'lucide-react';
+import { Check, Award, Heart, Star, Quote } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const About = () => {
   return (
@@ -27,13 +28,15 @@ const About = () => {
               <div className="flex justify-center">
                 <div className="relative">
                   <div className="w-72 h-72 md:w-96 md:h-96 rounded-full overflow-hidden border-8 border-natural-green/30 shadow-lg">
-                    <div className="w-full h-full bg-natural-purple/20 flex items-center justify-center">
-                      <h3 className="font-playfair text-2xl text-natural-dark">Datin Norehan</h3>
-                    </div>
+                    <img 
+                      src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158" 
+                      alt="Datin Norehan"
+                      className="w-full h-full object-cover" 
+                    />
                   </div>
                   <div className="absolute -bottom-8 -right-8 bg-natural-peach/80 rounded-lg p-6 shadow-md">
                     <p className="font-playfair text-lg italic">
-                      "True wellness starts with nature."
+                      "True wellness starts with nature's wisdom."
                     </p>
                   </div>
                 </div>
@@ -52,7 +55,12 @@ const About = () => {
                 <p className="text-natural-gray mb-8 leading-relaxed">
                   From detox drinks and collagen supplements to herbal tonics and natural beauty solutions, Datin Norehan's creations are designed to enhance overall well-being, proving that true wellness starts with nature.
                 </p>
-                <Button className="btn-outline">Learn More About Our Journey</Button>
+                <Link to="/story">
+                  <Button className="btn-outline flex items-center">
+                    Explore Our Founder's Journey
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
@@ -62,7 +70,7 @@ const About = () => {
         <section className="py-16 md:py-24 bg-natural-peach/10">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-playfair font-semibold mb-4">Our Mission & Values</h2>
+              <h2 className="text-3xl md:text-4xl font-playfair font-semibold mb-6">Our Mission & Values</h2>
               <p className="text-natural-gray max-w-3xl mx-auto">
                 Guided by a commitment to nature and wellness, our principles shape everything we do.
               </p>
@@ -130,8 +138,59 @@ const About = () => {
           </div>
         </section>
 
-        {/* Testimonials */}
+        {/* Datin's Journey */}
         <section className="py-16 md:py-24 bg-white">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-playfair font-semibold mb-6">Datin Norehan's Journey</h2>
+              <p className="text-natural-gray max-w-3xl mx-auto">
+                A lifetime dedicated to discovering and sharing nature's most powerful secrets.
+              </p>
+            </div>
+            
+            <div className="bg-natural-purple/10 p-8 md:p-12 rounded-lg">
+              <div className="flex flex-col md:flex-row gap-8 items-center">
+                <div className="md:w-1/3">
+                  <div className="aspect-square rounded-lg overflow-hidden shadow-lg">
+                    <img 
+                      src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158" 
+                      alt="Datin Norehan's Journey"
+                      className="w-full h-full object-cover" 
+                    />
+                  </div>
+                </div>
+                <div className="md:w-2/3">
+                  <div className="mb-8">
+                    <div className="bg-natural-peach/20 p-6 rounded-lg mb-8 border-l-4 border-natural-peach">
+                      <div className="flex items-start">
+                        <Quote className="h-8 w-8 text-natural-dark/60 mr-4 flex-shrink-0 mt-1" />
+                        <p className="italic text-natural-dark/80 font-playfair text-lg">
+                          "In nature's gentle whispers, I found my calling. Every leaf, root, and flower has a story to tell and a gift to offer. My journey has been about listening carefully and crafting these gifts into remedies that honor both body and spirit."
+                        </p>
+                      </div>
+                      <p className="text-right mt-3 font-medium text-natural-dark/70">— Datin Norehan</p>
+                    </div>
+                  </div>
+                  <p className="text-natural-gray mb-6 leading-relaxed">
+                    From her early days studying ancient Malaysian herbal traditions to her groundbreaking work combining modern science with ancestral wisdom, Datin Norehan has dedicated over three decades to perfecting her craft. Her journey through remote villages and prestigious research institutions has gifted her with a unique perspective on holistic wellness.
+                  </p>
+                  <p className="text-natural-gray mb-6 leading-relaxed">
+                    Each product under the Datin Norehan brand reflects not just ingredients, but a philosophy of living in harmony with nature. Her meticulous approach ensures that every formulation honors the delicate balance between scientific understanding and ancestral wisdom.
+                  </p>
+                  <Link to="/story">
+                    <Button className="btn-outline flex items-center">
+                      Read The Full Story
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Testimonials */}
+        <section className="py-16 md:py-24 bg-natural-peach/10">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-playfair font-semibold mb-4">What Our Community Says</h2>
@@ -141,7 +200,7 @@ const About = () => {
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="bg-natural-purple/10 p-8 rounded-lg">
+              <div className="bg-white p-8 rounded-lg shadow-sm border border-natural-peach/30">
                 <div className="flex items-center space-x-1 mb-4 text-natural-purple">
                   <Award className="h-5 w-5" />
                   <Award className="h-5 w-5" />
@@ -158,7 +217,7 @@ const About = () => {
                 </div>
               </div>
               
-              <div className="bg-natural-green/10 p-8 rounded-lg">
+              <div className="bg-white p-8 rounded-lg shadow-sm border border-natural-peach/30">
                 <div className="flex items-center space-x-1 mb-4 text-natural-purple">
                   <Award className="h-5 w-5" />
                   <Award className="h-5 w-5" />
@@ -175,7 +234,7 @@ const About = () => {
                 </div>
               </div>
               
-              <div className="bg-natural-peach/10 p-8 rounded-lg">
+              <div className="bg-white p-8 rounded-lg shadow-sm border border-natural-peach/30">
                 <div className="flex items-center space-x-1 mb-4 text-natural-purple">
                   <Award className="h-5 w-5" />
                   <Award className="h-5 w-5" />
@@ -203,8 +262,12 @@ const About = () => {
               Experience the transformative power of Datin Norehan's 100% natural and organic wellness products.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button className="btn-primary">Explore Products</Button>
-              <Button className="btn-outline">Contact Us</Button>
+              <Link to="/products">
+                <Button className="btn-primary">Explore Products</Button>
+              </Link>
+              <Link to="/contact">
+                <Button className="btn-outline">Contact Us</Button>
+              </Link>
             </div>
           </div>
         </section>
