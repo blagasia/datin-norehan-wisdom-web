@@ -8,6 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ShoppingCart, Package, Star, Check } from 'lucide-react';
 import { products } from '@/data/products';
 import TikTokVideo from '@/components/TikTokVideo';
+import ProductGallery from '@/components/ProductGallery';
 
 const ProductDetail = () => {
   const { productId } = useParams();
@@ -37,16 +38,10 @@ const ProductDetail = () => {
       <main className="flex-grow py-16">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            {/* Product Image */}
+            {/* Product Image Gallery */}
             <div className="relative">
-              <div className="aspect-square rounded-xl overflow-hidden bg-natural-green/10">
-                <img 
-                  src={product.image} 
-                  alt={product.name}
-                  className="w-full h-full object-cover object-center transition-all duration-500 hover:scale-105"
-                />
-              </div>
-              <div className="absolute top-4 right-4 bg-natural-purple px-3 py-1 text-sm font-medium rounded-full">
+              <ProductGallery productId={product.id} mainImage={product.image} />
+              <div className="absolute top-4 right-4 bg-natural-purple px-3 py-1 text-sm font-medium rounded-full z-10">
                 {product.category}
               </div>
             </div>
