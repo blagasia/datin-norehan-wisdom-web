@@ -70,9 +70,9 @@ const EventRegistrationForm = ({ event }: EventRegistrationFormProps) => {
             <div>{event.date}</div>
             <div>{event.time}</div>
           </div>
-          <div className="mt-4 bg-natural-green/5 p-3 rounded-md text-sm">
+          <div className="mt-4 bg-natural-purple/15 p-3 rounded-md text-sm">
             <div className="font-medium mb-1">Registration Fee:</div>
-            <div className="text-lg font-bold">
+            <div className="text-lg font-bold text-purple-700">
               {event.price === 'Free' ? 'Free' : `RM ${event.price}`}
             </div>
           </div>
@@ -182,7 +182,7 @@ const EventRegistrationForm = ({ event }: EventRegistrationFormProps) => {
         />
         
         {event.price !== 'Free' && (
-          <div className="bg-natural-green/5 p-4 rounded-md text-sm mb-4">
+          <div className="bg-natural-purple/10 p-4 rounded-md text-sm mb-4">
             <p className="mb-2">For paid events, you'll proceed to payment after registration.</p>
             <p>We accept major credit/debit cards and online banking.</p>
           </div>

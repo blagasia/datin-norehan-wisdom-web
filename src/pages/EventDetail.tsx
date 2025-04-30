@@ -5,7 +5,7 @@ import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from '@/components/ui/badge';
-import { Calendar, Clock, Users, Video, Share2, Download, MapPin, User } from 'lucide-react';
+import { Calendar, Clock, Users, Video, Share2, Download, MapPin, User, Bell } from 'lucide-react';
 import { virtualEvents } from '@/data/virtualEvents';
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import EventRegistrationForm from '@/components/events/EventRegistrationForm';
@@ -38,7 +38,7 @@ const EventDetail = () => {
       <Navbar />
       <main className="flex-grow">
         {/* Hero Section */}
-        <section className="bg-gradient-to-b from-natural-green/10 to-white py-12">
+        <section className="bg-gradient-to-b from-natural-purple/10 to-white py-12">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
               <div className="flex flex-col md:flex-row md:items-start gap-8">
@@ -113,7 +113,7 @@ const EventDetail = () => {
                   <div className="flex flex-col sm:flex-row gap-3">
                     <Sheet>
                       <SheetTrigger asChild>
-                        <Button disabled={isFull} className="bg-natural-green hover:bg-natural-green/90 text-white">
+                        <Button disabled={isFull} variant="purple" className="text-white">
                           {isFull ? 'Sold Out' : event.isInPerson ? 'Purchase Ticket' : 'Register Now'}
                         </Button>
                       </SheetTrigger>
@@ -154,7 +154,7 @@ const EventDetail = () => {
                 
                 {/* Price Card */}
                 <div className="md:w-1/3">
-                  <div className="bg-white rounded-xl border border-natural-green/20 p-6 shadow-md">
+                  <div className="bg-white rounded-xl border border-natural-purple/20 p-6 shadow-md">
                     <div className="mb-4">
                       {event.isInPerson && event.ticketTypes ? (
                         <div>
@@ -174,7 +174,7 @@ const EventDetail = () => {
                       ) : (
                         <div className="text-2xl font-bold mb-2">
                           {event.price === 'Free' ? (
-                            <span className="text-natural-green">Free</span>
+                            <span className="text-purple-700">Free</span>
                           ) : (
                             <span>RM {event.price}</span>
                           )}
@@ -198,7 +198,7 @@ const EventDetail = () => {
                       
                       <div className="w-full bg-gray-200 rounded-full h-2 mb-4">
                         <div 
-                          className="bg-natural-green h-2 rounded-full" 
+                          className="bg-purple-500 h-2 rounded-full" 
                           style={{ width: `${(event.currentParticipants / event.maxParticipants) * 100}%` }}
                         ></div>
                       </div>
@@ -216,7 +216,7 @@ const EventDetail = () => {
                     
                     <Sheet>
                       <SheetTrigger asChild>
-                        <Button disabled={isFull} className="w-full">
+                        <Button disabled={isFull} variant="purple" className="w-full">
                           {isFull ? 'Sold Out' : event.isInPerson ? 'Purchase Ticket' : 'Register Now'}
                         </Button>
                       </SheetTrigger>
