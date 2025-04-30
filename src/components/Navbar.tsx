@@ -156,18 +156,18 @@ const Navbar = () => {
                     </NavigationMenuContent>
                   </NavigationMenuItem>
                   <NavigationMenuItem>
-                    <Link to="/curations" legacyBehavior passHref>
-                      <NavigationMenuLink className={`${navItemClasses} flex items-center gap-1`}>
+                    <NavigationMenuLink className={navItemClasses}>
+                      <Link to="/curations">
                         DNA Curations <span className="text-xs text-brand-blush-rose ml-1">(Coming Soon)</span>
-                      </NavigationMenuLink>
-                    </Link>
+                      </Link>
+                    </NavigationMenuLink>
                   </NavigationMenuItem>
                   <NavigationMenuItem>
-                    <Link to="/loyalty" legacyBehavior passHref>
-                      <NavigationMenuLink className={navItemClasses}>
+                    <NavigationMenuLink className={navItemClasses}>
+                      <Link to="/loyalty">
                         Loyalty
-                      </NavigationMenuLink>
-                    </Link>
+                      </Link>
+                    </NavigationMenuLink>
                   </NavigationMenuItem>
                 </NavigationMenuList>
               </NavigationMenu>
