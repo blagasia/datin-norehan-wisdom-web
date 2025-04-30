@@ -20,7 +20,7 @@ const Ask = () => {
           </div>
         </div>
         
-        {/* Form Section */}
+        {/* Form and Conversations Section */}
         <AskDatin />
         
         {/* FAQ Section */}
