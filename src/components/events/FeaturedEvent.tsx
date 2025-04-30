@@ -15,6 +15,43 @@ const FeaturedEvent = () => {
   const isFull = featuredEvent.currentParticipants >= featuredEvent.maxParticipants;
   const spotsLeft = featuredEvent.maxParticipants - featuredEvent.currentParticipants;
   
+  // Function to render the platform badge
+  const renderPlatformBadge = () => {
+    switch (featuredEvent.platform) {
+      case 'zoom':
+        return (
+          <div className="flex items-center bg-black/30 backdrop-blur-sm px-3 py-1 rounded-full">
+            <img src="https://cdn.iconscout.com/icon/free/png-256/zoom-2752078-2284891.png" 
+                 alt="Zoom" className="h-4 w-4 mr-2" />
+            <span>Zoom Meeting</span>
+          </div>
+        );
+      case 'teams':
+        return (
+          <div className="flex items-center bg-black/30 backdrop-blur-sm px-3 py-1 rounded-full">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c9/Microsoft_Office_Teams_%282018%E2%80%93present%29.svg" 
+                 alt="Microsoft Teams" className="h-4 w-4 mr-2" />
+            <span>Teams Meeting</span>
+          </div>
+        );
+      case 'meet':
+        return (
+          <div className="flex items-center bg-black/30 backdrop-blur-sm px-3 py-1 rounded-full">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/9/9b/Google_Meet_icon.svg" 
+                 alt="Google Meet" className="h-4 w-4 mr-2" />
+            <span>Google Meet</span>
+          </div>
+        );
+      default:
+        return (
+          <div className="flex items-center bg-black/30 backdrop-blur-sm px-3 py-1 rounded-full">
+            <Video className="w-4 h-4 mr-2" />
+            <span>Datin's Studio</span>
+          </div>
+        );
+    }
+  };
+  
   return (
     <section className="py-12 bg-white">
       <div className="container mx-auto px-4">
@@ -47,6 +84,7 @@ const FeaturedEvent = () => {
                     <Clock className="w-4 h-4 mr-2" />
                     <span>{featuredEvent.time}</span>
                   </div>
+                  {renderPlatformBadge()}
                   <div className="flex items-center bg-black/30 backdrop-blur-sm px-3 py-1 rounded-full">
                     <Users className="w-4 h-4 mr-2" />
                     <span>{featuredEvent.currentParticipants}/{featuredEvent.maxParticipants} Registered</span>
@@ -97,7 +135,7 @@ const FeaturedEvent = () => {
                     </Button>
                   </Link>
                   
-                  <Link to={`/events/${featuredEvent.id}/register`} className="w-full sm:w-auto">
+                  <Link to={`/events/${featuredEvent.id}`} className="w-full sm:w-auto">
                     <Button variant="outline" disabled={isFull} className="w-full">
                       {isFull ? 'Sold Out' : 'Register Now'}
                       {!isFull && spotsLeft <= 5 && ` (${spotsLeft} spots left)`}

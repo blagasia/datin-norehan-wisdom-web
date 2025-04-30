@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -82,6 +81,43 @@ const EventCard = ({ event }: { event: VirtualEventProps }) => {
     </Badge>;
   };
 
+  // Function to get platform icon
+  const getPlatformIcon = () => {
+    switch (event.platform) {
+      case 'zoom':
+        return (
+          <div className="flex items-center">
+            <img src="https://cdn.iconscout.com/icon/free/png-256/zoom-2752078-2284891.png" 
+                 alt="Zoom" className="h-3 w-3 mr-1" />
+            <span>Zoom</span>
+          </div>
+        );
+      case 'teams':
+        return (
+          <div className="flex items-center">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c9/Microsoft_Office_Teams_%282018%E2%80%93present%29.svg" 
+                 alt="Microsoft Teams" className="h-3 w-3 mr-1" />
+            <span>Teams</span>
+          </div>
+        );
+      case 'meet':
+        return (
+          <div className="flex items-center">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/9/9b/Google_Meet_icon.svg" 
+                 alt="Google Meet" className="h-3 w-3 mr-1" />
+            <span>Meet</span>
+          </div>
+        );
+      default:
+        return (
+          <div className="flex items-center">
+            <MapPin className="w-3 h-3 mr-1" />
+            <span>Datin's Studio</span>
+          </div>
+        );
+    }
+  };
+
   return (
     <Card className={`overflow-hidden h-full flex flex-col hover:shadow-md transition-all duration-300 ${getCardStyle()}`}>
       <Link to={`/events/${event.id}`} className="relative">
@@ -153,13 +189,7 @@ const EventCard = ({ event }: { event: VirtualEventProps }) => {
         
         <div className="flex items-center justify-between mt-2 text-xs text-natural-gray">
           <div className="flex items-center">
-            <MapPin className="w-3 h-3 mr-1" />
-            <span>
-              {event.platform === 'zoom' && 'Zoom'}
-              {event.platform === 'teams' && 'Microsoft Teams'}
-              {event.platform === 'meet' && 'Google Meet'}
-              {event.platform === 'native' && 'Datin\'s Studio'}
-            </span>
+            {getPlatformIcon()}
           </div>
           <div className="flex items-center">
             <Clock className="w-3 h-3 mr-1" />

@@ -18,6 +18,20 @@ const VirtualEvents = () => {
                 Join Datin Norehan for interactive live sessions, workshops, and courses
                 on natural wellness, herbal remedies, and holistic living.
               </p>
+              <div className="flex flex-wrap justify-center gap-4 mt-6">
+                <div className="flex items-center bg-white px-4 py-2 rounded-full shadow-sm">
+                  <img src="https://cdn.iconscout.com/icon/free/png-256/zoom-2752078-2284891.png" alt="Zoom" className="h-5 w-5 mr-2" />
+                  <span className="text-sm text-natural-gray">Zoom Integration</span>
+                </div>
+                <div className="flex items-center bg-white px-4 py-2 rounded-full shadow-sm">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/9/9b/Google_Meet_icon.svg" alt="Google Meet" className="h-5 w-5 mr-2" />
+                  <span className="text-sm text-natural-gray">Google Meet Integration</span>
+                </div>
+                <div className="flex items-center bg-white px-4 py-2 rounded-full shadow-sm">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/c/c9/Microsoft_Office_Teams_%282018%E2%80%93present%29.svg" alt="Microsoft Teams" className="h-5 w-5 mr-2" />
+                  <span className="text-sm text-natural-gray">Microsoft Teams Integration</span>
+                </div>
+              </div>
             </div>
           </div>
         </section>
