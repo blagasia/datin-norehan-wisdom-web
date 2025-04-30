@@ -108,7 +108,7 @@ const TikTokContent = () => {
         
         <div className="text-center mt-10">
           <a href="https://www.tiktok.com/@datinnorehanapo" target="_blank" rel="noopener noreferrer">
-            <Button variant="purple" className="gap-2">
+            <Button variant="teal" className="gap-2">
               <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" className="h-5 w-5" alt="TikTok" />
               Follow us on TikTok
             </Button>

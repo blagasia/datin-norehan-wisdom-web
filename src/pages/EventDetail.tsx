@@ -113,7 +113,7 @@ const EventDetail = () => {
                   <div className="flex flex-col sm:flex-row gap-3">
                     <Sheet>
                       <SheetTrigger asChild>
-                        <Button disabled={isFull} variant="purple" className="text-white">
+                        <Button disabled={isFull} variant="teal" className="text-white">
                           {isFull ? 'Sold Out' : event.isInPerson ? 'Purchase Ticket' : 'Register Now'}
                         </Button>
                       </SheetTrigger>
@@ -216,7 +216,7 @@ const EventDetail = () => {
                     
                     <Sheet>
                       <SheetTrigger asChild>
-                        <Button disabled={isFull} variant="purple" className="w-full">
+                        <Button disabled={isFull} variant="teal" className="w-full">
                           {isFull ? 'Sold Out' : event.isInPerson ? 'Purchase Ticket' : 'Register Now'}
                         </Button>
                       </SheetTrigger>
