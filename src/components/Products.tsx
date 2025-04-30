@@ -2,9 +2,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import { products } from '@/data/products';
 import { useToast } from '@/hooks/use-toast';
 import { useLoyalty } from '@/context/LoyaltyContext';
+import { ShoppingBag } from 'lucide-react';
 
 interface Product {
   id: number;
@@ -96,11 +98,18 @@ const Products = () => {
   const featuredProducts = products.slice(0, 4);
 
   return (
-    <section className="py-16 md:py-24 bg-natural-purple/20">
+    <section className="py-16 md:py-24 bg-brand-sage-mist/30">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="section-title">Featured Products</h2>
-          <p className="section-subtitle">Discover our most loved wellness solutions crafted with 100% natural ingredients</p>
+        <div className="text-center mb-12">
+          <Badge className="bg-brand-gilded-gold text-white mb-3">Featured Collection</Badge>
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <ShoppingBag className="h-6 w-6 text-brand-deep-teal" />
+            <h2 className="font-playfair text-3xl md:text-4xl font-bold">DNA Elixirs</h2>
+          </div>
+          <div className="w-16 h-1 bg-brand-deep-teal mx-auto mb-6"></div>
+          <p className="text-lg text-natural-gray max-w-2xl mx-auto">
+            Premium wellness formulations that transform from within, featuring our signature natural ingredients for radiant results.
+          </p>
         </div>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
@@ -111,7 +120,7 @@ const Products = () => {
         
         <div className="text-center mt-12">
           <Link to="/products">
-            <Button className="btn-primary">View All Products</Button>
+            <Button className="bg-brand-deep-teal hover:bg-brand-deep-teal/90 text-white">View All Elixirs</Button>
           </Link>
         </div>
       </div>

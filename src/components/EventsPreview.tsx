@@ -2,6 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import { virtualEvents } from '@/data/virtualEvents';
 import { Calendar, Users, Video } from 'lucide-react';
 
@@ -15,7 +16,12 @@ const EventsPreview = () => {
     <section className="py-16 bg-white">
       <div className="container mx-auto px-4">
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-4">Upcoming Events</h2>
+          <Badge className="bg-brand-orchid-pink text-black mb-3">DNA Wisdom</Badge>
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <Calendar className="h-6 w-6 text-brand-deep-teal" />
+            <h2 className="font-playfair text-3xl md:text-4xl font-bold">Live Learning Experiences</h2>
+          </div>
+          <div className="w-16 h-1 bg-brand-deep-teal mx-auto mb-6"></div>
           <p className="text-natural-gray">
             Join Datin Norehan for live virtual events, workshops, and courses to deepen your 
             knowledge of natural wellness and traditional remedies.
@@ -58,17 +64,17 @@ const EventsPreview = () => {
                 <div className="text-xs font-medium mb-2">
                   <span className={`
                     px-2 py-1 rounded-full
-                    ${event.type === 'workshop' ? 'bg-natural-peach/20 text-natural-peach' : ''}
-                    ${event.type === 'course' ? 'bg-natural-purple/20 text-purple-700' : ''}
-                    ${event.type === 'webinar' ? 'bg-natural-green/20 text-natural-green' : ''}
-                    ${event.type === 'live' ? 'bg-blue-100 text-blue-700' : ''}
+                    ${event.type === 'workshop' ? 'bg-brand-blush-rose/20 text-brand-blush-rose' : ''}
+                    ${event.type === 'course' ? 'bg-brand-orchid-pink/20 text-purple-700' : ''}
+                    ${event.type === 'webinar' ? 'bg-brand-sage-mist text-green-800' : ''}
+                    ${event.type === 'live' ? 'bg-brand-deep-teal/10 text-brand-deep-teal' : ''}
                   `}>
                     {event.type.charAt(0).toUpperCase() + event.type.slice(1)}
                   </span>
                 </div>
                 
                 <Link to={`/events/${event.id}`}>
-                  <h3 className="font-playfair text-lg font-medium hover:text-natural-peach transition-colors mb-2 line-clamp-2">
+                  <h3 className="font-playfair text-lg font-medium hover:text-brand-deep-teal transition-colors mb-2 line-clamp-2">
                     {event.title}
                   </h3>
                 </Link>
@@ -76,14 +82,14 @@ const EventsPreview = () => {
                 <div className="flex justify-between items-center mt-4">
                   <div className="text-sm font-semibold">
                     {event.price === 'Free' ? (
-                      <span className="text-natural-green">Free</span>
+                      <span className="text-green-600">Free</span>
                     ) : (
                       <span>RM {event.price}</span>
                     )}
                   </div>
                   
                   <Link to={`/events/${event.id}`}>
-                    <Button size="sm" variant="outline">Details</Button>
+                    <Button size="sm" variant="outline" className="border-brand-deep-teal hover:bg-brand-deep-teal/10">Details</Button>
                   </Link>
                 </div>
               </div>
@@ -93,7 +99,7 @@ const EventsPreview = () => {
         
         <div className="text-center mt-12">
           <Link to="/events">
-            <Button variant="outline" className="hover:bg-natural-green/30 hover:text-natural-dark">
+            <Button className="bg-brand-deep-teal hover:bg-brand-deep-teal/90 text-white">
               View All Events
             </Button>
           </Link>
