@@ -1,5 +1,4 @@
-
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
@@ -10,13 +9,62 @@ import { Mail, Phone, MapPin, Clock } from 'lucide-react';
 
 const Contact = () => {
   const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { id, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [id]: value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Message Sent",
-      description: "Thank you for contacting us. We'll respond to your message soon.",
-    });
+    setIsSubmitting(true);
+    
+    try {
+      // In a real implementation, this would connect to a backend service
+      // For now, we'll simulate sending an email notification
+      console.log('Sending message to blagasia@gmail.com:', {
+        recipientEmail: 'blagasia@gmail.com',
+        subject: `New Contact Form Submission: ${formData.subject}`,
+        messageContent: `
+          Name: ${formData.name}
+          Email: ${formData.email}
+          Subject: ${formData.subject}
+          Message: ${formData.message}
+        `
+      });
+      
+      // Clear form
+      setFormData({
+        name: '',
+        email: '',
+        subject: '',
+        message: ''
+      });
+      
+      toast({
+        title: "Message Sent",
+        description: "Thank you for contacting us. We'll respond to your message soon.",
+      });
+    } catch (error) {
+      console.error('Error sending message:', error);
+      toast({
+        title: "Error",
+        description: "There was a problem sending your message. Please try again later.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -48,17 +96,36 @@ const Contact = () => {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <label htmlFor="name" className="text-sm font-medium">Your Name</label>
-                      <Input id="name" placeholder="Enter your name" required />
+                      <Input 
+                        id="name" 
+                        placeholder="Enter your name" 
+                        required 
+                        value={formData.name}
+                        onChange={handleChange}
+                      />
                     </div>
                     <div className="space-y-2">
                       <label htmlFor="email" className="text-sm font-medium">Your Email</label>
-                      <Input id="email" type="email" placeholder="Enter your email" required />
+                      <Input 
+                        id="email" 
+                        type="email" 
+                        placeholder="Enter your email" 
+                        required 
+                        value={formData.email}
+                        onChange={handleChange}
+                      />
                     </div>
                   </div>
                   
                   <div className="space-y-2">
                     <label htmlFor="subject" className="text-sm font-medium">Subject</label>
-                    <Input id="subject" placeholder="What is your message about?" required />
+                    <Input 
+                      id="subject" 
+                      placeholder="What is your message about?" 
+                      required 
+                      value={formData.subject}
+                      onChange={handleChange}
+                    />
                   </div>
                   
                   <div className="space-y-2">
@@ -68,10 +135,22 @@ const Contact = () => {
                       placeholder="Please provide details about your inquiry..." 
                       rows={5}
                       required
+                      value={formData.message}
+                      onChange={handleChange}
                     />
                   </div>
                   
-                  <Button type="submit" className="btn-primary w-full">Send Message</Button>
+                  <div className="text-sm text-gray-500">
+                    <p>Messages will be sent to our support team (blagasia@gmail.com)</p>
+                  </div>
+                  
+                  <Button 
+                    type="submit" 
+                    className="btn-primary w-full"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? "Sending..." : "Send Message"}
+                  </Button>
                 </form>
               </div>
               
@@ -90,9 +169,9 @@ const Contact = () => {
                     <div>
                       <h3 className="font-semibold text-lg mb-1">Email Us</h3>
                       <p className="text-natural-gray mb-1">General Inquiries:</p>
-                      <a href="mailto:info@datinnorehan.com" className="text-natural-purple hover:text-natural-dark">info@datinnorehan.com</a>
+                      <a href="mailto:blagasia@gmail.com" className="text-natural-purple hover:text-natural-dark">blagasia@gmail.com</a>
                       <p className="text-natural-gray mb-1 mt-3">Support:</p>
-                      <a href="mailto:support@datinnorehan.com" className="text-natural-purple hover:text-natural-dark">support@datinnorehan.com</a>
+                      <a href="mailto:blagasia@gmail.com" className="text-natural-purple hover:text-natural-dark">blagasia@gmail.com</a>
                     </div>
                   </div>
                   

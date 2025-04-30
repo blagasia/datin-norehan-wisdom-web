@@ -49,6 +49,16 @@ const PromoPopup = ({ promotion, onClose }: PromoPopupProps) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
+    // Log the submission (would be sent to blagasia@gmail.com in a real implementation)
+    console.log('Promotion signup to be sent to blagasia@gmail.com:', {
+      name,
+      email,
+      phone,
+      birthdate,
+      promotionId: promotion.id,
+      promotionTitle: promotion.title
+    });
+    
     if (promotion.content.loyaltySignup) {
       register({
         email,
