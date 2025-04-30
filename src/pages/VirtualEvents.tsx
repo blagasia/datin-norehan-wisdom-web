@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { QrCode, Calendar, MapPin } from 'lucide-react';
+import TikTokContent from '@/components/TikTokContent';
 
 const VirtualEvents = () => {
   // Filter in-person events
@@ -52,7 +53,7 @@ const VirtualEvents = () => {
         
         <section className="py-16 bg-white">
           <div className="container mx-auto px-4">
-            <h2 className="font-playfair text-3xl font-bold mb-8 text-center">Virtual Events</h2>
+            <h2 className="font-playfair text-3xl font-bold mb-8 text-center">Online Events</h2>
             <EventsGrid />
           </div>
         </section>
@@ -110,6 +111,8 @@ const VirtualEvents = () => {
             </div>
           </section>
         )}
+        
+        <TikTokContent />
       </main>
       <Footer />
     </div>
