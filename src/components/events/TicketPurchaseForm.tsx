@@ -10,6 +10,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { useToast } from '@/hooks/use-toast';
 import { VirtualEventProps } from './EventCard';
 import { Ticket, TicketType } from '@/types/ticket';
+import { MapPin } from 'lucide-react';
 
 const formSchema = z.object({
   fullName: z.string().min(2, { message: 'Full name must be at least 2 characters.' }),
@@ -90,7 +91,7 @@ const TicketPurchaseForm = ({ event, onTicketPurchased }: TicketPurchaseFormProp
             <div>{event.time}</div>
           </div>
           <div className="text-natural-gray text-sm flex items-center gap-1 mt-1">
-            <MapPinIcon size={14} />
+            <MapPin size={14} />
             <div>{event.location}</div>
           </div>
         </div>
