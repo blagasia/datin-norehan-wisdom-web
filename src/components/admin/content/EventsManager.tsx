@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -105,7 +104,8 @@ const EventsManager = () => {
         description: "The event has been created successfully",
       });
     } else {
-      setEvents(events.map(e => e.id === editingEvent.id ? editingEvent : e));
+      // Convert both IDs to strings before comparison to ensure consistent typing
+      setEvents(events.map(e => e.id.toString() === editingEvent.id.toString() ? editingEvent : e));
       toast({
         title: "Event updated",
         description: "The event has been updated successfully",
@@ -117,7 +117,8 @@ const EventsManager = () => {
 
   // Handle delete event
   const handleDeleteEvent = (id: string) => {
-    setEvents(events.filter(e => e.id !== id));
+    // Convert all IDs to strings before filtering
+    setEvents(events.filter(e => e.id.toString() !== id));
     toast({
       title: "Event deleted",
       description: "The event has been deleted successfully",
