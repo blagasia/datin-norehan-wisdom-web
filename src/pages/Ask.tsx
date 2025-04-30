@@ -3,6 +3,7 @@ import React from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import AskDatin from '@/components/AskDatin';
+import BlogArticles from '@/components/BlogArticles';
 
 const Ask = () => {
   return (
@@ -22,6 +23,9 @@ const Ask = () => {
         
         {/* Form and Conversations Section */}
         <AskDatin />
+        
+        {/* Blog Articles Section with diverse content types */}
+        <BlogArticles />
         
         {/* FAQ Section */}
         <div className="py-16 md:py-20 bg-white">
