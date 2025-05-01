@@ -1,12 +1,31 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
-import { Quote, Heart, Star } from 'lucide-react';
+import { Quote, Heart, Star, Feather } from 'lucide-react';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 
 const Philosophy = () => {
+  const [api, setApi] = useState<any>(null);
+  
+  React.useEffect(() => {
+    if (!api) return;
+    
+    const autoPlay = () => {
+      if (api.canScrollNext()) {
+        api.scrollNext();
+      } else {
+        api.scrollTo(0);
+      }
+    };
+
+    const interval = window.setInterval(autoPlay, 5000);
+    
+    return () => clearInterval(interval);
+  }, [api]);
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
@@ -21,12 +40,88 @@ const Philosophy = () => {
           </div>
         </div>
 
+        {/* Philosophy Image Carousel */}
+        <section className="w-full bg-white">
+          <Carousel className="w-full" setApi={setApi}>
+            <CarouselContent>
+              {/* Slide 1: Nature's Wisdom */}
+              <CarouselItem>
+                <div className="h-[600px] md:h-[700px] relative overflow-hidden">
+                  <div className="absolute inset-0 bg-cover bg-center" 
+                       style={{backgroundImage: `url("/lovable-uploads/ef24f11c-1a63-4afa-b882-f95a045b873f.png")`}}>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-black/10"></div>
+                  </div>
+                  <div className="absolute inset-0 flex items-center justify-center p-8">
+                    <div className="text-center animate-fade-in max-w-2xl">
+                      <h2 className="font-italiana text-4xl md:text-5xl lg:text-6xl text-white mb-8 tracking-wide animate-fade-up">
+                        Nature's Wisdom
+                      </h2>
+                      <p className="font-karla text-xl md:text-2xl text-white/90 animate-fade-up" style={{animationDelay: '0.3s'}}>
+                        We honor the ancient connection between humans and the natural world, drawing from traditions that have withstood the test of time.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </CarouselItem>
+              
+              {/* Slide 2: Balance & Harmony */}
+              <CarouselItem>
+                <div className="h-[600px] md:h-[700px] relative overflow-hidden">
+                  <div className="absolute inset-0 bg-cover bg-center" 
+                       style={{backgroundImage: `url("/lovable-uploads/1d2d4ba3-6798-432d-b239-3d1bdc235172.png")`}}>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-black/10"></div>
+                  </div>
+                  <div className="absolute inset-0 flex items-center justify-center p-8">
+                    <div className="text-center animate-fade-in max-w-2xl">
+                      <h2 className="font-italiana text-4xl md:text-5xl lg:text-6xl text-white mb-8 tracking-wide animate-fade-up">
+                        Balance & Harmony
+                      </h2>
+                      <p className="font-karla text-xl md:text-2xl text-white/90 animate-fade-up" style={{animationDelay: '0.3s'}}>
+                        True wellness emerges when all aspects of our being—physical, mental, and spiritual—exist in perfect equilibrium.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </CarouselItem>
+              
+              {/* Slide 3: Intentional Living */}
+              <CarouselItem>
+                <div className="h-[600px] md:h-[700px] relative overflow-hidden">
+                  <div className="absolute inset-0 bg-cover bg-center" 
+                       style={{backgroundImage: `url("/lovable-uploads/5f0e6477-2199-4db9-babb-73c92b345eea.png")`}}>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-black/10"></div>
+                  </div>
+                  <div className="absolute inset-0 flex items-center justify-center p-8">
+                    <div className="text-center animate-fade-in max-w-2xl">
+                      <h2 className="font-italiana text-4xl md:text-5xl lg:text-6xl text-white mb-8 tracking-wide animate-fade-up">
+                        Intentional Living
+                      </h2>
+                      <p className="font-karla text-xl md:text-2xl text-white/90 animate-fade-up" style={{animationDelay: '0.3s'}}>
+                        Every choice we make—from the ingredients we select to the rituals we practice—is infused with purpose and mindful intention.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </CarouselItem>
+            </CarouselContent>
+            <div className="flex justify-center gap-2 absolute bottom-8 left-0 right-0 z-10">
+              <CarouselPrevious className="static translate-y-0 mx-2 bg-white/20 hover:bg-white/40 border-white/30" />
+              <CarouselNext className="static translate-y-0 mx-2 bg-white/20 hover:bg-white/40 border-white/30" />
+            </div>
+          </Carousel>
+        </section>
+
         {/* Core Philosophy */}
         <section className="py-16 md:py-24 bg-white">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
               <div className="text-center mb-16">
-                <h2 className="text-3xl md:text-4xl font-playfair font-semibold mb-6">The Essence of Our Philosophy</h2>
+                <div className="inline-block mb-5 relative">
+                  <span className="inline-block w-12 h-[1px] bg-brand-muted-rose"></span>
+                  <span className="inline-block mx-4 font-karla text-sm tracking-widest text-brand-muted-rose">ESSENCE</span>
+                  <span className="inline-block w-12 h-[1px] bg-brand-muted-rose"></span>
+                </div>
+                <h2 className="font-italiana text-3xl md:text-4xl uppercase tracking-wide mb-6">The Essence of Our Philosophy</h2>
                 <p className="text-natural-gray text-lg">
                   Datin Norehan's approach to wellness is built on timeless principles that honor both tradition and innovation.
                 </p>
@@ -139,10 +234,26 @@ const Philosophy = () => {
               
               <div className="text-center mt-12">
                 <Link to="/products">
-                  <Button className="btn-primary">Experience Our Products</Button>
+                  <Button className="bg-transparent rounded-none text-natural-dark border-natural-dark hover:bg-natural-dark hover:text-white group">
+                    Experience Our Products
+                    <span className="inline-block transition-transform group-hover:translate-x-1">
+                      <ArrowRight className="h-4 w-4" />
+                    </span>
+                  </Button>
                 </Link>
               </div>
             </div>
+          </div>
+        </section>
+        
+        {/* Closing Quote */}
+        <section className="py-16 bg-white">
+          <div className="container mx-auto max-w-2xl text-center px-4">
+            <Feather className="mx-auto mb-6 text-brand-orchid-pink h-8 w-8 opacity-80 subtle-breathe" />
+            <blockquote className="font-italiana text-2xl md:text-3xl italic mb-6 text-brand-dark">
+              "Wellness is not a destination but a journey—one that requires mindfulness, compassion, and a deep reverence for the wisdom of nature."
+            </blockquote>
+            <p className="font-karla text-brand-deep-teal tracking-widest uppercase text-sm">— Datin Norehan</p>
           </div>
         </section>
       </main>

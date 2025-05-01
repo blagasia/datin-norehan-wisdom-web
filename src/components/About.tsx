@@ -10,7 +10,12 @@ const About = () => {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div className="order-2 lg:order-1 animate-fade-up">
-            <h2 className="text-3xl md:text-4xl font-playfair font-semibold mb-6">
+            <div className="inline-block mb-5 relative">
+              <span className="inline-block w-12 h-[1px] bg-brand-muted-rose"></span>
+              <span className="inline-block mx-4 font-karla text-sm tracking-widest text-brand-muted-rose">OUR FOUNDER</span>
+              <span className="inline-block w-12 h-[1px] bg-brand-muted-rose"></span>
+            </div>
+            <h2 className="font-italiana text-3xl md:text-4xl uppercase tracking-wide mb-6">
               The Essence of Datin Norehan
             </h2>
             <p className="text-natural-gray mb-6 leading-relaxed">
@@ -26,7 +31,7 @@ const About = () => {
             <div className="bg-natural-peach/20 p-6 rounded-lg mb-8 border-l-4 border-natural-peach">
               <div className="flex items-start">
                 <Quote className="h-8 w-8 text-natural-dark/60 mr-4 flex-shrink-0 mt-1" />
-                <p className="italic text-natural-dark/80 font-playfair text-lg">
+                <p className="italic text-natural-dark/80 font-italiana text-lg">
                   "In nature's gentle whispers, I found my calling. Every leaf, root, and flower has a story to tell and a gift to offer. My journey has been about listening carefully and crafting these gifts into remedies that honor both body and spirit."
                 </p>
               </div>
@@ -34,9 +39,11 @@ const About = () => {
             </div>
             
             <Link to="/story">
-              <Button className="btn-outline flex items-center">
+              <Button className="bg-transparent rounded-none text-natural-dark border-natural-dark hover:bg-natural-dark hover:text-white group">
                 Explore Our Founder's Journey
-                <ArrowRight className="ml-2 h-4 w-4" />
+                <span className="inline-block transition-transform group-hover:translate-x-1">
+                  <ArrowRight className="h-4 w-4" />
+                </span>
               </Button>
             </Link>
           </div>
@@ -51,7 +58,7 @@ const About = () => {
                 />
               </div>
               <div className="absolute -bottom-8 -right-8 bg-natural-peach/80 rounded-lg p-6 shadow-md">
-                <p className="font-playfair text-lg italic">
+                <p className="font-italiana text-lg italic">
                   "True wellness starts with nature's wisdom."
                 </p>
               </div>
