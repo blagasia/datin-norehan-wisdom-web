@@ -1,19 +1,33 @@
 
 import React, { useState, useEffect } from 'react';
-import { Navigate } from 'react-router-dom';
 import AdminLogin from '@/components/admin/AdminLogin';
 import AdminDashboard from '@/components/admin/AdminDashboard';
+import { useToast } from '@/components/ui/use-toast';
 
 const Admin = () => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const { toast } = useToast();
   
   useEffect(() => {
     // Check if user is authenticated
     const authStatus = localStorage.getItem('cmsAuthenticated') === 'true';
     setIsAuthenticated(authStatus);
     setIsLoading(false);
+    
+    // Show authentication status for debugging purposes
+    console.log('Authentication status:', authStatus);
   }, []);
+  
+  // Function to handle successful login
+  const handleLoginSuccess = () => {
+    console.log('Login successful, updating state');
+    setIsAuthenticated(true);
+    toast({
+      title: "Login successful",
+      description: "Welcome to the admin dashboard",
+    });
+  };
   
   if (isLoading) {
     // Show loading state while checking authentication
@@ -25,7 +39,7 @@ const Admin = () => {
   }
 
   if (!isAuthenticated) {
-    return <AdminLogin />;
+    return <AdminLogin onLoginSuccess={handleLoginSuccess} />;
   }
 
   return <AdminDashboard />;

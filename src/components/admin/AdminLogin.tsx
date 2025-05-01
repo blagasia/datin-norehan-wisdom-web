@@ -4,15 +4,17 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
-import { useNavigate } from 'react-router-dom';
 import { useToast } from '@/components/ui/use-toast';
 import { Lock } from 'lucide-react';
 
-const AdminLogin = () => {
+interface AdminLoginProps {
+  onLoginSuccess?: () => void;
+}
+
+const AdminLogin: React.FC<AdminLoginProps> = ({ onLoginSuccess }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
   const { toast } = useToast();
 
   // In a real app, this would be server-side validation
@@ -23,15 +25,16 @@ const AdminLogin = () => {
     // Default login credentials
     const validUsername = 'admin';
     const validPassword = 'datinnorehan2025';
+    
+    console.log('Login attempt:', { username, password });
 
     setTimeout(() => {
       if (username === validUsername && password === validPassword) {
         localStorage.setItem('cmsAuthenticated', 'true');
-        toast({
-          title: "Login successful",
-          description: "Welcome to the admin dashboard",
-        });
-        navigate('/admin');
+        
+        if (onLoginSuccess) {
+          onLoginSuccess();
+        }
       } else {
         toast({
           title: "Authentication failed",
