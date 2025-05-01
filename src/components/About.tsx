@@ -21,11 +21,16 @@ const About = () => {
             <p className="text-natural-gray mb-6 leading-relaxed">
               With grace that matches her wisdom, Datin Norehan has journeyed through life with a singular purpose — to harness nature's gifts and transform them into healing treasures. Her story begins with a humble appreciation for traditional remedies passed through generations of her family.
             </p>
+            
+            <div className="mb-6 bg-brand-soft-lavender/10 p-5 border-l-2 border-brand-soft-lavender">
+              <h3 className="font-italiana text-xl mb-3">Datin Norehan's Apothecary & DNA</h3>
+              <p className="text-natural-gray leading-relaxed">
+                <strong>Datin Norehan's Apothecary</strong> is the culmination of decades of research and dedication to natural wellness. Under this vision, we've created <strong>DNA by Datin Norehan</strong> — our premium product line that combines ancestral wisdom with modern science, each formulation carefully crafted to honor both tradition and innovation.
+              </p>
+            </div>
+            
             <p className="text-natural-gray mb-6 leading-relaxed">
               From her early days studying ancient Malaysian herbal traditions to her groundbreaking work combining modern science with ancestral wisdom, Datin Norehan has dedicated over three decades to perfecting her craft. Her journey through remote villages and prestigious research institutions has gifted her with a unique perspective on holistic wellness.
-            </p>
-            <p className="text-natural-gray mb-6 leading-relaxed">
-              Each product under the Datin Norehan brand reflects not just ingredients, but a philosophy of living in harmony with nature. Her meticulous approach ensures that every formulation honors the delicate balance between scientific understanding and ancestral wisdom.
             </p>
             
             <div className="bg-brand-soft-lavender/20 p-6 rounded-lg mb-8 border-l-4 border-brand-soft-lavender">
@@ -59,6 +64,12 @@ const About = () => {
                 <p className="font-italiana text-lg italic text-natural-dark">
                   "True wellness starts with nature's wisdom."
                 </p>
+              </div>
+              <div className="absolute -top-4 -right-4 bg-brand-deep-teal/90 rounded-full p-4 shadow-lg flex items-center justify-center w-24 h-24">
+                <div className="text-center">
+                  <span className="text-white font-italiana text-xl block">DNA</span>
+                  <span className="text-white/80 text-[10px] tracking-wider">BY DATIN NOREHAN</span>
+                </div>
               </div>
             </div>
           </div>

@@ -31,7 +31,7 @@ const MobileNavigation = () => {
     { name: 'Home', path: '/' },
     { name: 'Our Story', path: '/story' },
     { name: 'Our Philosophy', path: '/philosophy' },
-    { name: 'Our Brand', path: '/dna-brand' },
+    { name: 'About DNA', path: '/dna-brand' },
   ];
   
   const productCategories = [
@@ -59,9 +59,10 @@ const MobileNavigation = () => {
         <SheetContent side="right" className="w-[85%] max-w-sm bg-white overflow-y-auto">
           <div className="flex flex-col h-full">
             <div className="py-4 flex items-center justify-between border-b border-brand-blush-rose/20">
-              <Link to="/" className="text-xl font-italiana tracking-wide">
-                Datin Norehan
-              </Link>
+              <div className="flex flex-col">
+                <span className="font-italiana text-xl tracking-wide">Datin Norehan</span>
+                <span className="text-xs text-brand-deep-teal tracking-wider">APOTHECARY</span>
+              </div>
               
               {isLoggedIn ? (
                 <Button
@@ -85,6 +86,13 @@ const MobileNavigation = () => {
                   </Button>
                 </Link>
               )}
+            </div>
+            
+            <div className="my-4 px-3 py-2 bg-brand-deep-teal/10 rounded">
+              <div className="flex flex-col items-center">
+                <span className="text-lg font-italiana tracking-wide">DNA</span>
+                <span className="text-xs text-brand-deep-teal tracking-wider">BY DATIN NOREHAN</span>
+              </div>
             </div>
             
             <nav className="flex-1 py-6">
@@ -115,7 +123,7 @@ const MobileNavigation = () => {
                   className="flex items-center justify-between w-full py-2 px-3 font-medium border-b border-brand-blush-rose/20"
                   onClick={() => toggleCategory('shop')}
                 >
-                  <span>Shop</span>
+                  <span>Shop DNA Collection</span>
                   {openCategory === 'shop' ? <ChevronUp className="h-5 w-5" /> : <ChevronDown className="h-5 w-5" />}
                 </button>
                 

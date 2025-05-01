@@ -1,10 +1,10 @@
+
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { 
   NavigationMenu,
   NavigationMenuContent,
   NavigationMenuItem,
-  NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
@@ -42,7 +42,6 @@ ListItem.displayName = "ListItem";
 const mainNavItems = [
   { name: 'Our Story', path: '/story' },
   { name: 'Our Philosophy', path: '/philosophy' },
-  { name: 'Our Brand', path: '/dna-brand' },
 ];
 
 const dnaShopItems = [
@@ -87,8 +86,9 @@ const MainNavigation = () => {
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
-            <Link to="/" className="text-xl md:text-2xl font-italiana tracking-wide mr-8">
-              Datin Norehan Apothecary
+            <Link to="/" className="flex flex-col items-center mr-8">
+              <span className="text-lg md:text-xl font-italiana tracking-wide">DNA</span>
+              <span className="text-xs text-brand-deep-teal tracking-wider">BY DATIN NOREHAN</span>
             </Link>
           </NavigationMenuItem>
           
@@ -176,7 +176,7 @@ const MainNavigation = () => {
               </div>
               <div className="bg-gradient-to-r from-brand-sage-mist/20 to-brand-blush-rose/20 p-3">
                 <Link to="/dna-brand" className="text-brand-deep-teal hover:underline text-sm flex justify-center">
-                  Learn more about DNA by Datin Norehan →
+                  About DNA by Datin Norehan →
                 </Link>
               </div>
             </NavigationMenuContent>
@@ -195,6 +195,17 @@ const MainNavigation = () => {
               </NavLink>
             </NavigationMenuItem>
           ))}
+          
+          <NavigationMenuItem className="px-2">
+            <NavLink
+              to="/dna-brand"
+              className={({ isActive }) =>
+                `${navItemClasses} ${isActive ? activeNavItemClasses : ''}`
+              }
+            >
+              About DNA
+            </NavLink>
+          </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
 
