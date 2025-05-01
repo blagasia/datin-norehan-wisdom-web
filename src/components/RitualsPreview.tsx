@@ -29,7 +29,7 @@ const RitualsPreview = () => {
           {featuredRituals.map((product) => (
             <div key={product.id} className="group bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 transition-all duration-300 hover:shadow-md">
               <Link to={`/rituals/${product.id}`} className="block">
-                <div className="relative h-56 overflow-hidden">
+                <div className="relative h-64 overflow-hidden">
                   <img 
                     src={product.image} 
                     alt={product.name} 
@@ -48,7 +48,7 @@ const RitualsPreview = () => {
                 <div className="p-4">
                   <h3 className="font-playfair text-lg font-semibold mb-1">{product.name}</h3>
                   <p className="text-natural-gray font-semibold mb-3">{product.price}</p>
-                  <Button className="w-full">View Details</Button>
+                  <Button className="w-full bg-brand-deep-teal/80 hover:bg-brand-deep-teal text-white">View Details</Button>
                 </div>
               </Link>
             </div>
@@ -74,3 +74,4 @@ const RitualsPreview = () => {
 };
 
 export default RitualsPreview;
+

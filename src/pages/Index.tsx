@@ -18,12 +18,12 @@ const Index = () => {
       <main className="flex-grow">
         <Hero />
         <Products />
-        <RitualsPreview />
         <Features />
+        <RitualsPreview />
         <Articles />
         <EventsPreview />
-        <TikTokContent />
         <About />
+        <TikTokContent />
       </main>
       <Footer />
     </div>
@@ -31,3 +31,4 @@ const Index = () => {
 };
 
 export default Index;
+

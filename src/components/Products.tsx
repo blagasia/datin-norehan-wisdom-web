@@ -56,7 +56,7 @@ const ProductItem = ({ product }: { product: Product }) => {
   return (
     <div className="group bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 transition-all duration-300 hover:shadow-md">
       <Link to={`/products/${product.id}`} className="block">
-        <div className="relative h-56 overflow-hidden">
+        <div className="relative h-64 overflow-hidden">
           <img 
             src={product.image} 
             alt={product.name} 
@@ -70,7 +70,7 @@ const ProductItem = ({ product }: { product: Product }) => {
           <h3 className="font-playfair text-lg font-semibold mb-1">{product.name}</h3>
           <p className="text-natural-gray font-semibold">{product.price}</p>
           <div className="flex gap-2 mt-4">
-            <Button className="flex-1 btn-outline">View Product</Button>
+            <Button className="flex-1 bg-brand-deep-teal/80 hover:bg-brand-deep-teal text-white">View Product</Button>
             {customer && customer.referralCode && (
               <Button 
                 variant="secondary" 
@@ -129,3 +129,4 @@ const Products = () => {
 };
 
 export default Products;
+
