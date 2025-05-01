@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -13,6 +12,7 @@ import { Badge } from '@/components/ui/badge';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { useEffect as useEffectAutoPlay } from 'react';
 import { useCallback, useRef } from 'react';
+import VideoBackground from './VideoBackground';
 
 const subscribeSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email" }),
@@ -81,24 +81,30 @@ const Hero = () => {
 
   return (
     <div className="flex flex-col">
-      {/* Hero Section - Elegant minimalist hero with refined typography */}
-      <section className="relative bg-gradient-to-b from-white to-brand-creamy-ivory pt-24 pb-16 md:pt-32 md:pb-20">
-        <div className="container mx-auto px-4">
+      {/* Hero Section with Video Background */}
+      <section className="relative bg-gradient-to-b from-white to-brand-creamy-ivory pt-24 pb-16 md:pt-32 md:pb-20 overflow-hidden">
+        {/* Video Background */}
+        <VideoBackground 
+          videoSrc="/lovable-uploads/ambient-nature.mp4" 
+          fallbackImageSrc="/lovable-uploads/64130d34-d04d-40bb-9931-9c8f94a36cae.png"
+        />
+        
+        <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
             <div className="flex justify-center mb-6">
               <Badge variant="outline" className="bg-white/50 backdrop-blur-sm border-brand-blush-rose text-brand-dark px-4 py-1">
                 <Sparkles className="h-3.5 w-3.5 mr-1.5 text-brand-muted-rose" /> Artisanal Wellness
               </Badge>
             </div>
-            <h1 className="font-italiana text-4xl md:text-5xl lg:text-6xl uppercase tracking-wide mb-8 text-shimmer">
+            <h1 className="font-italiana text-4xl md:text-5xl lg:text-6xl uppercase tracking-wide mb-8 text-shimmer text-white text-shadow-lg">
               Natural holistic apothecary
             </h1>
-            <p className="font-karla text-base md:text-lg mb-12 text-brand-soft-gray leading-relaxed max-w-2xl mx-auto">
+            <p className="font-karla text-base md:text-lg mb-12 text-white leading-relaxed max-w-2xl mx-auto text-shadow">
               Discover our carefully crafted wellness elixirs—where ancestral wisdom meets modern science for your body, mind, and spirit.
             </p>
             <div className="flex justify-center">
               <Link to="/products">
-                <Button className="bg-transparent rounded-none text-brand-dark border-brand-dark hover:bg-brand-dark hover:text-white group">
+                <Button className="bg-white/90 text-brand-dark hover:bg-white rounded-none border-none group">
                   Explore Collection
                   <span className="inline-block transition-transform group-hover:translate-x-1">
                     <ArrowRight className="h-4 w-4" />
