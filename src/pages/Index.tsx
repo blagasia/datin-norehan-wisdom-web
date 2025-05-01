@@ -12,8 +12,14 @@ import About from '@/components/About';
 import Footer from '@/components/Footer';
 import { Toaster } from '@/components/ui/toaster';
 import { LoyaltyProvider } from '@/context/LoyaltyContext';
+import { useEffect } from 'react';
 
 const Index = () => {
+  // Optimize performance by scrolling to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <LoyaltyProvider>
       <div className="min-h-screen flex flex-col relative">
