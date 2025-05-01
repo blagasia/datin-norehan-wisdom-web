@@ -131,6 +131,18 @@ export default {
 				'shimmer': {
 					'0%': { backgroundPosition: '-200% 0' },
 					'100%': { backgroundPosition: '200% 0' }
+				},
+				'float': {
+					'0%, 100%': { transform: 'translateY(0)' },
+					'50%': { transform: 'translateY(-5px)' }
+				},
+				'breathe': {
+					'0%, 100%': { transform: 'scale(1)' },
+					'50%': { transform: 'scale(1.05)' }
+				},
+				'subtle-rotate': {
+					'0%': { transform: 'rotate(0deg)' },
+					'100%': { transform: 'rotate(360deg)' }
 				}
 			},
 			animation: {
@@ -139,13 +151,17 @@ export default {
 				'fade-in': 'fade-in 1s ease-out',
 				'fade-up': 'fade-up 0.7s ease-out',
 				'scale-in': 'scale-in 0.5s ease-out',
-				'shimmer': 'shimmer 3s infinite linear'
+				'shimmer': 'shimmer 3s infinite linear',
+				'float': 'float 6s ease-in-out infinite',
+				'breathe': 'breathe 8s ease-in-out infinite',
+				'subtle-rotate': 'subtle-rotate 20s linear infinite'
 			},
 			backgroundImage: {
 				'gradient-natural': 'linear-gradient(109.6deg, rgba(242,230,230,1) 11.2%, rgba(242,242,242,1) 91.1%)',
 				'gradient-blush': 'linear-gradient(to right, #F5E1DB, #F9F7F0)',
 				'gradient-sage': 'linear-gradient(to right, #D9E1D8, #F9F7F0)',
-				'shimmer-gradient': 'linear-gradient(to right, #F5E1DB, #F9F7F0, #E2DFF4, #F9F7F0, #F5E1DB)'
+				'shimmer-gradient': 'linear-gradient(to right, #F5E1DB, #F9F7F0, #E2DFF4, #F9F7F0, #F5E1DB)',
+				'dreamy-overlay': 'radial-gradient(circle at center, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0))'
 			}
 		}
 	},

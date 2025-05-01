@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { Input } from '@/components/ui/input';
@@ -8,7 +8,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { useToast } from '@/hooks/use-toast';
-import { ArrowRight, Sparkles } from 'lucide-react';
+import { ArrowRight, Sparkles, Feather } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 
 const subscribeSchema = z.object({
@@ -20,6 +20,7 @@ type SubscribeFormValues = z.infer<typeof subscribeSchema>;
 const Hero = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [scrollPosition, setScrollPosition] = useState(0);
   
   const form = useForm<SubscribeFormValues>({
     resolver: zodResolver(subscribeSchema),
@@ -27,6 +28,18 @@ const Hero = () => {
       email: '',
     },
   });
+  
+  // Handle parallax effect
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollPosition(window.scrollY);
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
   
   const onSubmit = async (values: SubscribeFormValues) => {
     setIsSubmitting(true);
@@ -40,6 +53,13 @@ const Hero = () => {
     form.reset();
   };
 
+  const getParallaxStyle = (speed: number) => {
+    return {
+      transform: `translateY(${scrollPosition * speed}px)`,
+      transition: 'transform 0.1s ease-out',
+    };
+  };
+
   return (
     <div className="flex flex-col">
       {/* Hero Section - Elegant minimalist hero with refined typography */}
@@ -51,7 +71,7 @@ const Hero = () => {
                 <Sparkles className="h-3.5 w-3.5 mr-1.5 text-brand-gilded-gold" /> Artisanal Wellness
               </Badge>
             </div>
-            <h1 className="font-italiana text-4xl md:text-5xl lg:text-6xl uppercase tracking-wide mb-8">
+            <h1 className="font-italiana text-4xl md:text-5xl lg:text-6xl uppercase tracking-wide mb-8 text-shimmer">
               Natural holistic apothecary
             </h1>
             <p className="font-karla text-base md:text-lg mb-12 text-brand-soft-gray leading-relaxed max-w-2xl mx-auto">
@@ -71,18 +91,33 @@ const Hero = () => {
         </div>
       </section>
       
-      {/* Full-width hero image with subtle overlay */}
-      <section className="w-full h-[80vh] relative overflow-hidden">
+      {/* Full-width hero image with parallax effect */}
+      <section className="parallax-container w-full h-[80vh] relative overflow-hidden">
+        <div 
+          className="parallax-bg" 
+          style={{
+            backgroundImage: `url("https://images.unsplash.com/photo-1617897903246-719242758050?q=80&w=2670&auto=format&fit=crop")`,
+            ...getParallaxStyle(0.3)
+          }}
+        ></div>
         <div className="absolute inset-0 bg-black/20 z-10"></div>
-        <img 
-          src="https://images.unsplash.com/photo-1617897903246-719242758050?q=80&w=2670&auto=format&fit=crop" 
-          alt="DNA by Datin Norehan" 
-          className="w-full h-full object-cover object-center"
-        />
         <div className="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-black/40 via-black/20 to-transparent z-20">
           <div className="container mx-auto">
             <p className="font-italiana text-white text-lg md:text-xl tracking-wide">Traditional wisdom. Modern wellness.</p>
           </div>
+        </div>
+      </section>
+      
+      {/* First Quote Section */}
+      <section className="quote-container bg-brand-creamy-ivory/30">
+        <div className="quote-mark quote-mark-left">"</div>
+        <div className="quote-mark quote-mark-right">"</div>
+        <div className="container mx-auto max-w-3xl text-center px-4">
+          <Feather className="mx-auto mb-6 text-brand-gilded-gold h-8 w-8 opacity-80 subtle-breathe" />
+          <blockquote className="font-italiana text-2xl md:text-3xl italic mb-6 text-brand-dark">
+            "True beauty is not merely what we see on the surface, but the radiance that emanates from balanced wellness within."
+          </blockquote>
+          <p className="font-karla text-brand-gilded-gold tracking-widest uppercase text-sm">— Datin Norehan</p>
         </div>
       </section>
       
@@ -106,6 +141,26 @@ const Hero = () => {
               <span className="bg-brand-blush-rose/20 text-brand-dark px-4 py-1 text-sm rounded-full">Clean Formulations</span>
               <span className="bg-brand-sage-mist/40 text-brand-dark px-4 py-1 text-sm rounded-full">Artisanal Process</span>
             </div>
+          </div>
+        </div>
+      </section>
+      
+      {/* Dreamy Nature Imagery Section with Parallax */}
+      <section className="parallax-container h-[60vh] relative overflow-hidden">
+        <div 
+          className="parallax-bg dreamy-filter" 
+          style={{
+            backgroundImage: `url("https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?q=80&w=2670&auto=format&fit=crop")`,
+            ...getParallaxStyle(0.4)
+          }}
+        ></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/10 to-black/30 dreamy-overlay z-10"></div>
+        <div className="container mx-auto relative z-20 h-full flex items-center justify-center">
+          <div className="bg-white/80 backdrop-blur-sm p-8 md:p-12 max-w-lg text-center">
+            <h3 className="font-italiana text-2xl md:text-3xl mb-4">Nature's Treasures</h3>
+            <p className="font-karla text-brand-soft-gray">
+              Our formulations harness the power of Malaysia's botanical heritage, carefully selected and crafted to restore balance and harmony.
+            </p>
           </div>
         </div>
       </section>
@@ -178,12 +233,45 @@ const Hero = () => {
         </div>
       </section>
       
+      {/* Second Quote Section */}
+      <section className="quote-container bg-gradient-to-r from-brand-blush-rose/10 to-brand-lavender/10">
+        <div className="quote-mark quote-mark-left">"</div>
+        <div className="quote-mark quote-mark-right">"</div>
+        <div className="container mx-auto max-w-3xl text-center px-4">
+          <Feather className="mx-auto mb-6 text-brand-orchid-pink h-8 w-8 opacity-80 subtle-breathe" />
+          <blockquote className="font-italiana text-2xl md:text-3xl italic mb-6 text-brand-dark">
+            "Our rituals are not merely routines, but sacred moments where we reconnect with ourselves and honor our wellbeing."
+          </blockquote>
+          <p className="font-karla text-brand-gilded-gold tracking-widest uppercase text-sm">— Datin Norehan</p>
+        </div>
+      </section>
+      
+      {/* Whimsical Natural Elements with Parallax */}
+      <section className="parallax-container h-[50vh] relative overflow-hidden">
+        <div 
+          className="parallax-bg dreamy-filter" 
+          style={{
+            backgroundImage: `url("https://images.unsplash.com/photo-1518495973542-4542c06a5843?q=80&w=2670&auto=format&fit=crop")`,
+            ...getParallaxStyle(0.5)
+          }}
+        ></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-transparent to-white/30 dreamy-overlay z-10"></div>
+        <div className="container mx-auto relative z-20 h-full flex items-center">
+          <div className="px-4 md:max-w-lg">
+            <h3 className="font-italiana text-white text-3xl md:text-4xl mb-3 text-shadow">Natural Harmony</h3>
+            <p className="font-karla text-white text-shadow-sm">
+              Our ingredients are thoughtfully sourced to bring you the purest essence of nature's gifts.
+            </p>
+          </div>
+        </div>
+      </section>
+      
       {/* Newsletter Section - Enhanced with refined aesthetic */}
       <section className="py-24 bg-gradient-to-r from-brand-lavender/10 via-brand-creamy-ivory to-brand-blush-rose/10 border-t border-brand-blush-rose/10">
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mx-auto text-center">
             <div className="inline-block mb-6">
-              <Sparkles className="h-5 w-5 text-brand-gilded-gold mx-auto" />
+              <Sparkles className="h-5 w-5 text-brand-gilded-gold mx-auto subtle-breathe" />
             </div>
             <h2 className="font-italiana text-2xl uppercase tracking-wide mb-8">Join Our Inner Circle</h2>
             <p className="font-karla text-brand-soft-gray mb-12 max-w-lg mx-auto">
@@ -230,6 +318,16 @@ const Hero = () => {
               By subscribing, you join our community of wellness enthusiasts. We treat your information with care.
             </p>
           </div>
+        </div>
+      </section>
+      
+      {/* Final Quote - Closing inspiration */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto max-w-lg text-center px-4">
+          <blockquote className="font-italiana text-xl md:text-2xl text-brand-dark italic">
+            "When we embrace nature's gifts with intention and knowledge, we unlock the path to true harmony and vitality."
+          </blockquote>
+          <p className="font-karla text-brand-gilded-gold mt-4 tracking-widest uppercase text-sm">— Datin Norehan</p>
         </div>
       </section>
     </div>
