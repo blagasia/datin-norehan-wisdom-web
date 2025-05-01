@@ -88,8 +88,9 @@ const MainNavigation = () => {
         <NavigationMenuList>
           <NavigationMenuItem>
             <Link to="/" className="flex flex-col items-center mr-8">
-              <span className="text-lg md:text-xl font-italiana tracking-wide">DNA</span>
-              <span className="text-xs text-brand-deep-teal tracking-wider">BY DATIN NOREHAN</span>
+              {/* Updated logo styling to match the botanical watercolor logo */}
+              <span className="font-italiana text-lg md:text-xl tracking-wide">Datin Norehan</span>
+              <span className="text-xs text-brand-deep-teal tracking-wider">APOTHECARY</span>
             </Link>
           </NavigationMenuItem>
           
