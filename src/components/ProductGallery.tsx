@@ -9,6 +9,7 @@ import {
 } from '@/components/ui/carousel';
 import { images as GalleryImages } from '@/data/productImages';
 import useEmblaCarousel from 'embla-carousel-react';
+import { Loader2 } from 'lucide-react';
 
 interface ProductGalleryProps {
   productId: number;
@@ -26,11 +27,16 @@ const ProductGallery = ({ productId, mainImage }: ProductGalleryProps) => {
   
   const [activeIndex, setActiveIndex] = useState(0);
   const [emblaRef, emblaApi] = useEmblaCarousel();
+  const [loadedImages, setLoadedImages] = useState<Record<number, boolean>>({});
   
   const handleSelect = React.useCallback(() => {
     if (!emblaApi) return;
     setActiveIndex(emblaApi.selectedScrollSnap());
   }, [emblaApi]);
+
+  const handleImageLoad = (index: number) => {
+    setLoadedImages(prev => ({...prev, [index]: true}));
+  };
 
   React.useEffect(() => {
     if (!emblaApi) return;
@@ -59,11 +65,17 @@ const ProductGallery = ({ productId, mainImage }: ProductGalleryProps) => {
         <CarouselContent>
           {allImages.map((image, index) => (
             <CarouselItem key={index} className="md:basis-full">
-              <div className="aspect-square rounded-xl overflow-hidden bg-brand-sage-mist/10">
+              <div className="aspect-square rounded-xl overflow-hidden bg-brand-sage-mist/10 relative">
+                {!loadedImages[index] && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-brand-sage-mist/20">
+                    <Loader2 className="h-8 w-8 text-brand-deep-teal animate-spin" />
+                  </div>
+                )}
                 <img 
                   src={image} 
                   alt={`Product view ${index + 1}`}
-                  className="w-full h-full object-cover object-center transition-all duration-500 hover:scale-105"
+                  className={`w-full h-full object-cover object-center transition-all duration-500 hover:scale-105 ${!loadedImages[index] ? 'opacity-0' : 'opacity-100'}`}
+                  onLoad={() => handleImageLoad(index)}
                 />
               </div>
             </CarouselItem>
@@ -77,19 +89,21 @@ const ProductGallery = ({ productId, mainImage }: ProductGalleryProps) => {
       
       {/* Thumbnail navigation */}
       {allImages.length > 1 && (
-        <div className="flex justify-center gap-2 mt-4">
+        <div className="flex flex-wrap justify-center gap-2 mt-4">
           {allImages.map((image, index) => (
             <button
               key={index}
               onClick={() => scrollTo(index)}
               className={`w-16 h-16 border-2 rounded overflow-hidden transition-all ${
-                activeIndex === index ? 'border-brand-deep-teal' : 'border-transparent opacity-70'
+                activeIndex === index ? 'border-brand-deep-teal' : 'border-transparent opacity-70 hover:opacity-100'
               }`}
+              aria-label={`View product image ${index + 1}`}
             >
               <img 
                 src={image} 
                 alt={`Thumbnail ${index + 1}`}
                 className="w-full h-full object-cover" 
+                loading="lazy"
               />
             </button>
           ))}

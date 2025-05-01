@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap');
@@ -143,6 +142,55 @@
   }
   
   .text-shadow-lg {
-    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
   }
+}
+
+@layer utilities {
+  .parallax-tag {
+    @apply transition-all duration-500 ease-out;
+  }
+  
+  .parallax-tag:hover {
+    @apply transform -translate-y-1;
+  }
+  
+  .subtle-breathe {
+    animation: subtle-breathe 6s infinite ease-in-out;
+  }
+
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  
+  .text-shadow-lg {
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  }
+}
+
+@keyframes subtle-breathe {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+}
+
+.quote-container {
+  @apply relative py-16 overflow-hidden;
+}
+
+.quote-mark {
+  @apply absolute text-brand-blush-rose/10 text-[200px] font-serif pointer-events-none;
+}
+
+.quote-mark-left {
+  @apply -top-16 left-4 md:left-12 select-none;
+}
+
+.quote-mark-right {
+  @apply -bottom-40 right-4 md:right-12 select-none;
 }

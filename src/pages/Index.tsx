@@ -12,15 +12,20 @@ import About from '@/components/About';
 import Footer from '@/components/Footer';
 import { Toaster } from '@/components/ui/toaster';
 import { LoyaltyProvider } from '@/context/LoyaltyContext';
-import VideoBackground from '@/components/VideoBackground';
+import { useEffect } from 'react';
 
 const Index = () => {
+  // Optimize performance by scrolling to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <LoyaltyProvider>
       <div className="min-h-screen flex flex-col relative">
         <Navbar />
         <div className="pt-16 md:pt-20 lg:pt-24 relative z-10">
-          <main className="flex-grow">
+          <main className="flex-grow overflow-x-hidden"> {/* Added overflow-x-hidden to prevent horizontal scrolling with parallax */}
             <Hero />
             <Features />
             <Products />

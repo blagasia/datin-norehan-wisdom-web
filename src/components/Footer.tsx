@@ -157,10 +157,10 @@ const Footer = () => {
         <div className="border-t border-white/10 mt-6 pt-8 flex flex-col md:flex-row md:items-center justify-between">
           <p className="text-white/50 text-sm mb-4 md:mb-0">&copy; {currentYear} DNA by Datin Norehan. All rights reserved.</p>
           <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-white/50">
-            <Link to="/terms" className="hover:text-white transition-colors duration-200">Terms of Service</Link>
-            <Link to="/privacy" className="hover:text-white transition-colors duration-200">Privacy Policy</Link>
-            <Link to="/shipping" className="hover:text-white transition-colors duration-200">Shipping</Link>
-            <Link to="/returns" className="hover:text-white transition-colors duration-200">Returns</Link>
+            <Link to="/terms-of-service" className="hover:text-white transition-colors duration-200">Terms of Service</Link>
+            <Link to="/privacy-policy" className="hover:text-white transition-colors duration-200">Privacy Policy</Link>
+            <Link to="/shipping-policy" className="hover:text-white transition-colors duration-200">Shipping</Link>
+            <Link to="/return-policy" className="hover:text-white transition-colors duration-200">Returns</Link>
           </div>
         </div>
       </div>

@@ -1,91 +1,118 @@
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 
 interface VideoBackgroundProps {
   videoSrc: string;
   fallbackImageSrc?: string;
-  videoType?: string;
 }
 
-const VideoBackground = ({ 
-  videoSrc, 
-  fallbackImageSrc, 
-  videoType = "video/mp4" 
-}: VideoBackgroundProps) => {
+const VideoBackground = ({ videoSrc, fallbackImageSrc }: VideoBackgroundProps) => {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
-  const [hasError, setHasError] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
-  
+  const [processedVideoSrc, setProcessedVideoSrc] = useState<string>('');
+  const [isVimeo, setIsVimeo] = useState(false);
+  const [vimeoIframeSrc, setVimeoIframeSrc] = useState<string>('');
+  const [loadError, setLoadError] = useState(false);
+
   useEffect(() => {
-    // Reset states when video source changes
-    setIsVideoLoaded(false);
-    setHasError(false);
+    if (!videoSrc) {
+      setLoadError(true);
+      return;
+    }
     
-    const checkVideoValidity = () => {
-      if (!videoSrc) return;
+    // Reset states on video source change
+    setIsVideoLoaded(false);
+    setLoadError(false);
+    
+    // Check if it's a Vimeo link
+    if (videoSrc.includes('vimeo.com')) {
+      setIsVimeo(true);
       
-      // If we have a video ref already mounted, use that
-      if (videoRef.current) {
-        const video = videoRef.current;
-        
-        // Set up event listeners
-        const handleCanPlay = () => {
-          console.log('Video can play:', videoSrc);
-          setIsVideoLoaded(true);
-          setHasError(false);
-        };
-        
-        const handleError = () => {
-          console.error('Error loading video:', videoSrc);
-          setHasError(true);
-          setIsVideoLoaded(false);
-        };
-        
-        // Remove any existing listeners first
-        video.removeEventListener('canplay', handleCanPlay);
-        video.removeEventListener('error', handleError);
-        
-        // Add new listeners
-        video.addEventListener('canplay', handleCanPlay);
-        video.addEventListener('error', handleError);
-        
-        // Try to load the video
-        video.load();
-        
-        // Cleanup function
-        return () => {
-          video.removeEventListener('canplay', handleCanPlay);
-          video.removeEventListener('error', handleError);
-        };
+      // Extract the Vimeo ID from the URL
+      const vimeoId = videoSrc.replace(/^.+vimeo.com\//, '').replace(/\?.+$/, '');
+      
+      // Create the embed URL with additional performance parameters
+      const embedUrl = `https://player.vimeo.com/video/${vimeoId}?background=1&autoplay=1&loop=1&byline=0&title=0&muted=1&quality=auto`;
+      setVimeoIframeSrc(embedUrl);
+      setIsVideoLoaded(true);
+      return;
+    }
+    
+    setIsVimeo(false);
+    
+    // Process OneDrive links if needed
+    if (videoSrc.includes('onedrive.live.com')) {
+      console.log('OneDrive link detected, using as is but might need transformation');
+    }
+    
+    setProcessedVideoSrc(videoSrc);
+    
+    // Check if the video can be loaded
+    const video = document.createElement('video');
+    video.muted = true; // Important for autoplay to work in most browsers
+    
+    const timeoutId = setTimeout(() => {
+      // Set error state if video takes too long to load
+      if (!isVideoLoaded) {
+        setLoadError(true);
       }
+    }, 10000); // 10 second timeout
+    
+    video.onloadeddata = () => {
+      setIsVideoLoaded(true);
+      clearTimeout(timeoutId);
     };
     
-    checkVideoValidity();
+    video.onerror = () => {
+      setIsVideoLoaded(false);
+      setLoadError(true);
+      clearTimeout(timeoutId);
+    };
+    
+    video.src = videoSrc;
+    video.load();
+    
+    return () => {
+      clearTimeout(timeoutId);
+      video.onerror = null;
+      video.onloadeddata = null;
+    };
   }, [videoSrc]);
-  
-  // Determine if we should show the fallback image
-  const shouldShowFallback = (!isVideoLoaded || !videoSrc || hasError) && fallbackImageSrc;
-  
+
   return (
     <div className="absolute inset-0 w-full h-full overflow-hidden z-0">
-      {videoSrc && (
+      {/* Vimeo iframe implementation */}
+      {isVimeo && vimeoIframeSrc ? (
+        <div className="relative w-full h-full">
+          <div className="absolute inset-0 bg-black/20 z-10"></div>
+          <iframe 
+            src={vimeoIframeSrc}
+            className="absolute top-0 left-0 w-[300%] h-[300%] left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]"
+            frameBorder="0" 
+            allow="autoplay; fullscreen" 
+            title="Vimeo Video Background"
+            loading="eager"
+          ></iframe>
+        </div>
+      ) : processedVideoSrc && !loadError ? (
+        // Regular video element for other video sources
         <video
-          ref={videoRef}
           autoPlay
           muted
           loop
           playsInline
-          className={`absolute inset-0 w-full h-full object-cover ${
-            isVideoLoaded ? 'opacity-100' : 'opacity-0'
-          } transition-opacity duration-500`}
+          className="absolute inset-0 w-full h-full object-cover"
           poster={fallbackImageSrc}
+          onError={() => {
+            setLoadError(true);
+          }}
         >
-          <source src={videoSrc} type={videoType} />
+          <source src={processedVideoSrc} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
-      )}
+      ) : null}
       
-      {shouldShowFallback && (
+      {/* Fallback image when video fails to load or is loading */}
+      {(loadError || (!isVideoLoaded && !isVimeo) || (!processedVideoSrc && !isVimeo)) && fallbackImageSrc && (
         <div 
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: `url("${fallbackImageSrc}")` }}
