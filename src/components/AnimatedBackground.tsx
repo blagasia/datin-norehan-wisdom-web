@@ -20,83 +20,118 @@ const AnimatedBackground = () => {
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
 
-    // Create particles
-    const particles: Particle[] = [];
-    const particleCount = Math.min(100, Math.floor(window.innerWidth / 20)); // Responsive count based on screen size
+    // Create petals and leaves
+    const elements: FloatingElement[] = [];
+    const elementCount = Math.min(50, Math.floor(window.innerWidth / 40)); // Fewer elements than particles
     
-    class Particle {
+    class FloatingElement {
       x: number;
       y: number;
+      type: 'petal' | 'leaf';
       size: number;
       speedX: number;
       speedY: number;
+      rotationSpeed: number;
+      rotation: number;
       color: string;
+      opacity: number;
+      sway: number;
+      swaySpeed: number;
 
       constructor() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 2 + 0.5;
-        this.speedX = Math.random() * 0.5 - 0.25;
-        this.speedY = Math.random() * 0.5 - 0.25;
+        this.type = Math.random() > 0.3 ? 'petal' : 'leaf';
+        this.size = this.type === 'petal' 
+          ? Math.random() * 10 + 5 // Petals a bit larger
+          : Math.random() * 8 + 6; // Leaves
+        this.speedX = Math.random() * 0.3 - 0.15;
+        this.speedY = Math.random() * 0.5 + 0.2; // Fall downward more
+        this.rotationSpeed = (Math.random() * 0.02 - 0.01);
+        this.rotation = Math.random() * Math.PI * 2;
+        this.opacity = Math.random() * 0.5 + 0.2;
+        this.sway = 0;
+        this.swaySpeed = Math.random() * 0.02 + 0.01;
         
-        // Soft colors that match the brand aesthetic
-        const colors = [
-          'rgba(233, 209, 219, 0.4)', // brand-blush-rose
-          'rgba(226, 223, 244, 0.4)', // brand-lavender-mist
-          'rgba(184, 160, 132, 0.2)', // brand-creamy-ivory
-          'rgba(26, 59, 58, 0.2)',    // brand-deep-teal
-        ];
-        this.color = colors[Math.floor(Math.random() * colors.length)];
+        // Colors for petals and leaves
+        if (this.type === 'petal') {
+          const petalColors = [
+            'rgba(255, 222, 226, 0.8)', // Soft Pink
+            'rgba(253, 225, 211, 0.7)', // Soft Peach
+            'rgba(233, 209, 219, 0.8)', // brand-blush-rose
+            'rgba(226, 223, 244, 0.7)', // brand-lavender-mist
+            'rgba(229, 222, 255, 0.7)', // Soft Purple
+          ];
+          this.color = petalColors[Math.floor(Math.random() * petalColors.length)];
+        } else {
+          const leafColors = [
+            'rgba(210, 223, 205, 0.7)', // brand-sage-mist
+            'rgba(242, 252, 226, 0.6)', // Soft Green
+            'rgba(184, 160, 132, 0.5)', // brand-creamy-ivory
+            'rgba(222, 238, 216, 0.6)', // Lighter green
+          ];
+          this.color = leafColors[Math.floor(Math.random() * leafColors.length)];
+        }
       }
 
       update() {
-        this.x += this.speedX;
+        // Update position with gentle sway
+        this.sway += this.swaySpeed;
+        this.x += this.speedX + Math.sin(this.sway) * 0.3;
         this.y += this.speedY;
+        this.rotation += this.rotationSpeed;
 
-        // Bounce off edges
-        if (this.x > canvas.width || this.x < 0) {
-          this.speedX = -this.speedX;
+        // Reset when off screen
+        if (this.y > canvas.height + this.size) {
+          this.y = -this.size * 2;
+          this.x = Math.random() * canvas.width;
+          this.speedY = Math.random() * 0.5 + 0.2;
         }
-        if (this.y > canvas.height || this.y < 0) {
-          this.speedY = -this.speedY;
+
+        // Wrap around sides
+        if (this.x > canvas.width + this.size) {
+          this.x = -this.size;
+        } else if (this.x < -this.size) {
+          this.x = canvas.width + this.size;
         }
       }
 
       draw() {
         if (!ctx) return;
+        
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.rotation);
         ctx.fillStyle = this.color;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
-
-    // Initialize particles
-    for (let i = 0; i < particleCount; i++) {
-      particles.push(new Particle());
-    }
-
-    // Connect particles with lines
-    function connectParticles() {
-      const maxDistance = 150;
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-
-          if (distance < maxDistance) {
-            if (!ctx) return;
-            const opacity = 1 - distance / maxDistance;
-            ctx.strokeStyle = `rgba(226, 223, 244, ${opacity * 0.2})`;
-            ctx.lineWidth = 1;
-            ctx.beginPath();
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.stroke();
-          }
+        
+        if (this.type === 'petal') {
+          // Draw a petal shape
+          ctx.beginPath();
+          ctx.ellipse(0, 0, this.size, this.size / 2, 0, 0, Math.PI * 2);
+          ctx.fill();
+        } else {
+          // Draw a leaf shape
+          ctx.beginPath();
+          // Leaf body
+          ctx.ellipse(0, 0, this.size / 2, this.size, 0, 0, Math.PI * 2);
+          ctx.fill();
+          
+          // Leaf vein
+          ctx.strokeStyle = `rgba(184, 160, 132, ${this.opacity})`;
+          ctx.lineWidth = 0.5;
+          ctx.beginPath();
+          ctx.moveTo(0, -this.size);
+          ctx.lineTo(0, this.size);
+          ctx.stroke();
         }
+        
+        ctx.restore();
       }
+    }
+
+    // Initialize floating elements
+    for (let i = 0; i < elementCount; i++) {
+      elements.push(new FloatingElement());
     }
 
     // Animation loop
@@ -104,12 +139,10 @@ const AnimatedBackground = () => {
       if (!ctx) return;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
-      particles.forEach(particle => {
-        particle.update();
-        particle.draw();
+      elements.forEach(element => {
+        element.update();
+        element.draw();
       });
-      
-      connectParticles();
       
       requestAnimationFrame(animate);
     };
