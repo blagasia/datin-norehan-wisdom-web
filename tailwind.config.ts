@@ -71,7 +71,7 @@ export default {
 					"muted-rose": "#C99A96",    // Secondary color
 					"soft-taupe": "#B3A99A",    // Secondary color
 					"lavender-mist": "#DDD8EF", // Secondary color
-					"gilded-gold": "#D4AF37",   // Accent color
+					"soft-lavender": "#E5DEFF", // New soft pastel secondary replacing gold
 					"orchid-pink": "#E68FAC",   // Accent color
 					"deep-teal": "#26767E",     // Accent color
 					"soft-gray": "#8E9196",     // Kept as is
@@ -79,7 +79,7 @@ export default {
 				},
 				natural: {
 					green: '#D2DFCD',           // Updated to match sage-mist
-					purple: '#DDD8EF',          // Updated to match lavender-mist
+					purple: '#E5DEFF',          // Updated to new soft-lavender
 					peach: '#F7D8D5',           // Updated to match blush-rose
 					gray: '#8E9196',            // Kept as is
 					dark: '#3A3A3A',            // Kept as is

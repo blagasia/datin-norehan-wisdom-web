@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
@@ -7,14 +8,14 @@ import { useToast } from '@/components/ui/use-toast';
 import CartButton from './cart/CartButton';
 import MobileNavigation from './navigation/MobileNavigation';
 import MainNavigation from './navigation/MainNavigation';
-import { useMedia } from '@/hooks/use-mobile';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { isLoggedIn, logout } = useLoyalty();
   const { toast } = useToast();
   const location = useLocation();
-  const isMobile = useMedia('(max-width: 1023px)');
+  const isMobile = useIsMobile();
   
   useEffect(() => {
     setIsMobileMenuOpen(false); // Close mobile menu on route change

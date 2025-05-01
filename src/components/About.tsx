@@ -28,7 +28,7 @@ const About = () => {
               Each product under the Datin Norehan brand reflects not just ingredients, but a philosophy of living in harmony with nature. Her meticulous approach ensures that every formulation honors the delicate balance between scientific understanding and ancestral wisdom.
             </p>
             
-            <div className="bg-natural-peach/20 p-6 rounded-lg mb-8 border-l-4 border-natural-peach">
+            <div className="bg-brand-soft-lavender/20 p-6 rounded-lg mb-8 border-l-4 border-brand-soft-lavender">
               <div className="flex items-start">
                 <Quote className="h-8 w-8 text-natural-dark/60 mr-4 flex-shrink-0 mt-1" />
                 <p className="italic text-natural-dark/80 font-italiana text-lg">
@@ -55,7 +55,7 @@ const About = () => {
                   className="w-full h-full object-cover object-top" 
                 />
               </div>
-              <div className="absolute -bottom-8 -right-8 bg-brand-blush-rose/80 rounded-lg p-6 shadow-md">
+              <div className="absolute -bottom-8 -right-8 bg-brand-soft-lavender/80 rounded-lg p-6 shadow-md">
                 <p className="font-italiana text-lg italic text-natural-dark">
                   "True wellness starts with nature's wisdom."
                 </p>

@@ -14,7 +14,7 @@ const RitualsPreview = () => {
     <section className="py-16 md:py-24 bg-brand-sage-mist/20">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <Badge className="bg-brand-gilded-gold text-white mb-3">Premium Collection</Badge>
+          <Badge className="bg-brand-soft-lavender text-brand-dark mb-3">Premium Collection</Badge>
           <div className="flex items-center justify-center gap-2 mb-4">
             <Package className="h-6 w-6 text-brand-deep-teal" />
             <h2 className="font-playfair text-3xl md:text-4xl font-bold">DNA Rituals</h2>
@@ -79,7 +79,7 @@ const RitualsPreview = () => {
             </Button>
           </Link>
           <Link to="/rituals/custom">
-            <Button variant="outline" className="border-brand-gilded-gold/30 hover:bg-brand-gilded-gold/10">
+            <Button variant="outline" className="border-brand-soft-lavender hover:bg-brand-soft-lavender/10">
               <Gift className="mr-2 h-4 w-4" />
               Create Custom Kit
             </Button>
