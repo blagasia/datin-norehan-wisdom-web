@@ -126,8 +126,8 @@ const Navbar = () => {
     >
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center">
-          <Link to="/" className="text-2xl font-playfair font-bold">
-            Datin Norehan
+          <Link to="/" className="text-xl md:text-2xl font-italiana tracking-wide">
+            Datin Norehan Apothecary
           </Link>
 
           {!isMobile ? (
@@ -239,8 +239,8 @@ const Navbar = () => {
                 <SheetContent side="right" className="bg-white border-l border-brand-blush-rose/20">
                   <nav className="flex flex-col h-full">
                     <div className="py-4 border-b border-brand-blush-rose/20">
-                      <Link to="/" className="text-xl font-playfair font-bold">
-                        Datin Norehan
+                      <Link to="/" className="text-xl font-italiana tracking-wide">
+                        Datin Norehan Apothecary
                       </Link>
                     </div>
                     

@@ -42,13 +42,13 @@ const Hero = () => {
   return (
     <div className="flex flex-col">
       {/* Hero Section - Asever-inspired full-width minimal hero */}
-      <section className="relative bg-white pt-6 pb-16 md:pt-10 md:pb-20">
+      <section className="relative bg-white pt-24 pb-16 md:pt-32 md:pb-20">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="font-italiana text-4xl md:text-5xl lg:text-6xl uppercase tracking-wide mb-6">
+            <h1 className="font-italiana text-4xl md:text-5xl lg:text-6xl uppercase tracking-wide mb-8">
               Natural holistic wellness
             </h1>
-            <p className="font-karla text-base md:text-lg mb-10 text-brand-soft-gray leading-relaxed max-w-2xl mx-auto">
+            <p className="font-karla text-base md:text-lg mb-12 text-brand-soft-gray leading-relaxed max-w-2xl mx-auto">
               Premium formulations with traditional wisdom for modern wellbeing.
             </p>
             <div className="flex justify-center">
@@ -63,20 +63,20 @@ const Hero = () => {
       </section>
       
       {/* Full-width hero image - Asever style */}
-      <section className="w-full h-[70vh] relative overflow-hidden">
+      <section className="w-full h-[80vh] relative overflow-hidden">
         <img 
-          src="https://images.unsplash.com/photo-1564305736039-3d0f7c23fd0e?q=80" 
+          src="https://images.unsplash.com/photo-1617897903246-719242758050?q=80&w=2670&auto=format&fit=crop" 
           alt="DNA by Datin Norehan" 
           className="w-full h-full object-cover object-center"
         />
       </section>
       
       {/* Brand Statement - Clean minimalist text block */}
-      <section className="py-20 bg-white">
+      <section className="py-24 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="font-italiana text-2xl md:text-3xl uppercase tracking-wide mb-6">The DNA Vision</h2>
-            <p className="font-karla text-lg text-brand-soft-gray leading-relaxed mb-6 max-w-2xl mx-auto">
+            <h2 className="font-italiana text-2xl md:text-3xl uppercase tracking-wide mb-8">The DNA Vision</h2>
+            <p className="font-karla text-lg text-brand-soft-gray leading-relaxed mb-8 max-w-2xl mx-auto">
               A curated collection of natural formulations that embody our commitment to traditional wellness practices. 
               Each product celebrates the harmony between ancient knowledge and modern self-care rituals.
             </p>
@@ -85,16 +85,16 @@ const Hero = () => {
       </section>
       
       {/* Shop Categories - Asever-inspired grid */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4 mb-12">
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4 mb-16">
           <h2 className="font-italiana text-2xl uppercase text-center tracking-wide mb-16">Shop the Collection</h2>
           
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {/* DNA Elixirs */}
             <Link to="/products" className="group">
               <div className="aspect-square bg-white relative overflow-hidden mb-4">
                 <img 
-                  src="https://images.unsplash.com/photo-1564305736039-3d0f7c23fd0e?q=80" 
+                  src="https://images.unsplash.com/photo-1598452963314-b09f397a5c48?q=80&w=1470&auto=format&fit=crop" 
                   alt="DNA Elixirs" 
                   className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
                 />
@@ -106,7 +106,7 @@ const Hero = () => {
             <Link to="/rituals" className="group">
               <div className="aspect-square bg-white relative overflow-hidden mb-4">
                 <img 
-                  src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?q=80" 
+                  src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?q=80&w=1480&auto=format&fit=crop" 
                   alt="DNA Ritual Kits" 
                   className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
                 />
@@ -118,7 +118,7 @@ const Hero = () => {
             <Link to="/articles" className="group">
               <div className="aspect-square bg-white relative overflow-hidden mb-4">
                 <img 
-                  src="https://images.unsplash.com/photo-1532153955177-f59af40d6472?q=80" 
+                  src="https://images.unsplash.com/photo-1532153955177-f59af40d6472?q=80&w=1470&auto=format&fit=crop" 
                   alt="DNA Wisdom" 
                   className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
                 />
@@ -130,7 +130,7 @@ const Hero = () => {
             <div className="group relative">
               <div className="aspect-square bg-white relative overflow-hidden mb-4">
                 <img 
-                  src="https://images.unsplash.com/photo-1611242320536-f12d3541249b?q=80" 
+                  src="https://images.unsplash.com/photo-1611242320536-f12d3541249b?q=80&w=1470&auto=format&fit=crop" 
                   alt="DNA Curations" 
                   className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 opacity-80"
                 />
@@ -145,16 +145,16 @@ const Hero = () => {
       </section>
       
       {/* Newsletter Section - Asever-inspired minimalist form */}
-      <section className="py-20 bg-brand-creamy-ivory border-t border-brand-blush-rose/10">
+      <section className="py-24 bg-brand-creamy-ivory border-t border-brand-blush-rose/10">
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mx-auto text-center">
-            <h2 className="font-italiana text-2xl uppercase tracking-wide mb-6">Join Our Community</h2>
-            <p className="font-karla text-brand-soft-gray mb-10 max-w-lg mx-auto">
+            <h2 className="font-italiana text-2xl uppercase tracking-wide mb-8">Join Our Community</h2>
+            <p className="font-karla text-brand-soft-gray mb-12 max-w-lg mx-auto">
               Subscribe to receive exclusive content, early access to product launches, and invitations to our wellness events.
             </p>
             
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="mb-6">
+              <form onSubmit={form.handleSubmit(onSubmit)} className="mb-8">
                 <div className="flex flex-col sm:flex-row gap-4">
                   <div className="flex-grow">
                     <FormField
