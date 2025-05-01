@@ -25,7 +25,7 @@ const Index = () => {
       <div className="min-h-screen flex flex-col relative">
         <Navbar />
         <div className="pt-16 md:pt-20 lg:pt-24 relative z-10">
-          <main className="flex-grow">
+          <main className="flex-grow overflow-x-hidden"> {/* Added overflow-x-hidden to prevent horizontal scrolling with parallax */}
             <Hero />
             <Features />
             <Products />
