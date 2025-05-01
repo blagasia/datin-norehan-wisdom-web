@@ -10,6 +10,7 @@ import { z } from 'zod';
 import { useToast } from '@/hooks/use-toast';
 import { ArrowRight, Sparkles, Feather } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 
 const subscribeSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email" }),
@@ -120,6 +121,111 @@ const Hero = () => {
           </div>
         </div>
       </section>
+      
+      {/* New Scrolling Image Carousel */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-10">
+              <div className="inline-block mb-5 relative">
+                <span className="inline-block w-12 h-[1px] bg-brand-muted-rose"></span>
+                <span className="inline-block mx-4 font-karla text-sm tracking-widest text-brand-muted-rose">WELLNESS JOURNEY</span>
+                <span className="inline-block w-12 h-[1px] bg-brand-muted-rose"></span>
+              </div>
+              <h2 className="font-italiana text-3xl md:text-4xl uppercase tracking-wide mb-6">Our Botanical Philosophy</h2>
+            </div>
+            
+            <Carousel className="w-full">
+              <CarouselContent>
+                {/* Slide 1: Traditional wisdom. Modern wellness. */}
+                <CarouselItem>
+                  <div className="h-[500px] md:h-[600px] relative overflow-hidden rounded-lg">
+                    <div className="absolute inset-0 bg-cover bg-center" 
+                         style={{backgroundImage: `url("/lovable-uploads/64130d34-d04d-40bb-9931-9c8f94a36cae.png")`}}>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-black/10"></div>
+                    </div>
+                    <div className="absolute inset-0 flex items-center justify-center p-8">
+                      <div className="text-center animate-fade-in max-w-xl">
+                        <h2 className="font-italiana text-3xl md:text-4xl lg:text-5xl text-white mb-6 tracking-wide">
+                          <span className="block animate-fade-up" style={{animationDelay: '0.3s'}}>Traditional wisdom.</span>
+                          <span className="block animate-fade-up" style={{animationDelay: '0.6s'}}>Modern wellness.</span>
+                        </h2>
+                        <p className="font-karla text-lg md:text-xl text-white/90 animate-fade-up" style={{animationDelay: '0.9s'}}>
+                          Celebrating diverse beauty through holistic self-care rituals passed down through generations.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </CarouselItem>
+                
+                {/* Slide 2: Nature's Treasures */}
+                <CarouselItem>
+                  <div className="h-[500px] md:h-[600px] relative overflow-hidden rounded-lg">
+                    <div className="absolute inset-0 bg-cover bg-center" 
+                         style={{backgroundImage: `url("/lovable-uploads/1d2d4ba3-6798-432d-b239-3d1bdc235172.png")`}}>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-black/10"></div>
+                    </div>
+                    <div className="absolute inset-0 flex items-center justify-center p-8">
+                      <div className="text-center animate-fade-in max-w-xl">
+                        <h2 className="font-italiana text-3xl md:text-4xl lg:text-5xl text-white mb-6 tracking-wide animate-fade-up">
+                          Nature's Treasures
+                        </h2>
+                        <p className="font-karla text-lg md:text-xl text-white/90 animate-fade-up" style={{animationDelay: '0.3s'}}>
+                          Our formulations harness the power of Malaysia's botanical heritage, carefully selected and crafted to restore balance and harmony.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </CarouselItem>
+                
+                {/* Slide 3: Holistic Rituals */}
+                <CarouselItem>
+                  <div className="h-[500px] md:h-[600px] relative overflow-hidden rounded-lg">
+                    <div className="absolute inset-0 bg-cover bg-center" 
+                         style={{backgroundImage: `url("/lovable-uploads/ef24f11c-1a63-4afa-b882-f95a045b873f.png")`}}>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-black/10"></div>
+                    </div>
+                    <div className="absolute inset-0 flex items-center justify-center p-8">
+                      <div className="text-center animate-fade-in max-w-xl">
+                        <h2 className="font-italiana text-3xl md:text-4xl lg:text-5xl text-white mb-6 tracking-wide animate-fade-up">
+                          Sacred Self-Care
+                        </h2>
+                        <p className="font-karla text-lg md:text-xl text-white/90 animate-fade-up" style={{animationDelay: '0.3s'}}>
+                          Transform everyday moments into meaningful rituals that honor your body's innate wisdom and natural rhythms.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </CarouselItem>
+                
+                {/* Slide 4: Botanical Harmony */}
+                <CarouselItem>
+                  <div className="h-[500px] md:h-[600px] relative overflow-hidden rounded-lg">
+                    <div className="absolute inset-0 bg-cover bg-center" 
+                         style={{backgroundImage: `url("/lovable-uploads/5f0e6477-2199-4db9-babb-73c92b345eea.png")`}}>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-black/10"></div>
+                    </div>
+                    <div className="absolute inset-0 flex items-center justify-center p-8">
+                      <div className="text-center animate-fade-in max-w-xl">
+                        <h2 className="font-italiana text-3xl md:text-4xl lg:text-5xl text-white mb-6 tracking-wide animate-fade-up">
+                          Botanical Harmony
+                        </h2>
+                        <p className="font-karla text-lg md:text-xl text-white/90 animate-fade-up" style={{animationDelay: '0.3s'}}>
+                          Each ingredient tells a story of our connection to nature—a delicate balance of science and ancient healing traditions.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </CarouselItem>
+              </CarouselContent>
+              <div className="flex justify-center gap-2 mt-6">
+                <CarouselPrevious className="static translate-y-0 mx-2 bg-brand-blush-rose/10 hover:bg-brand-blush-rose/20 border-brand-blush-rose/30" />
+                <CarouselNext className="static translate-y-0 mx-2 bg-brand-blush-rose/10 hover:bg-brand-blush-rose/20 border-brand-blush-rose/30" />
+              </div>
+            </Carousel>
+          </div>
+        </div>
+      </section>
             
       {/* Brand Statement - Enhanced with subtle animations */}
       <section className="py-24 bg-brand-creamy-ivory/50">
@@ -141,41 +247,6 @@ const Hero = () => {
               <span className="bg-brand-orchid-pink/20 text-brand-dark px-4 py-1 text-sm rounded-full">Clean Formulations</span>
               <span className="bg-brand-creamy-ivory/60 text-brand-dark px-4 py-1 text-sm rounded-full border border-brand-muted-rose/20">Artisanal Process</span>
             </div>
-          </div>
-        </div>
-      </section>
-      
-      {/* Updated Traditional Wisdom. Modern Wellness section with new image and enlarged animated text */}
-      <section className="relative overflow-hidden">
-        {/* New image as background */}
-        <div className="w-full h-[70vh] md:h-[80vh] bg-cover bg-center" 
-             style={{backgroundImage: `url("/lovable-uploads/64130d34-d04d-40bb-9931-9c8f94a36cae.png")`}}>
-          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60"></div>
-          
-          {/* Centered text with animation */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="text-center px-4 animate-fade-in">
-              <h2 className="font-italiana text-4xl md:text-5xl lg:text-6xl text-white mb-6 tracking-wide animate-scale-in">
-                <span className="block animate-fade-up" style={{animationDelay: '0.3s'}}>Traditional wisdom.</span>
-                <span className="block animate-fade-up" style={{animationDelay: '0.6s'}}>Modern wellness.</span>
-              </h2>
-              <p className="font-karla text-xl md:text-2xl text-white/90 max-w-2xl mx-auto animate-fade-up" style={{animationDelay: '0.9s'}}>
-                Celebrating diverse beauty through holistic self-care.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-      
-      {/* Nature's Treasures - Now full width */}
-      <section className="relative z-20 w-full">
-        <div className="w-full bg-white/80 backdrop-blur-sm py-12 px-4" 
-             style={{backgroundImage: "url('/lovable-uploads/56c8ecfc-b55a-466b-8542-f2c698fb2dc3.png')", backgroundSize: '400px', backgroundBlendMode: 'overlay'}}>
-          <div className="container mx-auto text-center">
-            <h3 className="font-italiana text-2xl md:text-3xl lg:text-4xl mb-6 animate-fade-in">Nature's Treasures</h3>
-            <p className="font-karla text-lg md:text-xl text-brand-soft-gray max-w-2xl mx-auto animate-fade-up" style={{animationDelay: '0.3s'}}>
-              Our formulations harness the power of Malaysia's botanical heritage, carefully selected and crafted to restore balance and harmony.
-            </p>
           </div>
         </div>
       </section>
