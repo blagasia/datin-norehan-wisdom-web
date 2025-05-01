@@ -27,7 +27,7 @@ export const ritualProducts: RitualProduct[] = [
     id: 1,
     name: "Premium Bamboo Measuring Scoop",
     price: "RM 49",
-    image: "/lovable-uploads/4ddaea33-257c-43da-bded-9333666ec434.png",
+    image: "/lovable-uploads/28ab43d8-2932-4793-8a02-c1af2e710bf2.png", // Updated
     category: "Accessories",
     description: "Precision bamboo measuring scoop designed specifically for DNA Elixirs. Elegant, eco-friendly, and essential for your daily wellness ritual.",
     customizable: true,
@@ -43,7 +43,7 @@ export const ritualProducts: RitualProduct[] = [
     id: 2,
     name: "DNA Ritual Ceramic Mug",
     price: "RM 79",
-    image: "/lovable-uploads/926a7f00-5847-45af-a782-8e849e1db897.png",
+    image: "/lovable-uploads/c1cf7a81-becb-434a-ba10-34f2bfc6e418.png", // Updated
     category: "Accessories",
     description: "Handcrafted ceramic mug with gold accent, designed to elevate your daily wellness rituals. Perfect for your morning elixir blend.",
     customizable: true,
@@ -59,7 +59,7 @@ export const ritualProducts: RitualProduct[] = [
     id: 3,
     name: "Mini Portable Blender",
     price: "RM 159",
-    image: "/lovable-uploads/34f94502-8118-4f8e-95d0-13db35fd36bb.png",
+    image: "/lovable-uploads/cb10aacc-5a7a-473c-9341-adc8c270d0f2.png", // Updated
     category: "Accessories",
     description: "Rechargeable portable blender, perfect for creating smooth elixir mixtures anywhere. Includes USB charging cable and travel case.",
     customizable: true,
@@ -75,7 +75,7 @@ export const ritualProducts: RitualProduct[] = [
     id: 4,
     name: "Morning Glow Ritual Kit",
     price: "RM 289",
-    image: "/lovable-uploads/afa1593f-8b8c-4b88-9806-09cbc6f7618d.png",
+    image: "/lovable-uploads/17b2f70d-878c-47a4-b942-4f69f9dc2c5b.png", // Updated
     category: "Ready Bundles",
     description: "Complete morning ritual kit featuring our Natural Collagen Boost, premium bamboo measuring scoop, and exclusive ceramic mug. Start your day with radiance.",
     customizable: true,
@@ -95,13 +95,13 @@ export const ritualProducts: RitualProduct[] = [
         name: "Premium Bamboo Measuring Scoop",
         type: "accessory",
         quantity: 1,
-        image: "/lovable-uploads/4ddaea33-257c-43da-bded-9333666ec434.png"
+        image: "/lovable-uploads/28ab43d8-2932-4793-8a02-c1af2e710bf2.png" // Updated
       },
       {
         name: "DNA Ritual Ceramic Mug",
         type: "accessory",
         quantity: 1,
-        image: "/lovable-uploads/926a7f00-5847-45af-a782-8e849e1db897.png"
+        image: "/lovable-uploads/c1cf7a81-becb-434a-ba10-34f2bfc6e418.png" // Updated
       }
     ]
   },
@@ -109,7 +109,7 @@ export const ritualProducts: RitualProduct[] = [
     id: 5,
     name: "Beauty Sleep Ritual Bundle",
     price: "RM 249",
-    image: "/lovable-uploads/56c8ecfc-b55a-466b-8542-f2c698fb2dc3.png",
+    image: "/lovable-uploads/5a036f15-ad25-4f98-b74e-196eb003b9c9.png", // Updated
     category: "Ready Bundles",
     description: "Transform your evening routine with our Calming Sleep Blend, premium Lavender Eye Pillow, and infuser bottle. The perfect gift for self-care enthusiasts.",
     customizable: true,
@@ -129,13 +129,13 @@ export const ritualProducts: RitualProduct[] = [
         name: "Lavender Eye Pillow",
         type: "accessory",
         quantity: 1,
-        image: "https://images.unsplash.com/photo-1620916566886-fbdf93a6c9d6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80"
+        image: "/lovable-uploads/4c236ef0-6021-439c-a483-668ac8a8a72d.png" // Updated
       },
       {
         name: "Glass Infuser Bottle",
         type: "accessory",
         quantity: 1,
-        image: "https://images.unsplash.com/photo-1536939459926-301728717817?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80"
+        image: "/lovable-uploads/f11405ea-a912-4a47-a89a-6731e42ec873.png" // Updated
       }
     ]
   },
@@ -143,7 +143,7 @@ export const ritualProducts: RitualProduct[] = [
     id: 6,
     name: "Custom Ritual Kit Builder",
     price: "From RM 199",
-    image: "/lovable-uploads/926a7f00-5847-45af-a782-8e849e1db897.png",
+    image: "/lovable-uploads/0eac78ee-8a47-4f36-82e6-165e32f3d2d0.png", // Updated
     category: "Custom Kits",
     description: "Create your perfect ritual by combining any DNA Elixir with your choice of accessories. Customize colors, add name engravings, and select gift packaging options.",
     customizable: true,
@@ -200,4 +200,3 @@ export const productUpsells = {
     }
   ]
 };
-

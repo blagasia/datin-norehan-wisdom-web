@@ -30,11 +30,27 @@ const RitualsPreview = () => {
             <div key={product.id} className="group bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 transition-all duration-300 hover:shadow-md">
               <Link to={`/rituals/${product.id}`} className="block">
                 <div className="relative h-64 overflow-hidden">
-                  <img 
-                    src={product.image} 
-                    alt={product.name} 
-                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                  />
+                  {product.id === 1 && (
+                    <img 
+                      src="/lovable-uploads/28ab43d8-2932-4793-8a02-c1af2e710bf2.png" 
+                      alt={product.name} 
+                      className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                    />
+                  )}
+                  {product.id === 2 && (
+                    <img 
+                      src="/lovable-uploads/c1cf7a81-becb-434a-ba10-34f2bfc6e418.png" 
+                      alt={product.name} 
+                      className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                    />
+                  )}
+                  {product.id === 3 && (
+                    <img 
+                      src="/lovable-uploads/cb10aacc-5a7a-473c-9341-adc8c270d0f2.png" 
+                      alt={product.name} 
+                      className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                    />
+                  )}
                   <div className="absolute top-2 right-2 bg-natural-purple px-3 py-1 text-xs font-medium rounded-full">
                     {product.category}
                   </div>
@@ -74,4 +90,3 @@ const RitualsPreview = () => {
 };
 
 export default RitualsPreview;
-

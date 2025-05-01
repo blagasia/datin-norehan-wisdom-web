@@ -29,7 +29,7 @@ const ProductGallery = ({ productId, mainImage }: ProductGalleryProps) => {
     <div className="relative">
       <Carousel 
         className="w-full"
-        onSelect={(index) => setActiveIndex(index)}
+        onSelect={(api) => setActiveIndex(api.selectedScrollSnap())}
       >
         <CarouselContent>
           {allImages.map((image, index) => (

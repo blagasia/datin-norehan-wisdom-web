@@ -13,7 +13,7 @@ const DnaBrand = () => {
       <main className="flex-grow">
         {/* Hero Section */}
         <div className="relative py-20 md:py-28">
-          <div className="absolute inset-0 bg-[url('/lovable-uploads/926a7f00-5847-45af-a782-8e849e1db897.png')] bg-cover bg-center opacity-20"></div>
+          <div className="absolute inset-0 bg-[url('/lovable-uploads/c1cf7a81-becb-434a-ba10-34f2bfc6e418.png')] bg-cover bg-center opacity-20"></div>
           <div className="container mx-auto px-4 text-center relative z-10">
             <h1 className="font-playfair text-4xl md:text-5xl font-bold mb-6">DNA by Datin Norehan</h1>
             <p className="text-xl text-natural-dark max-w-3xl mx-auto">
@@ -57,12 +57,12 @@ const DnaBrand = () => {
                 <div className="mb-12">
                   <div className="relative h-64 md:h-96 rounded-xl overflow-hidden mb-4">
                     <img 
-                      src="/lovable-uploads/7e6f7992-a735-45ec-b641-98b2928c9e3f.png" 
-                      alt="Datin Norehan with her products"
+                      src="/lovable-uploads/5eff846b-47c1-4023-9c62-ddcf04020588.png" 
+                      alt="Datin Norehan's floral design concept"
                       className="w-full h-full object-cover object-center"
                     />
                   </div>
-                  <p className="text-sm text-center text-natural-gray italic">Datin Norehan with her signature DNA collection formulations</p>
+                  <p className="text-sm text-center text-natural-gray italic">Datin Norehan's signature floral design concept for DNA collection</p>
                 </div>
                 
                 <p className="text-natural-gray mb-6 leading-relaxed">

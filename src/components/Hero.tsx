@@ -91,12 +91,12 @@ const Hero = () => {
         </div>
       </section>
       
-      {/* Full-width hero image with parallax effect */}
+      {/* Full-width hero image with parallax effect - Updated with new image */}
       <section className="parallax-container w-full h-[80vh] relative overflow-hidden">
         <div 
           className="parallax-bg bg-cover bg-center w-full h-[100vh] absolute" 
           style={{
-            backgroundImage: `url("/lovable-uploads/e764b251-1929-4b30-aa8e-eea084ef5647.png")`,
+            backgroundImage: `url("/lovable-uploads/f11405ea-a912-4a47-a89a-6731e42ec873.png")`,
             ...getParallaxStyle(0.3)
           }}
         ></div>
@@ -145,12 +145,12 @@ const Hero = () => {
         </div>
       </section>
       
-      {/* Dreamy Nature Imagery Section with Parallax */}
+      {/* Dreamy Nature Imagery Section with Parallax - Updated with new image */}
       <section className="parallax-container h-[60vh] relative overflow-hidden">
         <div 
           className="parallax-bg bg-cover bg-center w-full h-[70vh] absolute dreamy-filter" 
           style={{
-            backgroundImage: `url("/lovable-uploads/f971d600-dd8b-4ec9-b0cb-adc7e2ba35bc.png")`,
+            backgroundImage: `url("/lovable-uploads/5a036f15-ad25-4f98-b74e-196eb003b9c9.png")`,
             ...getParallaxStyle(0.4)
           }}
         ></div>
@@ -180,7 +180,7 @@ const Hero = () => {
             <Link to="/products" className="group">
               <div className="aspect-square bg-white relative overflow-hidden mb-4 shadow-sm">
                 <img 
-                  src="https://images.unsplash.com/photo-1598452963314-b09f397a5c48?q=80&w=1470&auto=format&fit=crop" 
+                  src="/lovable-uploads/f11405ea-a912-4a47-a89a-6731e42ec873.png"
                   alt="DNA Elixirs" 
                   className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
                 />
@@ -193,7 +193,7 @@ const Hero = () => {
             <Link to="/rituals" className="group">
               <div className="aspect-square bg-white relative overflow-hidden mb-4 shadow-sm">
                 <img 
-                  src="/lovable-uploads/0b730717-61b7-43a1-87d3-af95a3cf601b.png" 
+                  src="/lovable-uploads/56f32cef-4b88-425f-9117-cfcc52576aaf.png"
                   alt="DNA Ritual Kits" 
                   className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
                 />
@@ -206,7 +206,7 @@ const Hero = () => {
             <Link to="/articles" className="group">
               <div className="aspect-square bg-white relative overflow-hidden mb-4 shadow-sm">
                 <img 
-                  src="https://images.unsplash.com/photo-1532153955177-f59af40d6472?q=80&w=1470&auto=format&fit=crop" 
+                  src="/lovable-uploads/4c236ef0-6021-439c-a483-668ac8a8a72d.png"
                   alt="DNA Wisdom" 
                   className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
                 />
@@ -219,7 +219,7 @@ const Hero = () => {
             <div className="group relative">
               <div className="aspect-square bg-white relative overflow-hidden mb-4 shadow-sm">
                 <img 
-                  src="/lovable-uploads/7e6f7992-a735-45ec-b641-98b2928c9e3f.png" 
+                  src="/lovable-uploads/5eff846b-47c1-4023-9c62-ddcf04020588.png" 
                   alt="DNA Curations" 
                   className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 opacity-90"
                 />
@@ -246,12 +246,12 @@ const Hero = () => {
         </div>
       </section>
       
-      {/* Whimsical Natural Elements with Parallax */}
+      {/* Whimsical Natural Elements with Parallax - Updated with new image */}
       <section className="parallax-container h-[50vh] relative overflow-hidden">
         <div 
           className="parallax-bg bg-cover bg-center w-full h-[60vh] absolute dreamy-filter" 
           style={{
-            backgroundImage: `url("/lovable-uploads/0b730717-61b7-43a1-87d3-af95a3cf601b.png")`,
+            backgroundImage: `url("/lovable-uploads/c1cf7a81-becb-434a-ba10-34f2bfc6e418.png")`,
             ...getParallaxStyle(0.5)
           }}
         ></div>
