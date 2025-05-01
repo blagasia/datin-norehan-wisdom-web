@@ -1,10 +1,35 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Facebook, Instagram, Twitter, Youtube, Book, Calendar, ShoppingBag, Compass, MapPin, Mail, Phone } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { useToast } from '@/hooks/use-toast';
 
 const Footer = () => {
+  const [email, setEmail] = useState('');
+  const { toast } = useToast();
   const currentYear = new Date().getFullYear();
+
+  const handleSubscribe = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!email.trim()) {
+      toast({
+        title: "Email required",
+        description: "Please enter your email address",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    // In a real implementation, this would connect to an API
+    toast({
+      title: "Subscription successful!",
+      description: "Thank you for subscribing to our newsletter",
+    });
+    
+    setEmail('');
+  };
 
   return (
     <footer className="bg-brand-dark text-white pt-16 pb-8">
@@ -109,19 +134,21 @@ const Footer = () => {
           <div className="max-w-3xl mx-auto text-center">
             <h4 className="font-playfair text-xl mb-4">Join Our Newsletter</h4>
             <p className="text-white/70 mb-6">Stay updated with our latest products, wellness tips, and exclusive offers.</p>
-            <form className="flex flex-col sm:flex-row gap-2 max-w-md mx-auto">
+            <form className="flex flex-col sm:flex-row gap-2 max-w-md mx-auto" onSubmit={handleSubscribe}>
               <input 
                 type="email" 
                 placeholder="Your email address" 
                 className="px-4 py-2 bg-white/10 border border-white/20 rounded-md focus:outline-none focus:ring-1 focus:ring-brand-gilded-gold focus:border-brand-gilded-gold text-white w-full"
                 aria-label="Email address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
-              <button 
+              <Button 
                 type="submit" 
-                className="bg-brand-gilded-gold hover:bg-brand-gilded-gold/90 text-brand-dark px-5 py-2 rounded-md transition-colors duration-300 font-medium"
+                variant="taupe"
               >
                 Subscribe
-              </button>
+              </Button>
             </form>
           </div>
         </div>
