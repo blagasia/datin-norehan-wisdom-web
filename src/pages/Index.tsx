@@ -12,7 +12,6 @@ import About from '@/components/About';
 import Footer from '@/components/Footer';
 import { Toaster } from '@/components/ui/toaster';
 import { LoyaltyProvider } from '@/context/LoyaltyContext';
-import VideoBackground from '@/components/VideoBackground';
 
 const Index = () => {
   return (
