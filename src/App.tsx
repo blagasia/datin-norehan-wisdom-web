@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -28,53 +27,64 @@ import PromotionManager from "@/components/promotions/PromotionManager";
 import DnaBrand from "./pages/DnaBrand";
 import Categories from "./pages/Categories";
 import ChatAgent from "./components/ChatAgent";
+import PrivacyPolicy from '@/pages/PrivacyPolicy';
+import TermsOfService from '@/pages/TermsOfService';
+import ShippingPolicy from '@/pages/ShippingPolicy';
+import ReturnPolicy from '@/pages/ReturnPolicy';
+import CookieConsent from '@/components/CookieConsent';
 
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <LoyaltyProvider>
-        <CartProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <PromotionManager />
-            <ChatAgent />
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/products" element={<Products />} />
-              <Route path="/products/:productId" element={<ProductDetail />} />
-              <Route path="/articles" element={<Articles />} />
-              <Route path="/articles/:articleId" element={<ArticleDetail />} />
-              <Route path="/ask" element={<Ask />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/philosophy" element={<Philosophy />} />
-              <Route path="/story" element={<Story />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/events" element={<VirtualEvents />} />
-              <Route path="/events/:eventId" element={<EventDetail />} />
-              <Route path="/admin" element={<Admin />} />
-              <Route path="/loyalty" element={<Loyalty />} />
-              <Route path="/rituals" element={<Rituals />} />
-              <Route path="/rituals/:productId" element={<RitualDetail />} />
-              <Route path="/rituals/custom" element={<RitualCustom />} />
-              {/* New DNA brand routes */}
-              <Route path="/dna-brand" element={<DnaBrand />} />
-              <Route path="/categories" element={<Categories />} />
-              {/* Curations routes */}
-              <Route path="/curations/upcoming" element={<NotFound />} />
-              <Route path="/curations/exclusive" element={<NotFound />} />
-              <Route path="/curations/membership" element={<NotFound />} />
-              <Route path="/curations/register" element={<NotFound />} />
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </BrowserRouter>
-        </CartProvider>
-      </LoyaltyProvider>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+function App() {
+  return (
+    <>
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <LoyaltyProvider>
+            <CartProvider>
+              <Toaster />
+              <Sonner />
+              <BrowserRouter>
+                <PromotionManager />
+                <ChatAgent />
+                <Routes>
+                  <Route path="/" element={<Index />} />
+                  <Route path="/products" element={<Products />} />
+                  <Route path="/products/:productId" element={<ProductDetail />} />
+                  <Route path="/articles" element={<Articles />} />
+                  <Route path="/articles/:articleId" element={<ArticleDetail />} />
+                  <Route path="/ask" element={<Ask />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/philosophy" element={<Philosophy />} />
+                  <Route path="/story" element={<Story />} />
+                  <Route path="/contact" element={<Contact />} />
+                  <Route path="/events" element={<VirtualEvents />} />
+                  <Route path="/events/:eventId" element={<EventDetail />} />
+                  <Route path="/admin" element={<Admin />} />
+                  <Route path="/loyalty" element={<Loyalty />} />
+                  <Route path="/rituals" element={<Rituals />} />
+                  <Route path="/rituals/:productId" element={<RitualDetail />} />
+                  <Route path="/rituals/custom" element={<RitualCustom />} />
+                  {/* New DNA brand routes */}
+                  <Route path="/dna-brand" element={<DnaBrand />} />
+                  <Route path="/categories" element={<Categories />} />
+                  {/* Curations routes */}
+                  <Route path="/curations/upcoming" element={<NotFound />} />
+                  <Route path="/curations/exclusive" element={<NotFound />} />
+                  <Route path="/curations/membership" element={<NotFound />} />
+                  <Route path="/curations/register" element={<NotFound />} />
+                  {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </BrowserRouter>
+            </CartProvider>
+          </LoyaltyProvider>
+        </TooltipProvider>
+      </QueryClientProvider>
+      
+      <CookieConsent />
+    </>
+  );
+}
 
 export default App;
