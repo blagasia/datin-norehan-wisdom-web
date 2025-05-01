@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { 
@@ -42,8 +41,8 @@ ListItem.displayName = "ListItem";
 
 const mainNavItems = [
   { name: 'Our Story', path: '/story' },
-  { name: 'About', path: '/about' },
-  { name: 'Ask Datin', path: '/ask' },
+  { name: 'Our Philosophy', path: '/philosophy' },
+  { name: 'Our Brand', path: '/dna-brand' },
 ];
 
 const dnaShopItems = [
@@ -201,6 +200,15 @@ const MainNavigation = () => {
 
       <div className="flex items-center gap-4">
         <LoyaltyWidget />
+        <Link to="/ask">
+          <Button
+            variant="outline"
+            size="sm"
+            className="border-brand-deep-teal text-brand-deep-teal hover:bg-brand-deep-teal hover:text-white flex items-center gap-2"
+          >
+            Ask Datin
+          </Button>
+        </Link>
         <Link to="/loyalty">
           <Button
             variant="outline"

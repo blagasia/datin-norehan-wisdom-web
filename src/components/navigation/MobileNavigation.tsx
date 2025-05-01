@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { Menu, X, User, ShoppingBag } from 'lucide-react';
+import { Menu, User, ShoppingBag } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import LoyaltyWidget from '@/components/loyalty/LoyaltyWidget';
@@ -46,8 +46,8 @@ const curationsItems = [
 
 const mainNavItems = [
   { name: 'Our Story', path: '/story' },
-  { name: 'About', path: '/about' },
-  { name: 'Ask Datin', path: '/ask' },
+  { name: 'Our Philosophy', path: '/philosophy' },
+  { name: 'Our Brand', path: '/dna-brand' },
 ];
 
 const MobileNavigation = () => {
@@ -103,6 +103,16 @@ const MobileNavigation = () => {
                     </NavLink>
                   </li>
                 ))}
+                <li>
+                  <NavLink
+                    to="/ask"
+                    className={({ isActive }) =>
+                      `${navItemClasses} ${isActive ? activeNavItemClasses : ''} block py-1`
+                    }
+                  >
+                    Ask Datin
+                  </NavLink>
+                </li>
               </ul>
             </div>
             
