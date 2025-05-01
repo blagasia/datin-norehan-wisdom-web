@@ -29,20 +29,31 @@ const EventsPreview = () => {
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {upcomingEvents.map(event => (
+          {upcomingEvents.map((event, index) => (
             <div key={event.id} className="bg-white rounded-lg shadow-sm border border-natural-green/10 overflow-hidden hover:shadow-md transition-all">
               <Link to={`/events/${event.id}`}>
                 <div className="h-40 overflow-hidden relative">
-                  {event.image ? (
+                  {/* Updated images from the uploaded library */}
+                  {index === 0 && (
                     <img 
-                      src={event.image} 
+                      src="/lovable-uploads/17b2f70d-878c-47a4-b942-4f69f9dc2c5b.png"
                       alt={event.title}
                       className="w-full h-full object-cover object-center hover:scale-105 transition-transform duration-300"
                     />
-                  ) : (
-                    <div className="bg-natural-green/10 w-full h-full flex items-center justify-center">
-                      <Video size={32} className="text-natural-gray opacity-30" />
-                    </div>
+                  )}
+                  {index === 1 && (
+                    <img 
+                      src="/lovable-uploads/0eac78ee-8a47-4f36-82e6-165e32f3d2d0.png"
+                      alt={event.title}
+                      className="w-full h-full object-cover object-center hover:scale-105 transition-transform duration-300"
+                    />
+                  )}
+                  {index === 2 && (
+                    <img 
+                      src="/lovable-uploads/5a036f15-ad25-4f98-b74e-196eb003b9c9.png"
+                      alt={event.title}
+                      className="w-full h-full object-cover object-center hover:scale-105 transition-transform duration-300"
+                    />
                   )}
                   
                   <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-3">

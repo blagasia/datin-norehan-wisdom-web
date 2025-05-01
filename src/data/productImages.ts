@@ -2,7 +2,7 @@
 // This file contains additional product images for the product gallery
 export const images: Record<number, string[]> = {
   1: [ // Organic Detox Tea
-    "/lovable-uploads/f11405ea-a912-4a47-a89a-6731e42ec873.png", // New essential oil bottles image
+    "/lovable-uploads/f11405ea-a912-4a47-a89a-6731e42ec873.png", // Essential oil bottles image
     "/lovable-uploads/4c236ef0-6021-439c-a483-668ac8a8a72d.png", // Facial mask image
     "/lovable-uploads/56f32cef-4b88-425f-9117-cfcc52576aaf.png" // Natural products on green background
   ],
@@ -19,7 +19,7 @@ export const images: Record<number, string[]> = {
   4: [ // Natural Beauty Elixir
     "/lovable-uploads/2f59d45d-903b-4687-a10a-07afd72b5510.png",
     "/lovable-uploads/0eac78ee-8a47-4f36-82e6-165e32f3d2d0.png", // Aqua spa setup with pink flowers
-    "/lovable-uploads/34f94502-8118-4f8e-95d0-13db35fd36bb.png" // New image for DNA Curations
+    "/lovable-uploads/34f94502-8118-4f8e-95d0-13db35fd36bb.png" // Elegant bottle with gold trim
   ],
   5: [ // Immune Support Formula
     "/lovable-uploads/158fb100-d291-4964-bccb-78b360aa819f.png",

@@ -3,6 +3,7 @@ import React from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
 import { FileText } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 interface ArticleType {
   id: number;
@@ -19,7 +20,7 @@ const articles: ArticleType[] = [
     title: "The Power of Natural Detoxification",
     excerpt: "Discover how natural ingredients can help cleanse your body and restore balance to your systems.",
     date: "April 12, 2025",
-    image: "https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07",
+    image: "/lovable-uploads/56f32cef-4b88-425f-9117-cfcc52576aaf.png", // Updated from library
     category: "Wellness"
   },
   {
@@ -27,7 +28,7 @@ const articles: ArticleType[] = [
     title: "Ancient Herbs for Modern Living",
     excerpt: "Learn how traditional herbal remedies can address today's health challenges in a natural way.",
     date: "April 5, 2025",
-    image: "https://images.unsplash.com/photo-1518495973542-4542c06a5843",
+    image: "/lovable-uploads/4c236ef0-6021-439c-a483-668ac8a8a72d.png", // Updated from library
     category: "Herbal Wisdom"
   },
   {
@@ -35,6 +36,7 @@ const articles: ArticleType[] = [
     title: "5 Natural Ways to Boost Your Immunity",
     excerpt: "Simple, natural approaches to strengthen your body's defense systems and maintain optimal health.",
     date: "March 28, 2025",
+    image: "/lovable-uploads/c1cf7a81-becb-434a-ba10-34f2bfc6e418.png", // Added image from library
     category: "Health Tips"
   }
 ];
@@ -63,7 +65,9 @@ const ArticleCard = ({ article }: { article: ArticleType }) => {
         <CardDescription>{article.excerpt}</CardDescription>
       </CardContent>
       <CardFooter>
-        <Button variant="outline" className="w-full hover:bg-natural-green/30 hover:text-natural-dark">Read More</Button>
+        <Link to="/articles">
+          <Button variant="outline" className="w-full hover:bg-natural-green/30 hover:text-natural-dark">Read More</Button>
+        </Link>
       </CardFooter>
     </Card>
   );
@@ -85,7 +89,9 @@ const Articles = () => {
         </div>
         
         <div className="text-center mt-12">
-          <Button className="btn-outline">View All Articles</Button>
+          <Link to="/articles">
+            <Button className="btn-outline">View All Articles</Button>
+          </Link>
         </div>
       </div>
     </section>

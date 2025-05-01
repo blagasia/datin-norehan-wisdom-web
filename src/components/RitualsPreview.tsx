@@ -30,23 +30,24 @@ const RitualsPreview = () => {
             <div key={product.id} className="group bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 transition-all duration-300 hover:shadow-md">
               <Link to={`/rituals/${product.id}`} className="block">
                 <div className="relative h-64 overflow-hidden">
+                  {/* Swapped images with those from the uploaded library */}
                   {product.id === 1 && (
                     <img 
-                      src="/lovable-uploads/28ab43d8-2932-4793-8a02-c1af2e710bf2.png" 
+                      src="/lovable-uploads/f11405ea-a912-4a47-a89a-6731e42ec873.png" 
                       alt={product.name} 
                       className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
                     />
                   )}
                   {product.id === 2 && (
                     <img 
-                      src="/lovable-uploads/c1cf7a81-becb-434a-ba10-34f2bfc6e418.png" 
+                      src="/lovable-uploads/56f32cef-4b88-425f-9117-cfcc52576aaf.png" 
                       alt={product.name} 
                       className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
                     />
                   )}
                   {product.id === 3 && (
                     <img 
-                      src="/lovable-uploads/cb10aacc-5a7a-473c-9341-adc8c270d0f2.png" 
+                      src="/lovable-uploads/4c236ef0-6021-439c-a483-668ac8a8a72d.png" 
                       alt={product.name} 
                       className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
                     />

@@ -30,20 +30,31 @@ const ArticleCard = ({ article }: { article: typeof blogArticles[0] }) => {
     }
   };
 
+  // Map article IDs to specific library images
+  const getArticleImage = () => {
+    const imageMap: Record<number, string> = {
+      1: "/lovable-uploads/f11405ea-a912-4a47-a89a-6731e42ec873.png",
+      2: "/lovable-uploads/4c236ef0-6021-439c-a483-668ac8a8a72d.png",
+      3: "/lovable-uploads/17b2f70d-878c-47a4-b942-4f69f9dc2c5b.png",
+      4: "/lovable-uploads/56f32cef-4b88-425f-9117-cfcc52576aaf.png",
+      5: "/lovable-uploads/c1cf7a81-becb-434a-ba10-34f2bfc6e418.png",
+      6: "/lovable-uploads/0eac78ee-8a47-4f36-82e6-165e32f3d2d0.png",
+      7: "/lovable-uploads/5a036f15-ad25-4f98-b74e-196eb003b9c9.png",
+      8: "/lovable-uploads/cb10aacc-5a7a-473c-9341-adc8c270d0f2.png",
+      9: "/lovable-uploads/28ab43d8-2932-4793-8a02-c1af2e710bf2.png",
+    };
+    
+    return imageMap[article.id] || article.image;
+  };
+
   return (
     <Card className="overflow-hidden h-full flex flex-col hover:shadow-md transition-shadow duration-300">
       <Link to={`/articles/${article.id}`} className="h-48 overflow-hidden relative">
-        {article.image ? (
-          <img 
-            src={article.image} 
-            alt={article.title} 
-            className="w-full h-full object-cover object-center hover:scale-105 transition-transform duration-300"
-          />
-        ) : (
-          <div className="h-48 bg-natural-green/30 flex items-center justify-center">
-            {renderContentTypeIcon()}
-          </div>
-        )}
+        <img 
+          src={getArticleImage()} 
+          alt={article.title} 
+          className="w-full h-full object-cover object-center hover:scale-105 transition-transform duration-300"
+        />
         <div className="absolute top-2 right-2 flex gap-2">
           {article.type !== 'article' && (
             <Badge variant="secondary" className="text-xs bg-white/80 backdrop-blur-sm">

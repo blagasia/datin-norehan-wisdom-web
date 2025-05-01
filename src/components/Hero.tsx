@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -155,13 +154,17 @@ const Hero = () => {
           }}
         ></div>
         <div className="absolute inset-0 bg-gradient-to-b from-black/10 to-black/30 dreamy-overlay z-10"></div>
-        <div className="container mx-auto relative z-20 h-full flex items-center justify-center">
-          <div className="bg-white/80 backdrop-blur-sm p-8 md:p-12 max-w-lg text-center" 
+        
+        {/* Nature's Treasures - Now full width */}
+        <div className="relative z-20 h-full flex items-center">
+          <div className="w-full bg-white/80 backdrop-blur-sm py-8 px-4" 
                style={{backgroundImage: "url('/lovable-uploads/56c8ecfc-b55a-466b-8542-f2c698fb2dc3.png')", backgroundSize: '400px', backgroundBlendMode: 'overlay'}}>
-            <h3 className="font-italiana text-2xl md:text-3xl mb-4">Nature's Treasures</h3>
-            <p className="font-karla text-brand-soft-gray">
-              Our formulations harness the power of Malaysia's botanical heritage, carefully selected and crafted to restore balance and harmony.
-            </p>
+            <div className="container mx-auto text-center">
+              <h3 className="font-italiana text-2xl md:text-3xl mb-4">Nature's Treasures</h3>
+              <p className="font-karla text-brand-soft-gray max-w-2xl mx-auto">
+                Our formulations harness the power of Malaysia's botanical heritage, carefully selected and crafted to restore balance and harmony.
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -190,11 +193,11 @@ const Hero = () => {
               <h3 className="font-italiana text-center text-xl tracking-wide group-hover:text-brand-muted-rose transition-colors">Elixirs</h3>
             </Link>
             
-            {/* DNA Ritual Kits */}
+            {/* DNA Ritual Kits - Swapped with DNA Curations image */}
             <Link to="/rituals" className="group">
               <div className="aspect-square bg-white relative overflow-hidden mb-4 shadow-sm">
                 <img 
-                  src="/lovable-uploads/56f32cef-4b88-425f-9117-cfcc52576aaf.png"
+                  src="/lovable-uploads/34f94502-8118-4f8e-95d0-13db35fd36bb.png"
                   alt="DNA Ritual Kits" 
                   className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
                 />
@@ -207,7 +210,7 @@ const Hero = () => {
             <Link to="/articles" className="group">
               <div className="aspect-square bg-white relative overflow-hidden mb-4 shadow-sm">
                 <img 
-                  src="/lovable-uploads/4c236ef0-6021-439c-a483-668ac8a8a72d.png"
+                  src="/lovable-uploads/4c236ef0-6021-439c-a483-668ac8a8a72d.png" 
                   alt="DNA Wisdom" 
                   className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
                 />
@@ -216,11 +219,11 @@ const Hero = () => {
               <h3 className="font-italiana text-center text-xl tracking-wide group-hover:text-brand-muted-rose transition-colors">Wisdom</h3>
             </Link>
             
-            {/* DNA Curations - Updated with new image */}
+            {/* DNA Curations - Updated with swapped image */}
             <div className="group relative">
               <div className="aspect-square bg-white relative overflow-hidden mb-4 shadow-sm">
                 <img 
-                  src="/lovable-uploads/34f94502-8118-4f8e-95d0-13db35fd36bb.png" 
+                  src="/lovable-uploads/56f32cef-4b88-425f-9117-cfcc52576aaf.png" 
                   alt="DNA Curations" 
                   className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 opacity-90"
                 />
