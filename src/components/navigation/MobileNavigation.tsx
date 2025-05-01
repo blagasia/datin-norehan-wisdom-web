@@ -59,6 +59,7 @@ const MobileNavigation = () => {
         <SheetContent side="right" className="w-[85%] max-w-sm bg-white overflow-y-auto">
           <div className="flex flex-col h-full">
             <div className="py-4 flex items-center justify-between border-b border-brand-blush-rose/20">
+              {/* Updated logo styling to match the botanical watercolor logo */}
               <div className="flex flex-col">
                 <span className="font-italiana text-xl tracking-wide">Datin Norehan</span>
                 <span className="text-xs text-brand-deep-teal tracking-wider">APOTHECARY</span>
