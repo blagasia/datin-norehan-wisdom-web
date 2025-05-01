@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
@@ -11,10 +10,24 @@ import { Badge } from '@/components/ui/badge';
 import { products } from '@/data/products';
 import { useLoyalty } from '@/context/LoyaltyContext';
 import { useToast } from '@/hooks/use-toast';
+import { useCart } from '@/context/CartContext';
+import { ShoppingBag } from 'lucide-react';
 
 const ProductItem = ({ product }: { product: any }) => {
   const { toast } = useToast();
   const { loyaltyUser, customer } = useLoyalty();
+  const { addToCart } = useCart();
+
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    addToCart(product, 1);
+    
+    toast({
+      title: "Added to cart",
+      description: `${product.name} has been added to your cart.`,
+    });
+  };
 
   const handleShareReferral = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -67,7 +80,15 @@ const ProductItem = ({ product }: { product: any }) => {
           <p className="text-natural-gray font-semibold mb-2">{product.price}</p>
           <p className="text-sm text-natural-gray line-clamp-2 mb-4">{product.description}</p>
           <div className="flex gap-2">
-            <Button className="flex-1">View Product</Button>
+            <Button className="flex-1" onClick={(e) => e.stopPropagation()}>View Product</Button>
+            <Button 
+              variant="outline" 
+              className="flex-none" 
+              onClick={handleAddToCart}
+              size="icon"
+            >
+              <ShoppingBag className="h-4 w-4" />
+            </Button>
             {customer && customer.referralCode && (
               <Button 
                 variant="outline" 

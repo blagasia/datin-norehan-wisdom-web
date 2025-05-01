@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
@@ -12,10 +11,12 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
 import { ShoppingBag, Check } from 'lucide-react';
+import { useCart } from '@/context/CartContext';
 
 const ProductDetail = () => {
   const { productId } = useParams();
   const { toast } = useToast();
+  const { addToCart } = useCart();
   const [product, setProduct] = useState<any>(null);
   const [quantity, setQuantity] = useState(1);
   
@@ -47,6 +48,8 @@ const ProductDetail = () => {
   }
   
   const handleAddToCart = () => {
+    addToCart(product, quantity);
+    
     toast({
       title: "Added to cart",
       description: `${product.name} has been added to your cart.`,

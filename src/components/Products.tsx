@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { products } from '@/data/products';
 import { useToast } from '@/hooks/use-toast';
 import { useLoyalty } from '@/context/LoyaltyContext';
+import { useCart } from '@/context/CartContext';
 import { ShoppingBag } from 'lucide-react';
 
 interface Product {
@@ -19,6 +20,18 @@ interface Product {
 const ProductItem = ({ product }: { product: Product }) => {
   const { toast } = useToast();
   const { loyaltyUser, customer } = useLoyalty();
+  const { addToCart } = useCart();
+
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    addToCart(product, 1);
+    
+    toast({
+      title: "Added to cart",
+      description: `${product.name} has been added to your cart.`,
+    });
+  };
 
   const handleShareReferral = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -71,6 +84,14 @@ const ProductItem = ({ product }: { product: Product }) => {
           <p className="text-natural-gray font-semibold">{product.price}</p>
           <div className="flex gap-2 mt-4">
             <Button className="flex-1 bg-brand-deep-teal/80 hover:bg-brand-deep-teal text-white">View Product</Button>
+            <Button 
+              variant="secondary" 
+              className="flex-none" 
+              onClick={handleAddToCart}
+              size="icon"
+            >
+              <ShoppingBag className="h-4 w-4" />
+            </Button>
             {customer && customer.referralCode && (
               <Button 
                 variant="secondary" 
