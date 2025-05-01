@@ -25,12 +25,10 @@ const VideoBackground = ({ videoSrc, fallbackImageSrc }: VideoBackgroundProps) =
     
     // Check if it's a Vimeo link
     if (videoSrc.includes('vimeo.com')) {
-      console.log('Vimeo link detected');
       setIsVimeo(true);
       
       // Extract the Vimeo ID from the URL
       const vimeoId = videoSrc.replace(/^.+vimeo.com\//, '').replace(/\?.+$/, '');
-      console.log('Vimeo ID:', vimeoId);
       
       // Create the embed URL with additional performance parameters
       const embedUrl = `https://player.vimeo.com/video/${vimeoId}?background=1&autoplay=1&loop=1&byline=0&title=0&muted=1&quality=auto`;
@@ -55,19 +53,16 @@ const VideoBackground = ({ videoSrc, fallbackImageSrc }: VideoBackgroundProps) =
     const timeoutId = setTimeout(() => {
       // Set error state if video takes too long to load
       if (!isVideoLoaded) {
-        console.warn('Video loading timed out:', videoSrc);
         setLoadError(true);
       }
     }, 10000); // 10 second timeout
     
     video.onloadeddata = () => {
-      console.log('Video loaded successfully');
       setIsVideoLoaded(true);
       clearTimeout(timeoutId);
     };
     
-    video.onerror = (e) => {
-      console.error('Error loading video:', videoSrc, e);
+    video.onerror = () => {
       setIsVideoLoaded(false);
       setLoadError(true);
       clearTimeout(timeoutId);
@@ -108,7 +103,6 @@ const VideoBackground = ({ videoSrc, fallbackImageSrc }: VideoBackgroundProps) =
           className="absolute inset-0 w-full h-full object-cover"
           poster={fallbackImageSrc}
           onError={() => {
-            console.error('Video error event triggered');
             setLoadError(true);
           }}
         >

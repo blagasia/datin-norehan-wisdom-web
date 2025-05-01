@@ -46,7 +46,7 @@ const CookieConsent = () => {
             <p className="text-natural-gray text-sm">
               We use cookies to enhance your browsing experience, analyze site traffic, and personalize content.
               By clicking "Accept", you consent to our use of cookies. Learn more in our{' '}
-              <Link to="/privacy" className="text-brand-deep-teal underline hover:text-brand-blush-rose">
+              <Link to="/privacy-policy" className="text-brand-deep-teal underline hover:text-brand-blush-rose">
                 Privacy Policy
               </Link>.
             </p>
