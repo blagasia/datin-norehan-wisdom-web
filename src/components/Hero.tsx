@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -354,6 +353,27 @@ const Hero = () => {
             <p className="font-karla text-white text-shadow-sm">
               Our ingredients are thoughtfully sourced to bring you the purest essence of nature's gifts.
             </p>
+          </div>
+        </div>
+      </section>
+      
+      {/* Updated Natural Harmony section with better styling and clarity */}
+      <section className="w-full h-[50vh] md:h-[60vh] bg-cover bg-center relative overflow-hidden" 
+               style={{backgroundImage: `url("/lovable-uploads/c1cf7a81-becb-434a-ba10-34f2bfc6e418.png")`}}>
+        <div className="absolute inset-0 bg-black/30 backdrop-blur-[1px]"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60"></div>
+        <div className="container mx-auto h-full flex items-center relative z-10">
+          <div className="px-6 md:px-8 py-8 md:py-12 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg shadow-lg max-w-lg">
+            <h3 className="font-italiana text-white text-3xl md:text-4xl mb-6 drop-shadow-md">Natural Harmony</h3>
+            <p className="font-karla text-white text-lg md:text-xl leading-relaxed drop-shadow-md">
+              Our ingredients are thoughtfully sourced to bring you the purest essence of nature's gifts, 
+              creating a perfect harmony between traditional wisdom and modern science.
+            </p>
+            <Link to="/philosophy" className="inline-block mt-8">
+              <Button variant="outline" className="bg-transparent border-white text-white hover:bg-white hover:text-brand-dark transition-all duration-300">
+                Discover Our Ingredients <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
