@@ -1,5 +1,5 @@
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 
 interface ScrollOptions {
   threshold?: number; // When to trigger (0-1)
@@ -9,19 +9,20 @@ interface ScrollOptions {
 
 const useScrollAnimation = (elementRef: React.RefObject<HTMLElement>, options: ScrollOptions = {}) => {
   const [isVisible, setIsVisible] = useState(false);
-
+  const observerRef = useRef<IntersectionObserver | null>(null);
+  
   const callback = useCallback((entries: IntersectionObserverEntry[]) => {
     const [entry] = entries;
     setIsVisible(entry.isIntersecting);
 
     // If once is true and element is visible, unobserve
-    if (options.once && entry.isIntersecting) {
-      observer.unobserve(entry.target);
+    if (options.once && entry.isIntersecting && observerRef.current) {
+      observerRef.current.unobserve(entry.target);
     }
   }, [options.once]);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(callback, {
+    observerRef.current = new IntersectionObserver(callback, {
       root: null,
       rootMargin: options.rootMargin || '0px',
       threshold: options.threshold || 0,
@@ -30,12 +31,12 @@ const useScrollAnimation = (elementRef: React.RefObject<HTMLElement>, options: S
     const element = elementRef.current;
 
     if (element) {
-      observer.observe(element);
+      observerRef.current.observe(element);
     }
 
     return () => {
-      if (element) {
-        observer.unobserve(element);
+      if (element && observerRef.current) {
+        observerRef.current.unobserve(element);
       }
     };
   }, [elementRef, options.threshold, options.rootMargin, callback]);
