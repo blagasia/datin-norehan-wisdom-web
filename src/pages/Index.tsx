@@ -7,7 +7,7 @@ import Products from '@/components/Products';
 import RitualsPreview from '@/components/RitualsPreview';
 import Articles from '@/components/Articles';
 import EventsPreview from '@/components/EventsPreview';
-import AskDatin from '@/components/AskDatin';
+import TikTokContent from '@/components/TikTokContent';
 import About from '@/components/About';
 import Footer from '@/components/Footer';
 
@@ -17,12 +17,12 @@ const Index = () => {
       <Navbar />
       <main className="flex-grow">
         <Hero />
-        <Features />
         <Products />
         <RitualsPreview />
+        <Features />
         <Articles />
         <EventsPreview />
-        <AskDatin />
+        <TikTokContent />
         <About />
       </main>
       <Footer />

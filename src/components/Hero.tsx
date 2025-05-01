@@ -9,7 +9,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { useToast } from '@/hooks/use-toast';
-import { Mail } from 'lucide-react';
+import { Mail, ArrowRight } from 'lucide-react';
 
 const subscribeSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email" }),
@@ -41,208 +41,158 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative overflow-hidden py-20 md:py-28">
-      {/* Background with elegant botanical pattern overlay */}
-      <div className="absolute inset-0 bg-gradient-blush opacity-60"></div>
-      <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1523712999610-f77fbcfc3843?ixlib=rb-4.0.3')] bg-cover bg-center opacity-10"></div>
-      
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="max-w-3xl mx-auto text-center animate-fade-up">
-          <h1 className="font-cormorant text-4xl md:text-5xl lg:text-6xl font-semibold text-brand-dark mb-6 leading-tight">
-            Datin Norehan's Apothecary:<br />
-            <span className="text-brand-deep-teal">Natural Wellness Formulations</span>
-          </h1>
-          <p className="text-lg md:text-xl mb-10 text-brand-soft-gray font-montserrat leading-relaxed">
-            Experience our premium wellness solutions that nourish the body, mind, and soul. 
-            Crafted with traditional wisdom, perfected by modern science.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/products">
-              <Button className="bg-brand-blush-rose text-brand-dark hover:bg-brand-blush-rose/90 font-medium">
-                Explore Collections
-              </Button>
-            </Link>
-            <Link to="/philosophy">
-              <Button variant="outline" className="border-brand-blush-rose text-brand-dark hover:bg-brand-blush-rose/10">
-                Learn Our Philosophy
-              </Button>
-            </Link>
+    <div className="flex flex-col">
+      {/* Hero Section - Clean, minimal with subtle background */}
+      <section className="relative bg-brand-creamy-ivory py-16 md:py-24 border-b border-brand-blush-rose/10">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto text-center">
+            <h1 className="font-cormorant text-3xl md:text-4xl lg:text-5xl font-normal text-brand-dark mb-6 tracking-tight">
+              Premium wellness formulations derived from traditional wisdom
+            </h1>
+            <p className="text-base md:text-lg mb-10 text-brand-soft-gray font-montserrat leading-relaxed">
+              Datin Norehan's natural wellness solutions that nourish the body, mind, and soul.
+            </p>
+            <div className="flex gap-4 justify-center">
+              <Link to="/products">
+                <Button className="bg-brand-deep-teal hover:bg-brand-deep-teal/90 text-white px-8 py-6 rounded-none h-auto">
+                  Shop Bestsellers
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
       
-      {/* DNA Brand Vision - Refined from personal introduction */}
-      <div className="container mx-auto px-4 relative z-10 mt-16 mb-12">
-        <div className="max-w-4xl mx-auto bg-white/80 backdrop-blur-sm p-8 rounded-lg border border-brand-blush-rose/20 shadow-sm">
-          <div className="text-center mb-4">
-            <h3 className="font-cormorant text-2xl md:text-3xl font-semibold mb-4 text-brand-deep-teal">The DNA Vision</h3>
-            <div className="w-16 h-1 bg-brand-gilded-gold mx-auto mb-6"></div>
-          </div>
-          <p className="text-brand-soft-gray text-center text-lg leading-relaxed mb-2">
-            DNA by Datin Norehan represents the culmination of ancient wellness traditions and modern scientific innovation. 
-            Our formulations capture the essence of natural healing, carefully crafted to enhance your daily rituals and elevate 
-            your wellbeing journey. Each product embodies our commitment to purity, efficacy, and sustainable luxury.
-          </p>
-          <p className="mt-4 text-right text-brand-deep-teal font-playfair italic">
-            — Nurturing radiance from within
-          </p>
-        </div>
-      </div>
-      
-      {/* DNA Brand Architecture Section - Adjusted layout for desktop */}
-      <div className="container mx-auto px-4 relative z-10 mt-24">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="font-cormorant text-3xl md:text-4xl font-semibold text-center mb-4">DNA by Datin Norehan</h2>
-          <div className="w-16 h-1 bg-brand-gilded-gold mx-auto mb-10"></div>
+      {/* Shop Categories - GOOP-inspired grid with large bold text */}
+      <section className="py-16 md:py-20 bg-white">
+        <div className="container mx-auto px-4 mb-12">
+          <h2 className="font-cormorant text-3xl font-normal text-center mb-16">Shop DNA by Datin Norehan</h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {/* DNA Elixirs */}
-            <Card className="bg-white/80 p-6 rounded-lg shadow-sm border border-brand-blush-rose/20 hover:shadow-md transition-all duration-300 h-full flex flex-col">
-              <div className="w-14 h-14 bg-brand-blush-rose/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="font-playfair text-2xl font-semibold text-brand-deep-teal">1</span>
+            <Link to="/products" className="group">
+              <div className="aspect-square bg-brand-sage-mist/20 relative overflow-hidden mb-4">
+                <img 
+                  src="https://images.unsplash.com/photo-1564305736039-3d0f7c23fd0e?q=80" 
+                  alt="DNA Elixirs" 
+                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
+                />
               </div>
-              <h3 className="font-playfair text-xl font-semibold text-center mb-3">DNA Elixirs</h3>
-              <p className="text-center text-brand-soft-gray mb-4 flex-grow">
-                Premium wellness formulations that transform from within, featuring our flagship Collary Collagen.
-              </p>
-              <div className="text-center">
-                <Link to="/products">
-                  <Button variant="outline" size="sm" className="border-brand-deep-teal/30 hover:bg-brand-deep-teal/10">
-                    Browse Elixirs
-                  </Button>
-                </Link>
-              </div>
-            </Card>
+              <h3 className="font-cormorant text-xl text-center">DNA Elixirs</h3>
+            </Link>
             
             {/* DNA Ritual Kits */}
-            <Card className="bg-white/80 p-6 rounded-lg shadow-sm border border-brand-blush-rose/20 hover:shadow-md transition-all duration-300 h-full flex flex-col">
-              <div className="w-14 h-14 bg-brand-blush-rose/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="font-playfair text-2xl font-semibold text-brand-deep-teal">2</span>
+            <Link to="/rituals" className="group">
+              <div className="aspect-square bg-brand-blush-rose/20 relative overflow-hidden mb-4">
+                <img 
+                  src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?q=80" 
+                  alt="DNA Ritual Kits" 
+                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
+                />
               </div>
-              <h3 className="font-playfair text-xl font-semibold text-center mb-3">DNA Ritual Kits</h3>
-              <p className="text-center text-brand-soft-gray mb-4 flex-grow">
-                Elevate your wellness routine with our curated ritual kits designed to enhance your daily self-care practice.
-              </p>
-              <div className="text-center">
-                <Link to="/rituals">
-                  <Button variant="outline" size="sm" className="border-brand-deep-teal/30 hover:bg-brand-deep-teal/10">
-                    Explore Ritual Kits
-                  </Button>
-                </Link>
-              </div>
-            </Card>
+              <h3 className="font-cormorant text-xl text-center">DNA Ritual Kits</h3>
+            </Link>
             
             {/* DNA Wisdom */}
-            <Card className="bg-white/80 p-6 rounded-lg shadow-sm border border-brand-blush-rose/20 hover:shadow-md transition-all duration-300 h-full flex flex-col">
-              <div className="w-14 h-14 bg-brand-blush-rose/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="font-playfair text-2xl font-semibold text-brand-deep-teal">3</span>
+            <Link to="/articles" className="group">
+              <div className="aspect-square bg-brand-orchid-pink/10 relative overflow-hidden mb-4">
+                <img 
+                  src="https://images.unsplash.com/photo-1532153955177-f59af40d6472?q=80" 
+                  alt="DNA Wisdom" 
+                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
+                />
               </div>
-              <h3 className="font-playfair text-xl font-semibold text-center mb-3">DNA Wisdom</h3>
-              <p className="text-center text-brand-soft-gray mb-4 flex-grow">
-                Educational content sharing extensive knowledge, from free articles to premium courses on natural healing practices.
-              </p>
-              <div className="text-center">
-                <Link to="/articles">
-                  <Button variant="outline" size="sm" className="border-brand-deep-teal/30 hover:bg-brand-deep-teal/10">
-                    Explore Knowledge
-                  </Button>
-                </Link>
-              </div>
-            </Card>
+              <h3 className="font-cormorant text-xl text-center">DNA Wisdom</h3>
+            </Link>
             
             {/* DNA Curations */}
-            <Card className="bg-white/80 p-6 rounded-lg shadow-sm border border-brand-blush-rose/20 hover:shadow-md transition-all duration-300 h-full flex flex-col relative overflow-hidden">
-              <div className="absolute top-2 right-2 bg-brand-blush-rose/80 text-white text-xs py-1 px-2 rounded-full">
-                Coming Soon
+            <div className="group relative">
+              <div className="absolute top-2 right-2 z-10">
+                <span className="bg-white text-xs px-3 py-1 font-medium">Coming Soon</span>
               </div>
-              <div className="w-14 h-14 bg-brand-blush-rose/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="font-playfair text-2xl font-semibold text-brand-deep-teal">4</span>
+              <div className="aspect-square bg-brand-gilded-gold/10 relative overflow-hidden mb-4">
+                <img 
+                  src="https://images.unsplash.com/photo-1611242320536-f12d3541249b?q=80" 
+                  alt="DNA Curations" 
+                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 opacity-80"
+                />
               </div>
-              <h3 className="font-playfair text-xl font-semibold text-center mb-3">DNA Curations</h3>
-              <p className="text-center text-brand-soft-gray mb-4 flex-grow">
-                Co-branded or partner products that expand our offerings with complementary brands that meet our quality standards.
-              </p>
-              <div className="text-center">
-                <Button disabled variant="outline" size="sm" className="border-brand-deep-teal/30 hover:bg-brand-deep-teal/10 opacity-60">
-                  Discover Soon
-                </Button>
-              </div>
-            </Card>
+              <h3 className="font-cormorant text-xl text-center">DNA Curations</h3>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
       
-      {/* Newsletter Signup Section */}
-      <div className="container mx-auto px-4 relative z-10 mt-24 mb-16">
-        <div className="max-w-4xl mx-auto bg-brand-blush-rose/10 backdrop-blur-sm p-8 md:p-12 rounded-lg border border-brand-blush-rose/30 shadow-sm">
-          <div className="flex flex-col md:flex-row items-center gap-8">
-            <div className="md:w-1/2">
-              <h3 className="font-cormorant text-2xl md:text-3xl font-semibold mb-3 text-brand-deep-teal">Join Our Inner Circle</h3>
-              <p className="text-brand-soft-gray mb-4">
-                Become a part of our exclusive community to receive:
-              </p>
-              <ul className="space-y-2 mb-6">
-                <li className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-brand-deep-teal"></div>
-                  <span>Early access to new product launches</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-brand-deep-teal"></div>
-                  <span>Member-only content and wellness guides</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-brand-deep-teal"></div>
-                  <span>Exclusive event invitations</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-brand-deep-teal"></div>
-                  <span>Special offers and complimentary gifts</span>
-                </li>
-              </ul>
-            </div>
+      {/* Brand Vision - Clean card with elegant typography */}
+      <section className="py-12 md:py-16 bg-brand-creamy-ivory">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="font-cormorant text-3xl font-normal text-center mb-3">The DNA Vision</h2>
+            <div className="w-16 h-px bg-brand-gilded-gold mx-auto mb-8"></div>
+            <p className="text-brand-soft-gray text-center text-lg leading-relaxed mb-6">
+              DNA by Datin Norehan represents the culmination of ancient wellness traditions and modern scientific innovation. 
+              Our formulations capture the essence of natural healing, carefully crafted to enhance your daily rituals and elevate 
+              your wellbeing journey. Each product embodies our commitment to purity, efficacy, and sustainable luxury.
+            </p>
+            <p className="text-right text-brand-deep-teal font-playfair italic">
+              — Nurturing radiance from within
+            </p>
+          </div>
+        </div>
+      </section>
+      
+      {/* Newsletter Section - GOOP-inspired clean newsletter */}
+      <section className="py-16 md:py-20 bg-white border-t border-brand-blush-rose/10">
+        <div className="container mx-auto px-4">
+          <div className="max-w-2xl mx-auto text-center">
+            <h2 className="font-cormorant text-3xl font-normal mb-4">Join Our Community</h2>
+            <p className="text-brand-soft-gray mb-8">
+              Subscribe to receive exclusive content, early access to product launches, and invitations to our wellness events.
+            </p>
             
-            <div className="md:w-1/2 w-full">
-              <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                  <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormControl>
-                          <div className="relative">
-                            <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-brand-deep-teal/60 h-4 w-4" />
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="mb-4">
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <div className="flex-grow">
+                    <FormField
+                      control={form.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem className="w-full">
+                          <FormControl>
                             <Input 
                               placeholder="Your email address" 
-                              className="pl-10 border-brand-blush-rose/30 bg-white focus-visible:ring-brand-deep-teal/50" 
+                              className="border-brand-soft-gray/30 rounded-none focus-visible:ring-brand-deep-teal/30 h-12" 
                               {...field}
                             />
-                          </div>
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
                   <Button 
                     type="submit"
-                    className="w-full bg-brand-deep-teal hover:bg-brand-deep-teal/90 text-white"
+                    className="bg-brand-dark hover:bg-brand-dark/90 text-white rounded-none h-12 px-8"
                     disabled={isSubmitting}
                   >
-                    {isSubmitting ? "Subscribing..." : "Subscribe to Newsletter"}
+                    {isSubmitting ? "Subscribing..." : (
+                      <span className="flex items-center">
+                        Subscribe <ArrowRight className="ml-2 h-4 w-4" />
+                      </span>
+                    )}
                   </Button>
-                  <p className="text-center text-xs text-brand-soft-gray/80 mt-2">
-                    By subscribing, you agree to our Privacy Policy. We respect your privacy and will never share your information.
-                  </p>
-                </form>
-              </Form>
-            </div>
+                </div>
+              </form>
+            </Form>
+            
+            <p className="text-xs text-brand-soft-gray/80">
+              By subscribing, you agree to our Privacy Policy. We respect your privacy.
+            </p>
           </div>
         </div>
-      </div>
-      
-      {/* Decorative bottom fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white to-transparent"></div>
-    </section>
+      </section>
+    </div>
   );
 };
 
