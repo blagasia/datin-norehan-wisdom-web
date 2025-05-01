@@ -119,16 +119,18 @@ const RitualProducts = ({ category }: RitualProductsProps) => {
         </div>
       )}
       
-      {/* Add some custom styling for the scrollbar hiding */}
-      <style jsx>{`
-        .hide-scrollbar::-webkit-scrollbar {
-          display: none;
-        }
-        .hide-scrollbar {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-      `}</style>
+      {/* Add custom styling for the scrollbar hiding using standard style tag */}
+      <style>
+        {`
+          .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+          }
+          .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+          }
+        `}
+      </style>
     </div>
   );
 };
