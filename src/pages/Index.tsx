@@ -12,13 +12,15 @@ import About from '@/components/About';
 import Footer from '@/components/Footer';
 import { Toaster } from '@/components/ui/toaster';
 import { LoyaltyProvider } from '@/context/LoyaltyContext';
+import AnimatedBackground from '@/components/AnimatedBackground';
 
 const Index = () => {
   return (
     <LoyaltyProvider>
-      <div className="min-h-screen flex flex-col">
+      <div className="min-h-screen flex flex-col relative">
+        <AnimatedBackground />
         <Navbar />
-        <div className="pt-16 md:pt-20 lg:pt-24"> {/* Added padding-top to offset the fixed navbar */}
+        <div className="pt-16 md:pt-20 lg:pt-24 relative z-10"> {/* Added z-index to keep content above the background */}
           <main className="flex-grow">
             <Hero />
             <Features />
