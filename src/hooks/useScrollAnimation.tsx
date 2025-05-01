@@ -7,7 +7,7 @@ interface ScrollOptions {
   once?: boolean; // Only trigger once
 }
 
-const useScrollAnimation = (elementRef: React.RefObject<HTMLElement>, options: ScrollOptions = {}) => {
+const useScrollAnimation = (elementRef: React.RefObject<HTMLElement>, options: ScrollOptions = {}): boolean => {
   const [isVisible, setIsVisible] = useState(false);
   const observerRef = useRef<IntersectionObserver | null>(null);
   
@@ -22,6 +22,7 @@ const useScrollAnimation = (elementRef: React.RefObject<HTMLElement>, options: S
   }, [options.once]);
 
   useEffect(() => {
+    // Create new observer instance
     observerRef.current = new IntersectionObserver(callback, {
       root: null,
       rootMargin: options.rootMargin || '0px',
@@ -29,14 +30,16 @@ const useScrollAnimation = (elementRef: React.RefObject<HTMLElement>, options: S
     });
 
     const element = elementRef.current;
+    const observer = observerRef.current;
 
-    if (element) {
-      observerRef.current.observe(element);
+    if (element && observer) {
+      observer.observe(element);
     }
 
+    // Clean up function to remove observer when component unmounts
     return () => {
-      if (element && observerRef.current) {
-        observerRef.current.unobserve(element);
+      if (element && observer) {
+        observer.unobserve(element);
       }
     };
   }, [elementRef, options.threshold, options.rootMargin, callback]);

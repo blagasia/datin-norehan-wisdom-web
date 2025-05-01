@@ -1,18 +1,19 @@
 
 import React, { useState, useEffect } from 'react';
-import { X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Link } from 'react-router-dom';
+import { X } from 'lucide-react';
 
+// Using a regular anchor tag instead of React Router Link
+// since CookieConsent might be rendered outside the Router context
 const CookieConsent = () => {
   const [isVisible, setIsVisible] = useState(false);
   
   useEffect(() => {
-    // Check if user has already consented
-    const hasConsented = localStorage.getItem('cookieConsent');
+    // Check if user has already accepted cookies
+    const hasAccepted = localStorage.getItem('cookie-consent');
     
-    if (!hasConsented) {
-      // Wait a moment before showing the banner for better UX
+    if (!hasAccepted) {
+      // Show consent banner after a short delay
       const timer = setTimeout(() => {
         setIsVisible(true);
       }, 1000);
@@ -22,57 +23,56 @@ const CookieConsent = () => {
   }, []);
   
   const acceptCookies = () => {
-    localStorage.setItem('cookieConsent', 'accepted');
+    localStorage.setItem('cookie-consent', 'accepted');
     setIsVisible(false);
   };
   
   const declineCookies = () => {
-    localStorage.setItem('cookieConsent', 'declined');
+    localStorage.setItem('cookie-consent', 'declined');
     setIsVisible(false);
-    
-    // Here you would typically disable non-essential cookies/tracking
-    // This is just a placeholder for the actual implementation
-    console.log('Non-essential cookies disabled');
   };
   
   if (!isVisible) return null;
   
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-50 animate-fade-in-up">
-      <div className="container mx-auto px-4 py-4">
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-          <div className="flex-grow pr-0 md:pr-8">
-            <h3 className="font-karla text-lg font-medium mb-2">Cookie Consent</h3>
-            <p className="text-natural-gray text-sm">
-              We use cookies to enhance your browsing experience, analyze site traffic, and personalize content.
-              By clicking "Accept", you consent to our use of cookies. Learn more in our{' '}
-              <Link to="/privacy-policy" className="text-brand-deep-teal underline hover:text-brand-blush-rose">
-                Privacy Policy
-              </Link>.
-            </p>
-          </div>
-          <div className="flex flex-col sm:flex-row gap-2 mt-2 md:mt-0 w-full sm:w-auto">
-            <Button 
-              variant="outline" 
-              className="border-brand-deep-teal text-brand-deep-teal hover:bg-brand-deep-teal/10"
-              onClick={declineCookies}
+    <div className="fixed bottom-0 left-0 right-0 z-50 p-4 bg-white border-t border-gray-200 shadow-lg">
+      <div className="container mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div className="flex-grow pr-4">
+          <p className="text-sm text-gray-600">
+            We use cookies to enhance your experience. By continuing to visit this site,
+            you agree to our use of cookies. 
+            <a 
+              href="/privacy-policy" 
+              className="text-brand-muted-rose hover:text-brand-orchid-pink underline ml-1"
             >
-              Decline
-            </Button>
-            <Button 
-              className="bg-brand-deep-teal hover:bg-opacity-90"
-              onClick={acceptCookies}
-            >
-              Accept
-            </Button>
-            <button 
-              onClick={() => setIsVisible(false)} 
-              className="absolute top-2 right-2 text-natural-gray hover:text-black md:hidden"
-              aria-label="Close"
-            >
-              <X size={20} />
-            </button>
-          </div>
+              Learn more
+            </a>
+          </p>
+        </div>
+        <div className="flex items-center gap-3">
+          <Button 
+            variant="outline" 
+            size="sm" 
+            onClick={declineCookies}
+            className="text-xs"
+          >
+            Decline
+          </Button>
+          <Button 
+            size="sm" 
+            onClick={acceptCookies}
+            className="bg-brand-muted-rose hover:bg-brand-orchid-pink text-xs"
+          >
+            Accept All
+          </Button>
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            onClick={declineCookies} 
+            className="ml-1"
+          >
+            <X className="h-4 w-4" />
+          </Button>
         </div>
       </div>
     </div>

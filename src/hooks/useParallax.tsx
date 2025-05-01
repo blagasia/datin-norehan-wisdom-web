@@ -9,12 +9,17 @@ interface ParallaxOptions {
   maxOffset?: number;
 }
 
+interface ParallaxReturn {
+  style: React.CSSProperties;
+  offset: number;
+}
+
 /**
  * Hook to create parallax scrolling effects
  * @param options Configuration options for the parallax effect
  * @returns The calculated transform style based on scroll position
  */
-const useParallax = (options: ParallaxOptions = {}) => {
+const useParallax = (options: ParallaxOptions = {}): ParallaxReturn => {
   const { 
     speed = 0.15, 
     direction = 'up', 
@@ -23,7 +28,7 @@ const useParallax = (options: ParallaxOptions = {}) => {
     maxOffset = 100
   } = options;
   
-  const [offset, setOffset] = useState(startOffset);
+  const [offset, setOffset] = useState<number>(startOffset);
   
   useEffect(() => {
     const handleScroll = () => {
@@ -56,7 +61,7 @@ const useParallax = (options: ParallaxOptions = {}) => {
   }, [speed, direction, reverseDirection, startOffset, maxOffset]);
   
   // Return appropriate transform style based on direction
-  const getTransformStyle = () => {
+  const getTransformStyle = (): React.CSSProperties => {
     switch (direction) {
       case 'up':
         return { transform: `translateY(-${offset}px)` };
