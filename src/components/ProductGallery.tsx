@@ -8,7 +8,7 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel';
 import { images as GalleryImages } from '@/data/productImages';
-import { useEmblaCarousel } from 'embla-carousel-react';
+import useEmblaCarousel from 'embla-carousel-react';
 
 interface ProductGalleryProps {
   productId: number;
