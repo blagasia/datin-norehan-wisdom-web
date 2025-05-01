@@ -19,7 +19,7 @@ export const images: Record<number, string[]> = {
   4: [ // Natural Beauty Elixir
     "/lovable-uploads/2f59d45d-903b-4687-a10a-07afd72b5510.png",
     "/lovable-uploads/0eac78ee-8a47-4f36-82e6-165e32f3d2d0.png", // Aqua spa setup with pink flowers
-    "/lovable-uploads/5eff846b-47c1-4023-9c62-ddcf04020588.png" // Pink flower wall display
+    "/lovable-uploads/34f94502-8118-4f8e-95d0-13db35fd36bb.png" // New image for DNA Curations
   ],
   5: [ // Immune Support Formula
     "/lovable-uploads/158fb100-d291-4964-bccb-78b360aa819f.png",

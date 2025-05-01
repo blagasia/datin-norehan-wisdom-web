@@ -156,7 +156,8 @@ const Hero = () => {
         ></div>
         <div className="absolute inset-0 bg-gradient-to-b from-black/10 to-black/30 dreamy-overlay z-10"></div>
         <div className="container mx-auto relative z-20 h-full flex items-center justify-center">
-          <div className="bg-white/80 backdrop-blur-sm p-8 md:p-12 max-w-lg text-center">
+          <div className="bg-white/80 backdrop-blur-sm p-8 md:p-12 max-w-lg text-center" 
+               style={{backgroundImage: "url('/lovable-uploads/56c8ecfc-b55a-466b-8542-f2c698fb2dc3.png')", backgroundSize: '400px', backgroundBlendMode: 'overlay'}}>
             <h3 className="font-italiana text-2xl md:text-3xl mb-4">Nature's Treasures</h3>
             <p className="font-karla text-brand-soft-gray">
               Our formulations harness the power of Malaysia's botanical heritage, carefully selected and crafted to restore balance and harmony.
@@ -215,11 +216,11 @@ const Hero = () => {
               <h3 className="font-italiana text-center text-xl tracking-wide group-hover:text-brand-gilded-gold transition-colors">Wisdom</h3>
             </Link>
             
-            {/* DNA Curations */}
+            {/* DNA Curations - Updated with new image */}
             <div className="group relative">
               <div className="aspect-square bg-white relative overflow-hidden mb-4 shadow-sm">
                 <img 
-                  src="/lovable-uploads/5eff846b-47c1-4023-9c62-ddcf04020588.png" 
+                  src="/lovable-uploads/34f94502-8118-4f8e-95d0-13db35fd36bb.png" 
                   alt="DNA Curations" 
                   className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 opacity-90"
                 />
