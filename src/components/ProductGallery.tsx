@@ -8,6 +8,7 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel';
 import { images as GalleryImages } from '@/data/productImages';
+import { useEmblaCarousel } from 'embla-carousel-react';
 
 interface ProductGalleryProps {
   productId: number;
@@ -24,17 +25,41 @@ const ProductGallery = ({ productId, mainImage }: ProductGalleryProps) => {
     : [mainImage, ...additionalImages];
   
   const [activeIndex, setActiveIndex] = useState(0);
+  const [emblaRef, emblaApi] = useEmblaCarousel();
+  
+  const handleSelect = React.useCallback(() => {
+    if (!emblaApi) return;
+    setActiveIndex(emblaApi.selectedScrollSnap());
+  }, [emblaApi]);
+
+  React.useEffect(() => {
+    if (!emblaApi) return;
+    emblaApi.on('select', handleSelect);
+    return () => {
+      emblaApi.off('select', handleSelect);
+    };
+  }, [emblaApi, handleSelect]);
+
+  const scrollTo = React.useCallback(
+    (index: number) => {
+      if (!emblaApi) return;
+      emblaApi.scrollTo(index);
+      setActiveIndex(index);
+    },
+    [emblaApi]
+  );
   
   return (
     <div className="relative">
       <Carousel 
+        ref={emblaRef}
         className="w-full"
-        onSelect={(api) => setActiveIndex(api.selectedScrollSnap())}
+        onSelect={handleSelect}
       >
         <CarouselContent>
           {allImages.map((image, index) => (
             <CarouselItem key={index} className="md:basis-full">
-              <div className="aspect-square rounded-xl overflow-hidden bg-natural-green/10">
+              <div className="aspect-square rounded-xl overflow-hidden bg-brand-sage-mist/10">
                 <img 
                   src={image} 
                   alt={`Product view ${index + 1}`}
@@ -56,7 +81,7 @@ const ProductGallery = ({ productId, mainImage }: ProductGalleryProps) => {
           {allImages.map((image, index) => (
             <button
               key={index}
-              onClick={() => setActiveIndex(index)}
+              onClick={() => scrollTo(index)}
               className={`w-16 h-16 border-2 rounded overflow-hidden transition-all ${
                 activeIndex === index ? 'border-brand-deep-teal' : 'border-transparent opacity-70'
               }`}

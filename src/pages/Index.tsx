@@ -12,6 +12,7 @@ import About from '@/components/About';
 import Footer from '@/components/Footer';
 import { Toaster } from '@/components/ui/toaster';
 import { LoyaltyProvider } from '@/context/LoyaltyContext';
+import ChatAgent from '@/components/chat/ChatAgent';
 
 const Index = () => {
   return (
@@ -30,6 +31,7 @@ const Index = () => {
         </main>
         <Footer />
         <Toaster />
+        <ChatAgent />
       </div>
     </LoyaltyProvider>
   );

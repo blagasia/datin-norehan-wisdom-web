@@ -63,26 +63,27 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Updated brand colors for a more elegant, cohesive palette
+				// Updated brand colors to match the provided color palette
 				brand: {
-					"blush-rose": "#F5E1DB",    // Softer rose tone (was #FFCDC7)
-					"creamy-ivory": "#F9F7F0",  // Kept as is - works well
-					"sage-mist": "#D9E1D8",     // Slightly muted sage (was #E1E9DE)
-					"gilded-gold": "#B8A084",   // Warm taupe instead of bright gold (was #D4AF37)
-					"orchid-pink": "#E9D1DB",   // Muted mauve (was #F9B7FF)
-					"deep-teal": "#3A5A60",     // Deeper, more muted teal (was #006D77)
+					"blush-rose": "#F7D8D5",    // Primary hue - blush rose
+					"creamy-ivory": "#F8F3E6",  // Primary hue - creamy ivory
+					"sage-mist": "#D2DFCD",     // Primary hue - sage mist
+					"muted-rose": "#C99A96",    // Secondary color
+					"soft-taupe": "#B3A99A",    // Secondary color
+					"lavender-mist": "#DDD8EF", // Secondary color
+					"gilded-gold": "#D4AF37",   // Accent color
+					"orchid-pink": "#E68FAC",   // Accent color
+					"deep-teal": "#26767E",     // Accent color
 					"soft-gray": "#8E9196",     // Kept as is
 					"dark": "#3A3A3A",          // Kept as is
-					"lavender": "#E2DFF4",      // New accent - soft lavender
-					"amber": "#D6C9A0",         // New accent - soft amber
 				},
 				natural: {
-					green: '#D9E1D8',           // Updated to match sage-mist
-					purple: '#E2DFF4',          // Updated to match lavender
-					peach: '#F5E1DB',           // Updated to match blush-rose
+					green: '#D2DFCD',           // Updated to match sage-mist
+					purple: '#DDD8EF',          // Updated to match lavender-mist
+					peach: '#F7D8D5',           // Updated to match blush-rose
 					gray: '#8E9196',            // Kept as is
 					dark: '#3A3A3A',            // Kept as is
-					taupe: '#B8A084',           // Added to match gilded-gold
+					taupe: '#B3A99A',           // Updated to match soft-taupe
 				}
 			},
 			fontFamily: {
@@ -158,9 +159,9 @@ export default {
 			},
 			backgroundImage: {
 				'gradient-natural': 'linear-gradient(109.6deg, rgba(242,230,230,1) 11.2%, rgba(242,242,242,1) 91.1%)',
-				'gradient-blush': 'linear-gradient(to right, #F5E1DB, #F9F7F0)',
-				'gradient-sage': 'linear-gradient(to right, #D9E1D8, #F9F7F0)',
-				'shimmer-gradient': 'linear-gradient(to right, #F5E1DB, #F9F7F0, #E2DFF4, #F9F7F0, #F5E1DB)',
+				'gradient-blush': 'linear-gradient(to right, #F7D8D5, #F8F3E6)',
+				'gradient-sage': 'linear-gradient(to right, #D2DFCD, #F8F3E6)',
+				'shimmer-gradient': 'linear-gradient(to right, #F7D8D5, #F8F3E6, #DDD8EF, #F8F3E6, #F7D8D5)',
 				'dreamy-overlay': 'radial-gradient(circle at center, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0))'
 			}
 		}

@@ -20,35 +20,38 @@
     --popover: 36 33% 97%;
     --popover-foreground: 0 0% 23%;
 
-    --primary: 352 100% 94%;
+    /* Updated primary to blush rose */
+    --primary: 7 55% 90%;
     --primary-foreground: 0 0% 23%;
 
-    --secondary: 115 14% 89%;
+    /* Updated secondary to sage mist */
+    --secondary: 108 18% 84%;
     --secondary-foreground: 0 0% 23%;
 
     --muted: 240 5% 96%;
     --muted-foreground: 240 4% 46%;
 
-    --accent: 296 100% 86%;
+    /* Updated accent to lavender mist */
+    --accent: 249 55% 89%;
     --accent-foreground: 0 0% 23%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 352 100% 94% / 30%;
-    --input: 352 100% 94% / 30%;
-    --ring: 352 100% 94%;
+    --border: 7 55% 90% / 30%;
+    --input: 7 55% 90% / 30%;
+    --ring: 7 55% 90%;
 
     --radius: 0.5rem;
 
-    --sidebar-background: 352 100% 94% / 10%;
+    --sidebar-background: 7 55% 90% / 10%;
     --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 352 100% 94%;
+    --sidebar-primary: 7 55% 90%;
     --sidebar-primary-foreground: 0 0% 23%;
-    --sidebar-accent: 115 14% 89%;
+    --sidebar-accent: 108 18% 84%;
     --sidebar-accent-foreground: 0 0% 23%;
-    --sidebar-border: 352 100% 94% / 30%;
-    --sidebar-ring: 352 100% 94%;
+    --sidebar-border: 7 55% 90% / 30%;
+    --sidebar-ring: 7 55% 90%;
   }
 
   .dark {
@@ -115,7 +118,7 @@
   }
   
   .asever-button {
-    @apply uppercase text-xs tracking-widest py-3 px-6 border border-brand-dark transition-all duration-300 hover:bg-brand-dark hover:text-white;
+    @apply uppercase text-xs tracking-widest py-3 px-6 border border-brand-deep-teal transition-all duration-300 hover:bg-brand-deep-teal hover:text-white;
   }
   
   .asever-product-card {
