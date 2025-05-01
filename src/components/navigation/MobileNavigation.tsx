@@ -6,12 +6,24 @@ import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import LoyaltyWidget from '@/components/loyalty/LoyaltyWidget';
 import CartButton from '@/components/cart/CartButton';
+import { useLoyalty } from '@/context/LoyaltyContext';
+import { useToast } from '@/components/ui/use-toast';
 
 const MobileNavigation = () => {
   const [openCategory, setOpenCategory] = useState<string | null>(null);
+  const { isLoggedIn, logout } = useLoyalty();
+  const { toast } = useToast();
   
   const toggleCategory = (category: string) => {
     setOpenCategory(openCategory === category ? null : category);
+  };
+
+  const handleLogout = () => {
+    logout();
+    toast({
+      title: "Logged out",
+      description: "You have been successfully logged out.",
+    });
   };
   
   // Simplified navigation structure
@@ -51,16 +63,28 @@ const MobileNavigation = () => {
                 Datin Norehan
               </Link>
               
-              <Link to="/loyalty">
+              {isLoggedIn ? (
                 <Button
                   variant="outline"
                   size="sm"
                   className="border-brand-deep-teal text-brand-deep-teal hover:bg-brand-deep-teal hover:text-white"
+                  onClick={handleLogout}
                 >
                   <User size={16} className="mr-2" />
-                  <span className="text-sm">Login</span>
+                  <span className="text-sm">Logout</span>
                 </Button>
-              </Link>
+              ) : (
+                <Link to="/loyalty">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="border-brand-deep-teal text-brand-deep-teal hover:bg-brand-deep-teal hover:text-white"
+                  >
+                    <User size={16} className="mr-2" />
+                    <span className="text-sm">Login</span>
+                  </Button>
+                </Link>
+              )}
             </div>
             
             <nav className="flex-1 py-6">
