@@ -35,6 +35,32 @@ const Hero = () => {
         </div>
       </div>
       
+      {/* Datin's Personal Introduction */}
+      <div className="container mx-auto px-4 relative z-10 mt-16 mb-12">
+        <div className="max-w-3xl mx-auto bg-white/80 backdrop-blur-sm p-6 md:p-8 rounded-lg border border-brand-blush-rose/20 shadow-sm">
+          <div className="flex flex-col md:flex-row items-center gap-6">
+            <div className="w-28 h-28 rounded-full overflow-hidden border-2 border-brand-deep-teal flex-shrink-0">
+              <img 
+                src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3" 
+                alt="Datin Norehan" 
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div>
+              <h3 className="font-playfair text-xl font-semibold mb-2 text-brand-deep-teal">A Personal Note from Datin Norehan</h3>
+              <p className="text-brand-soft-gray italic">
+                "Welcome to my sanctuary of wellness. For decades, I've dedicated my life to unlocking nature's healing secrets, 
+                combining traditional wisdom with modern science. Each formulation in my DNA collection represents my personal 
+                commitment to your radiance and wellbeing. These aren't just products—they're my legacy of care, meticulously 
+                crafted to transform your daily rituals into moments of rejuvenation. I invite you to experience the difference 
+                that passion and precision can make in your wellness journey."
+              </p>
+              <p className="mt-2 text-right text-brand-deep-teal font-playfair">- Datin Norehan</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
       {/* DNA Brand Architecture Section */}
       <div className="container mx-auto px-4 relative z-10 mt-24">
         <div className="max-w-5xl mx-auto">
@@ -60,10 +86,28 @@ const Hero = () => {
               </div>
             </div>
             
-            {/* DNA Wisdom */}
+            {/* DNA Ritual Kits */}
             <div className="bg-white/80 p-6 rounded-lg shadow-sm border border-brand-blush-rose/20 hover:shadow-md transition-all duration-300">
               <div className="w-16 h-16 bg-brand-blush-rose/20 rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="font-playfair text-2xl font-semibold text-brand-deep-teal">2</span>
+              </div>
+              <h3 className="font-playfair text-xl font-semibold text-center mb-3">DNA Ritual Kits</h3>
+              <p className="text-center text-brand-soft-gray mb-4">
+                Elevate your wellness routine with our curated ritual kits and premium accessories, designed to enhance your daily self-care practice and amplify product benefits.
+              </p>
+              <div className="text-center">
+                <Link to="/rituals">
+                  <Button variant="outline" size="sm" className="border-brand-deep-teal/30 hover:bg-brand-deep-teal/10">
+                    Explore Ritual Kits
+                  </Button>
+                </Link>
+              </div>
+            </div>
+            
+            {/* DNA Wisdom */}
+            <div className="bg-white/80 p-6 rounded-lg shadow-sm border border-brand-blush-rose/20 hover:shadow-md transition-all duration-300">
+              <div className="w-16 h-16 bg-brand-blush-rose/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="font-playfair text-2xl font-semibold text-brand-deep-teal">3</span>
               </div>
               <h3 className="font-playfair text-xl font-semibold text-center mb-3">DNA Wisdom</h3>
               <p className="text-center text-brand-soft-gray mb-4">
@@ -79,12 +123,12 @@ const Hero = () => {
             </div>
             
             {/* DNA Curations */}
-            <div className="bg-white/80 p-6 rounded-lg shadow-sm border border-brand-blush-rose/20 hover:shadow-md transition-all duration-300 relative overflow-hidden">
+            <div className="bg-white/80 p-6 rounded-lg shadow-sm border border-brand-blush-rose/20 hover:shadow-md transition-all duration-300 relative overflow-hidden md:col-start-2 mt-4 md:mt-8">
               <div className="absolute top-2 right-2 bg-brand-blush-rose/80 text-white text-xs py-1 px-2 rounded-full">
                 Coming Soon
               </div>
               <div className="w-16 h-16 bg-brand-blush-rose/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="font-playfair text-2xl font-semibold text-brand-deep-teal">3</span>
+                <span className="font-playfair text-2xl font-semibold text-brand-deep-teal">4</span>
               </div>
               <h3 className="font-playfair text-xl font-semibold text-center mb-3">DNA Curations</h3>
               <p className="text-center text-brand-soft-gray mb-4">
