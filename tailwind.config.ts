@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -63,7 +62,7 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Brand colors based on the provided design
+				// Keeping our brand colors
 				brand: {
 					"blush-rose": "#FFCDC7",    // Blush Rose - Signature warm pink
 					"creamy-ivory": "#F9F7F0",  // Creamy Ivory - Warm off-white
@@ -83,10 +82,14 @@ export default {
 				}
 			},
 			fontFamily: {
+				// Updated font families to match Asever.com style
+				italiana: ['Italiana', 'serif'],
+				karla: ['Karla', 'sans-serif'],
+				playfair: ['Playfair Display', 'serif'],
+				// Keeping our existing fonts for backward compatibility
 				cormorant: ['Cormorant Garamond', 'serif'],
 				montserrat: ['Montserrat', 'sans-serif'],
-				playfair: ['Playfair Display', 'serif'],
-				sans: ['Montserrat', 'sans-serif'] // Default font
+				sans: ['Karla', 'sans-serif'] // Changed default font to Karla
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

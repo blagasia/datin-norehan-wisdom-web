@@ -2,6 +2,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Italiana&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Karla:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -53,39 +55,7 @@
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 352 100% 94%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 115 14% 89%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 296 100% 86%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    
-    --sidebar-background: 352 100% 94% / 30%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 352 100% 94%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 115 14% 89%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 352 100% 94% / 30%;
-    --sidebar-ring: 352 100% 94%;
+    /* ... keep existing code */
   }
 }
 
@@ -95,49 +65,68 @@
   }
 
   body {
-    @apply bg-background text-foreground font-montserrat;
+    @apply bg-background text-foreground font-karla;
+    letter-spacing: 0.02em;
   }
 
-  h1, h2, h3 {
-    @apply font-cormorant;
+  h1, h2 {
+    @apply font-italiana;
+    letter-spacing: 0.05em;
   }
 
-  h4, h5, h6 {
-    @apply font-playfair;
+  h3, h4, h5, h6 {
+    @apply font-karla font-medium;
+    letter-spacing: 0.03em;
   }
 }
 
 @layer components {
   .btn-primary {
-    @apply bg-brand-dark text-white hover:bg-opacity-90 px-6 py-3 rounded-md transition-all duration-300 font-medium;
+    @apply bg-brand-dark text-white hover:bg-opacity-90 px-6 py-3 rounded-none transition-all duration-300 font-medium;
   }
   
   .btn-secondary {
-    @apply bg-brand-sage-mist text-brand-dark hover:bg-opacity-90 px-6 py-3 rounded-md transition-all duration-300 font-medium;
+    @apply bg-brand-sage-mist text-brand-dark hover:bg-opacity-90 px-6 py-3 rounded-none transition-all duration-300 font-medium;
   }
 
   .btn-outline {
-    @apply border border-brand-blush-rose text-brand-dark hover:bg-brand-blush-rose hover:bg-opacity-20 px-6 py-3 rounded-md transition-all duration-300 font-medium;
+    @apply border border-brand-blush-rose text-brand-dark hover:bg-brand-blush-rose hover:bg-opacity-20 px-6 py-3 rounded-none transition-all duration-300 font-medium;
   }
   
   .section-title {
-    @apply text-3xl md:text-4xl font-cormorant font-semibold mb-2;
+    @apply text-3xl md:text-4xl font-italiana font-normal mb-4 tracking-wide uppercase;
   }
   
   .section-subtitle {
-    @apply text-lg text-brand-soft-gray mb-8 max-w-3xl mx-auto;
+    @apply text-lg text-brand-soft-gray mb-8 max-w-3xl mx-auto font-karla;
   }
 
-  /* Brand-specific decorative elements */
-  .botanical-border {
-    @apply relative after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-[3px] after:w-16 after:bg-brand-blush-rose after:rounded-full;
+  /* Asever-inspired elements */
+  .asever-nav-link {
+    @apply relative font-karla uppercase text-sm tracking-widest pb-1 transition-all;
   }
   
-  .premium-card {
-    @apply border border-brand-blush-rose/20 rounded-lg p-6 transition-all duration-300 hover:shadow-md hover:border-brand-blush-rose/40 bg-white;
+  .asever-nav-link::after {
+    @apply content-[''] absolute left-0 bottom-0 w-0 h-px bg-current transition-all duration-300;
   }
   
-  .elegant-input {
-    @apply border-b border-brand-soft-gray/30 focus:border-brand-blush-rose px-2 py-3 bg-transparent w-full focus:outline-none transition-colors;
+  .asever-nav-link:hover::after {
+    @apply w-full;
+  }
+  
+  .asever-button {
+    @apply uppercase text-xs tracking-widest py-3 px-6 border border-brand-dark transition-all duration-300 hover:bg-brand-dark hover:text-white;
+  }
+  
+  .asever-product-card {
+    @apply group relative overflow-hidden transition-all duration-500;
+  }
+  
+  .asever-product-title {
+    @apply font-italiana text-xl mb-1;
+  }
+  
+  .asever-product-price {
+    @apply font-karla text-brand-soft-gray;
   }
 }

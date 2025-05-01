@@ -2,14 +2,13 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
-import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Form, FormField, FormItem, FormControl, FormMessage } from '@/components/ui/form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { useToast } from '@/hooks/use-toast';
-import { Mail, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 const subscribeSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email" }),
@@ -42,20 +41,20 @@ const Hero = () => {
 
   return (
     <div className="flex flex-col">
-      {/* Hero Section - Clean, minimal with subtle background */}
-      <section className="relative bg-brand-creamy-ivory py-16 md:py-24 border-b border-brand-blush-rose/10">
+      {/* Hero Section - Asever-inspired full-width minimal hero */}
+      <section className="relative bg-white pt-6 pb-16 md:pt-10 md:pb-20">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="font-cormorant text-3xl md:text-4xl lg:text-5xl font-normal text-brand-dark mb-6 tracking-tight">
-              Premium wellness formulations derived from traditional wisdom
+            <h1 className="font-italiana text-4xl md:text-5xl lg:text-6xl uppercase tracking-wide mb-6">
+              Natural holistic wellness
             </h1>
-            <p className="text-base md:text-lg mb-10 text-brand-soft-gray font-montserrat leading-relaxed">
-              Datin Norehan's natural wellness solutions that nourish the body, mind, and soul.
+            <p className="font-karla text-base md:text-lg mb-10 text-brand-soft-gray leading-relaxed max-w-2xl mx-auto">
+              Premium formulations with traditional wisdom for modern wellbeing.
             </p>
-            <div className="flex gap-4 justify-center">
+            <div className="flex justify-center">
               <Link to="/products">
-                <Button className="bg-brand-deep-teal hover:bg-brand-deep-teal/90 text-white px-8 py-6 rounded-none h-auto">
-                  Shop Bestsellers
+                <Button className="asever-button bg-transparent rounded-none text-brand-dark border-brand-dark hover:bg-brand-dark hover:text-white">
+                  Shop Collection
                 </Button>
               </Link>
             </div>
@@ -63,96 +62,100 @@ const Hero = () => {
         </div>
       </section>
       
-      {/* Shop Categories - GOOP-inspired grid with large bold text */}
-      <section className="py-16 md:py-20 bg-white">
+      {/* Full-width hero image - Asever style */}
+      <section className="w-full h-[70vh] relative overflow-hidden">
+        <img 
+          src="https://images.unsplash.com/photo-1564305736039-3d0f7c23fd0e?q=80" 
+          alt="DNA by Datin Norehan" 
+          className="w-full h-full object-cover object-center"
+        />
+      </section>
+      
+      {/* Brand Statement - Clean minimalist text block */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="font-italiana text-2xl md:text-3xl uppercase tracking-wide mb-6">The DNA Vision</h2>
+            <p className="font-karla text-lg text-brand-soft-gray leading-relaxed mb-6 max-w-2xl mx-auto">
+              A curated collection of natural formulations that embody our commitment to traditional wellness practices. 
+              Each product celebrates the harmony between ancient knowledge and modern self-care rituals.
+            </p>
+          </div>
+        </div>
+      </section>
+      
+      {/* Shop Categories - Asever-inspired grid */}
+      <section className="py-16 bg-white">
         <div className="container mx-auto px-4 mb-12">
-          <h2 className="font-cormorant text-3xl font-normal text-center mb-16">Shop DNA by Datin Norehan</h2>
+          <h2 className="font-italiana text-2xl uppercase text-center tracking-wide mb-16">Shop the Collection</h2>
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {/* DNA Elixirs */}
             <Link to="/products" className="group">
-              <div className="aspect-square bg-brand-sage-mist/20 relative overflow-hidden mb-4">
+              <div className="aspect-square bg-white relative overflow-hidden mb-4">
                 <img 
                   src="https://images.unsplash.com/photo-1564305736039-3d0f7c23fd0e?q=80" 
                   alt="DNA Elixirs" 
                   className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
                 />
               </div>
-              <h3 className="font-cormorant text-xl text-center">DNA Elixirs</h3>
+              <h3 className="font-italiana text-center text-xl tracking-wide">Elixirs</h3>
             </Link>
             
             {/* DNA Ritual Kits */}
             <Link to="/rituals" className="group">
-              <div className="aspect-square bg-brand-blush-rose/20 relative overflow-hidden mb-4">
+              <div className="aspect-square bg-white relative overflow-hidden mb-4">
                 <img 
                   src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?q=80" 
                   alt="DNA Ritual Kits" 
                   className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
                 />
               </div>
-              <h3 className="font-cormorant text-xl text-center">DNA Ritual Kits</h3>
+              <h3 className="font-italiana text-center text-xl tracking-wide">Rituals</h3>
             </Link>
             
             {/* DNA Wisdom */}
             <Link to="/articles" className="group">
-              <div className="aspect-square bg-brand-orchid-pink/10 relative overflow-hidden mb-4">
+              <div className="aspect-square bg-white relative overflow-hidden mb-4">
                 <img 
                   src="https://images.unsplash.com/photo-1532153955177-f59af40d6472?q=80" 
                   alt="DNA Wisdom" 
                   className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
                 />
               </div>
-              <h3 className="font-cormorant text-xl text-center">DNA Wisdom</h3>
+              <h3 className="font-italiana text-center text-xl tracking-wide">Wisdom</h3>
             </Link>
             
             {/* DNA Curations */}
             <div className="group relative">
-              <div className="absolute top-2 right-2 z-10">
-                <span className="bg-white text-xs px-3 py-1 font-medium">Coming Soon</span>
-              </div>
-              <div className="aspect-square bg-brand-gilded-gold/10 relative overflow-hidden mb-4">
+              <div className="aspect-square bg-white relative overflow-hidden mb-4">
                 <img 
                   src="https://images.unsplash.com/photo-1611242320536-f12d3541249b?q=80" 
                   alt="DNA Curations" 
                   className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 opacity-80"
                 />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="font-karla uppercase tracking-widest text-xs bg-white/70 backdrop-blur-sm px-4 py-2">Coming Soon</span>
+                </div>
               </div>
-              <h3 className="font-cormorant text-xl text-center">DNA Curations</h3>
+              <h3 className="font-italiana text-center text-xl tracking-wide">Curations</h3>
             </div>
           </div>
         </div>
       </section>
       
-      {/* Brand Vision - Clean card with elegant typography */}
-      <section className="py-12 md:py-16 bg-brand-creamy-ivory">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="font-cormorant text-3xl font-normal text-center mb-3">The DNA Vision</h2>
-            <div className="w-16 h-px bg-brand-gilded-gold mx-auto mb-8"></div>
-            <p className="text-brand-soft-gray text-center text-lg leading-relaxed mb-6">
-              DNA by Datin Norehan represents the culmination of ancient wellness traditions and modern scientific innovation. 
-              Our formulations capture the essence of natural healing, carefully crafted to enhance your daily rituals and elevate 
-              your wellbeing journey. Each product embodies our commitment to purity, efficacy, and sustainable luxury.
-            </p>
-            <p className="text-right text-brand-deep-teal font-playfair italic">
-              — Nurturing radiance from within
-            </p>
-          </div>
-        </div>
-      </section>
-      
-      {/* Newsletter Section - GOOP-inspired clean newsletter */}
-      <section className="py-16 md:py-20 bg-white border-t border-brand-blush-rose/10">
+      {/* Newsletter Section - Asever-inspired minimalist form */}
+      <section className="py-20 bg-brand-creamy-ivory border-t border-brand-blush-rose/10">
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mx-auto text-center">
-            <h2 className="font-cormorant text-3xl font-normal mb-4">Join Our Community</h2>
-            <p className="text-brand-soft-gray mb-8">
+            <h2 className="font-italiana text-2xl uppercase tracking-wide mb-6">Join Our Community</h2>
+            <p className="font-karla text-brand-soft-gray mb-10 max-w-lg mx-auto">
               Subscribe to receive exclusive content, early access to product launches, and invitations to our wellness events.
             </p>
             
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="mb-4">
-                <div className="flex flex-col sm:flex-row gap-3">
+              <form onSubmit={form.handleSubmit(onSubmit)} className="mb-6">
+                <div className="flex flex-col sm:flex-row gap-4">
                   <div className="flex-grow">
                     <FormField
                       control={form.control}
@@ -162,7 +165,7 @@ const Hero = () => {
                           <FormControl>
                             <Input 
                               placeholder="Your email address" 
-                              className="border-brand-soft-gray/30 rounded-none focus-visible:ring-brand-deep-teal/30 h-12" 
+                              className="border-b border-brand-soft-gray/30 rounded-none focus-visible:ring-0 focus-visible:border-brand-dark h-12 bg-transparent" 
                               {...field}
                             />
                           </FormControl>
@@ -173,7 +176,7 @@ const Hero = () => {
                   </div>
                   <Button 
                     type="submit"
-                    className="bg-brand-dark hover:bg-brand-dark/90 text-white rounded-none h-12 px-8"
+                    className="asever-button rounded-none h-12 min-w-[120px]"
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? "Subscribing..." : (
