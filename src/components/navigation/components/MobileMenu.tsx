@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { useLoyalty } from '@/context/LoyaltyContext';
 import { useToast } from '@/components/ui/use-toast';
 import MobileNavCategory from './MobileNavCategory';
+import MobileNavLink from './MobileNavLink'; // Added import for MobileNavLink
 import BrandLogo from './BrandLogo';
 import { 
   mainNavItems,
