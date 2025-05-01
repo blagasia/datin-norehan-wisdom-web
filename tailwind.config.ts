@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -62,34 +63,36 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Keeping our brand colors
+				// Updated brand colors for a more elegant, cohesive palette
 				brand: {
-					"blush-rose": "#FFCDC7",    // Blush Rose - Signature warm pink
-					"creamy-ivory": "#F9F7F0",  // Creamy Ivory - Warm off-white
-					"sage-mist": "#E1E9DE",     // Sage Mist - Soft, muted green
-					"gilded-gold": "#D4AF37",   // Accent - Gilded gold
-					"orchid-pink": "#F9B7FF",   // Accent - Orchid pink
-					"deep-teal": "#006D77",     // Accent - Deep teal
-					"soft-gray": "#8E9196",     // Neutral gray for text
-					"dark": "#3A3A3A",          // Dark text color
+					"blush-rose": "#F5E1DB",    // Softer rose tone (was #FFCDC7)
+					"creamy-ivory": "#F9F7F0",  // Kept as is - works well
+					"sage-mist": "#D9E1D8",     // Slightly muted sage (was #E1E9DE)
+					"gilded-gold": "#B8A084",   // Warm taupe instead of bright gold (was #D4AF37)
+					"orchid-pink": "#E9D1DB",   // Muted mauve (was #F9B7FF)
+					"deep-teal": "#3A5A60",     // Deeper, more muted teal (was #006D77)
+					"soft-gray": "#8E9196",     // Kept as is
+					"dark": "#3A3A3A",          // Kept as is
+					"lavender": "#E2DFF4",      // New accent - soft lavender
+					"amber": "#D6C9A0",         // New accent - soft amber
 				},
 				natural: {
-					green: '#E1E9DE',           // Updated to Sage Mist
-					purple: '#F9B7FF',          // Updated to Orchid Pink
-					peach: '#FFCDC7',           // Updated to Blush Rose
+					green: '#D9E1D8',           // Updated to match sage-mist
+					purple: '#E2DFF4',          // Updated to match lavender
+					peach: '#F5E1DB',           // Updated to match blush-rose
 					gray: '#8E9196',            // Kept as is
-					dark: '#3A3A3A'             // Updated to a softer dark
+					dark: '#3A3A3A',            // Kept as is
+					taupe: '#B8A084',           // Added to match gilded-gold
 				}
 			},
 			fontFamily: {
-				// Updated font families to match Asever.com style
+				// Kept existing font families
 				italiana: ['Italiana', 'serif'],
 				karla: ['Karla', 'sans-serif'],
 				playfair: ['Playfair Display', 'serif'],
-				// Keeping our existing fonts for backward compatibility
 				cormorant: ['Cormorant Garamond', 'serif'],
 				montserrat: ['Montserrat', 'sans-serif'],
-				sans: ['Karla', 'sans-serif'] // Changed default font to Karla
+				sans: ['Karla', 'sans-serif']
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -124,6 +127,10 @@ export default {
 				'scale-in': {
 					'0%': { transform: 'scale(0.95)', opacity: '0' },
 					'100%': { transform: 'scale(1)', opacity: '1' }
+				},
+				'shimmer': {
+					'0%': { backgroundPosition: '-200% 0' },
+					'100%': { backgroundPosition: '200% 0' }
 				}
 			},
 			animation: {
@@ -131,12 +138,14 @@ export default {
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'fade-in': 'fade-in 1s ease-out',
 				'fade-up': 'fade-up 0.7s ease-out',
-				'scale-in': 'scale-in 0.5s ease-out'
+				'scale-in': 'scale-in 0.5s ease-out',
+				'shimmer': 'shimmer 3s infinite linear'
 			},
 			backgroundImage: {
 				'gradient-natural': 'linear-gradient(109.6deg, rgba(242,230,230,1) 11.2%, rgba(242,242,242,1) 91.1%)',
-				'gradient-blush': 'linear-gradient(to right, #FFCDC7, #F9F7F0)',
-				'gradient-sage': 'linear-gradient(to right, #E1E9DE, #F9F7F0)'
+				'gradient-blush': 'linear-gradient(to right, #F5E1DB, #F9F7F0)',
+				'gradient-sage': 'linear-gradient(to right, #D9E1D8, #F9F7F0)',
+				'shimmer-gradient': 'linear-gradient(to right, #F5E1DB, #F9F7F0, #E2DFF4, #F9F7F0, #F5E1DB)'
 			}
 		}
 	},

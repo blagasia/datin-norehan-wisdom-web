@@ -19,8 +19,10 @@ const buttonVariants = cva(
           "bg-brand-sage-mist text-brand-dark hover:bg-brand-sage-mist/80",
         ghost: "hover:bg-brand-blush-rose/10 hover:text-brand-dark",
         link: "text-brand-deep-teal underline-offset-4 hover:underline",
-        gold: "bg-brand-gilded-gold text-white hover:bg-brand-gilded-gold/90",
+        taupe: "bg-brand-gilded-gold text-white hover:bg-brand-gilded-gold/90",
         teal: "bg-brand-deep-teal text-white hover:bg-brand-deep-teal/90",
+        lavender: "bg-brand-lavender text-brand-dark hover:bg-brand-lavender/80",
+        amber: "bg-brand-amber text-brand-dark hover:bg-brand-amber/80",
       },
       size: {
         default: "h-10 px-4 py-2",

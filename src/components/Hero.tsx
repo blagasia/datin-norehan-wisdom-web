@@ -8,7 +8,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { useToast } from '@/hooks/use-toast';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Sparkles } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
 
 const subscribeSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email" }),
@@ -33,28 +34,36 @@ const Hero = () => {
     await new Promise(resolve => setTimeout(resolve, 1000));
     setIsSubmitting(false);
     toast({
-      title: "Success!",
-      description: "You've been added to our exclusive community.",
+      title: "Welcome to our community",
+      description: "You've been added to our exclusive circle of wellness enthusiasts.",
     });
     form.reset();
   };
 
   return (
     <div className="flex flex-col">
-      {/* Hero Section - Asever-inspired full-width minimal hero */}
-      <section className="relative bg-white pt-24 pb-16 md:pt-32 md:pb-20">
+      {/* Hero Section - Elegant minimalist hero with refined typography */}
+      <section className="relative bg-gradient-to-b from-white to-brand-creamy-ivory pt-24 pb-16 md:pt-32 md:pb-20">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
+            <div className="flex justify-center mb-6">
+              <Badge variant="outline" className="bg-white/50 backdrop-blur-sm border-brand-blush-rose text-brand-dark px-4 py-1">
+                <Sparkles className="h-3.5 w-3.5 mr-1.5 text-brand-gilded-gold" /> Artisanal Wellness
+              </Badge>
+            </div>
             <h1 className="font-italiana text-4xl md:text-5xl lg:text-6xl uppercase tracking-wide mb-8">
-              Natural holistic wellness
+              Natural holistic apothecary
             </h1>
             <p className="font-karla text-base md:text-lg mb-12 text-brand-soft-gray leading-relaxed max-w-2xl mx-auto">
-              Premium formulations with traditional wisdom for modern wellbeing.
+              Discover our carefully crafted wellness elixirs—where ancestral wisdom meets modern science for your body, mind, and spirit.
             </p>
             <div className="flex justify-center">
               <Link to="/products">
-                <Button className="asever-button bg-transparent rounded-none text-brand-dark border-brand-dark hover:bg-brand-dark hover:text-white">
-                  Shop Collection
+                <Button className="bg-transparent rounded-none text-brand-dark border-brand-dark hover:bg-brand-dark hover:text-white group">
+                  Explore Collection
+                  <span className="inline-block transition-transform group-hover:translate-x-1">
+                    <ArrowRight className="h-4 w-4" />
+                  </span>
                 </Button>
               </Link>
             </div>
@@ -62,80 +71,105 @@ const Hero = () => {
         </div>
       </section>
       
-      {/* Full-width hero image - Asever style */}
+      {/* Full-width hero image with subtle overlay */}
       <section className="w-full h-[80vh] relative overflow-hidden">
+        <div className="absolute inset-0 bg-black/20 z-10"></div>
         <img 
           src="https://images.unsplash.com/photo-1617897903246-719242758050?q=80&w=2670&auto=format&fit=crop" 
           alt="DNA by Datin Norehan" 
           className="w-full h-full object-cover object-center"
         />
-      </section>
-      
-      {/* Brand Statement - Clean minimalist text block */}
-      <section className="py-24 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="font-italiana text-2xl md:text-3xl uppercase tracking-wide mb-8">The DNA Vision</h2>
-            <p className="font-karla text-lg text-brand-soft-gray leading-relaxed mb-8 max-w-2xl mx-auto">
-              A curated collection of natural formulations that embody our commitment to traditional wellness practices. 
-              Each product celebrates the harmony between ancient knowledge and modern self-care rituals.
-            </p>
+        <div className="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-black/40 via-black/20 to-transparent z-20">
+          <div className="container mx-auto">
+            <p className="font-italiana text-white text-lg md:text-xl tracking-wide">Traditional wisdom. Modern wellness.</p>
           </div>
         </div>
       </section>
       
-      {/* Shop Categories - Asever-inspired grid */}
+      {/* Brand Statement - Enhanced with subtle animations */}
+      <section className="py-24 bg-brand-creamy-ivory/50">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto text-center">
+            <div className="inline-block mb-6 relative">
+              <span className="inline-block w-12 h-[1px] bg-brand-gilded-gold"></span>
+              <span className="inline-block mx-4 font-karla text-sm tracking-widest text-brand-gilded-gold">ESSENCE</span>
+              <span className="inline-block w-12 h-[1px] bg-brand-gilded-gold"></span>
+            </div>
+            <h2 className="font-italiana text-2xl md:text-3xl uppercase tracking-wide mb-8">The DNA Philosophy</h2>
+            <p className="font-karla text-lg text-brand-soft-gray leading-relaxed mb-8 max-w-2xl mx-auto">
+              Our collection honors Malaysian heritage botanicals and time-tested wellness practices. Each formulation is a 
+              poetic blend of nature and science, carefully composed to enhance your daily rituals and nurture holistic wellbeing.
+            </p>
+            <div className="flex flex-wrap justify-center gap-3 mt-12">
+              <span className="bg-brand-lavender/20 text-brand-dark px-4 py-1 text-sm rounded-full">Plant-Based</span>
+              <span className="bg-brand-amber/20 text-brand-dark px-4 py-1 text-sm rounded-full">Heritage Recipes</span>
+              <span className="bg-brand-blush-rose/20 text-brand-dark px-4 py-1 text-sm rounded-full">Clean Formulations</span>
+              <span className="bg-brand-sage-mist/40 text-brand-dark px-4 py-1 text-sm rounded-full">Artisanal Process</span>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      {/* Shop Categories - Refined grid with subtle hover effects */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4 mb-16">
-          <h2 className="font-italiana text-2xl uppercase text-center tracking-wide mb-16">Shop the Collection</h2>
+          <div className="flex justify-center mb-8">
+            <div className="relative">
+              <h2 className="font-italiana text-2xl uppercase text-center tracking-wide relative z-10">Shop the Collection</h2>
+              <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-24 h-[2px] bg-gradient-to-r from-transparent via-brand-blush-rose to-transparent"></div>
+            </div>
+          </div>
           
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-10">
             {/* DNA Elixirs */}
             <Link to="/products" className="group">
-              <div className="aspect-square bg-white relative overflow-hidden mb-4">
+              <div className="aspect-square bg-white relative overflow-hidden mb-4 shadow-sm">
                 <img 
                   src="https://images.unsplash.com/photo-1598452963314-b09f397a5c48?q=80&w=1470&auto=format&fit=crop" 
                   alt="DNA Elixirs" 
                   className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </div>
-              <h3 className="font-italiana text-center text-xl tracking-wide">Elixirs</h3>
+              <h3 className="font-italiana text-center text-xl tracking-wide group-hover:text-brand-gilded-gold transition-colors">Elixirs</h3>
             </Link>
             
             {/* DNA Ritual Kits */}
             <Link to="/rituals" className="group">
-              <div className="aspect-square bg-white relative overflow-hidden mb-4">
+              <div className="aspect-square bg-white relative overflow-hidden mb-4 shadow-sm">
                 <img 
                   src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?q=80&w=1480&auto=format&fit=crop" 
                   alt="DNA Ritual Kits" 
                   className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </div>
-              <h3 className="font-italiana text-center text-xl tracking-wide">Rituals</h3>
+              <h3 className="font-italiana text-center text-xl tracking-wide group-hover:text-brand-gilded-gold transition-colors">Rituals</h3>
             </Link>
             
             {/* DNA Wisdom */}
             <Link to="/articles" className="group">
-              <div className="aspect-square bg-white relative overflow-hidden mb-4">
+              <div className="aspect-square bg-white relative overflow-hidden mb-4 shadow-sm">
                 <img 
                   src="https://images.unsplash.com/photo-1532153955177-f59af40d6472?q=80&w=1470&auto=format&fit=crop" 
                   alt="DNA Wisdom" 
                   className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </div>
-              <h3 className="font-italiana text-center text-xl tracking-wide">Wisdom</h3>
+              <h3 className="font-italiana text-center text-xl tracking-wide group-hover:text-brand-gilded-gold transition-colors">Wisdom</h3>
             </Link>
             
             {/* DNA Curations */}
             <div className="group relative">
-              <div className="aspect-square bg-white relative overflow-hidden mb-4">
+              <div className="aspect-square bg-white relative overflow-hidden mb-4 shadow-sm">
                 <img 
                   src="https://images.unsplash.com/photo-1611242320536-f12d3541249b?q=80&w=1470&auto=format&fit=crop" 
                   alt="DNA Curations" 
-                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 opacity-80"
+                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 opacity-90"
                 />
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="font-karla uppercase tracking-widest text-xs bg-white/70 backdrop-blur-sm px-4 py-2">Coming Soon</span>
+                  <span className="font-karla uppercase tracking-widest text-xs bg-white/70 backdrop-blur-sm px-4 py-2 shadow-sm">Coming Soon</span>
                 </div>
               </div>
               <h3 className="font-italiana text-center text-xl tracking-wide">Curations</h3>
@@ -144,13 +178,16 @@ const Hero = () => {
         </div>
       </section>
       
-      {/* Newsletter Section - Asever-inspired minimalist form */}
-      <section className="py-24 bg-brand-creamy-ivory border-t border-brand-blush-rose/10">
+      {/* Newsletter Section - Enhanced with refined aesthetic */}
+      <section className="py-24 bg-gradient-to-r from-brand-lavender/10 via-brand-creamy-ivory to-brand-blush-rose/10 border-t border-brand-blush-rose/10">
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mx-auto text-center">
-            <h2 className="font-italiana text-2xl uppercase tracking-wide mb-8">Join Our Community</h2>
+            <div className="inline-block mb-6">
+              <Sparkles className="h-5 w-5 text-brand-gilded-gold mx-auto" />
+            </div>
+            <h2 className="font-italiana text-2xl uppercase tracking-wide mb-8">Join Our Inner Circle</h2>
             <p className="font-karla text-brand-soft-gray mb-12 max-w-lg mx-auto">
-              Subscribe to receive exclusive content, early access to product launches, and invitations to our wellness events.
+              Subscribe for early access to limited formulations, wellness wisdom, and exclusive invitations to our botanical gatherings.
             </p>
             
             <Form {...form}>
@@ -165,7 +202,7 @@ const Hero = () => {
                           <FormControl>
                             <Input 
                               placeholder="Your email address" 
-                              className="border-b border-brand-soft-gray/30 rounded-none focus-visible:ring-0 focus-visible:border-brand-dark h-12 bg-transparent" 
+                              className="border-b border-brand-soft-gray/30 rounded-none focus-visible:ring-0 focus-visible:border-brand-gilded-gold h-12 bg-transparent" 
                               {...field}
                             />
                           </FormControl>
@@ -176,7 +213,7 @@ const Hero = () => {
                   </div>
                   <Button 
                     type="submit"
-                    className="asever-button rounded-none h-12 min-w-[120px]"
+                    className="rounded-none h-12 min-w-[120px] bg-brand-gilded-gold hover:bg-brand-gilded-gold/90 text-white"
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? "Subscribing..." : (
@@ -190,7 +227,7 @@ const Hero = () => {
             </Form>
             
             <p className="text-xs text-brand-soft-gray/80">
-              By subscribing, you agree to our Privacy Policy. We respect your privacy.
+              By subscribing, you join our community of wellness enthusiasts. We treat your information with care.
             </p>
           </div>
         </div>
