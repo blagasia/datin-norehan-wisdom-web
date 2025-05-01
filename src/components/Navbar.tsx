@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { NavLink, Link } from 'react-router-dom';
-import { Menu, X, ShoppingBag, User, Book, Calendar, Compass } from 'lucide-react';
+import { Menu, X, ShoppingBag, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetClose, SheetTrigger } from '@/components/ui/sheet';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -36,12 +36,10 @@ const Navbar = () => {
   const navItemClasses = "text-sm font-medium hover:text-brand-gilded-gold transition-colors";
   const activeNavItemClasses = "text-brand-gilded-gold font-semibold";
 
-  // Updated navigation structure based on brand architecture
+  // Updated navigation structure - removed Home and Contact
   const mainNavItems = [
-    { name: 'Home', path: '/' },
     { name: 'About', path: '/about' },
     { name: 'Ask Datin', path: '/ask' },
-    { name: 'Contact', path: '/contact' },
   ];
 
   // DNA by Datin Norehan Categories
@@ -208,13 +206,6 @@ const Navbar = () => {
                       </ul>
                     </NavigationMenuContent>
                   </NavigationMenuItem>
-                  <NavigationMenuItem>
-                    <NavigationMenuLink className={navItemClasses}>
-                      <Link to="/loyalty">
-                        Loyalty
-                      </Link>
-                    </NavigationMenuLink>
-                  </NavigationMenuItem>
                 </NavigationMenuList>
               </NavigationMenu>
               
@@ -222,14 +213,23 @@ const Navbar = () => {
               
               <div className="flex items-center gap-4">
                 <LoyaltyWidget />
-                <Link to="/contact">
-                  <Button variant="outline" className="border-brand-gilded-gold/30 hover:bg-brand-gilded-gold/10">Contact</Button>
+                <Link to="/loyalty">
+                  <Button variant="taupe" size="sm" className="flex items-center gap-2">
+                    <User size={16} />
+                    <span>Become a Devotee</span>
+                  </Button>
                 </Link>
               </div>
             </nav>
           ) : (
             <div className="flex items-center gap-4">
               <LoyaltyWidget />
+              <Link to="/loyalty" className="mr-2">
+                <Button variant="taupe" size="sm" className="flex items-center gap-2">
+                  <User size={16} />
+                  <span>Devotee Access</span>
+                </Button>
+              </Link>
               <Sheet>
                 <SheetTrigger asChild>
                   <Button variant="ghost" size="icon">
@@ -321,13 +321,16 @@ const Navbar = () => {
                             `${navItemClasses} ${isActive ? activeNavItemClasses : ''}`
                           }
                         >
-                          Loyalty Program
+                          Devotee Program
                         </NavLink>
                       </li>
                     </ul>
                     
-                    <Link to="/contact" className="mt-auto mb-8 w-full">
-                      <Button className="w-full bg-brand-blush-rose hover:bg-brand-blush-rose/90 text-brand-dark">Contact</Button>
+                    <Link to="/loyalty" className="mt-auto mb-8 w-full">
+                      <Button variant="taupe" className="w-full">
+                        <User className="mr-2 h-4 w-4" />
+                        Become a Devotee
+                      </Button>
                     </Link>
                   </nav>
                 </SheetContent>
