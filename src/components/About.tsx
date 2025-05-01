@@ -45,9 +45,9 @@ const About = () => {
             <div className="relative">
               <div className="w-72 h-72 md:w-96 md:h-96 rounded-full overflow-hidden border-8 border-natural-green/30 shadow-lg">
                 <img 
-                  src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158" 
+                  src="/lovable-uploads/7e6f7992-a735-45ec-b641-98b2928c9e3f.png" 
                   alt="Datin Norehan"
-                  className="w-full h-full object-cover" 
+                  className="w-full h-full object-cover object-top" 
                 />
               </div>
               <div className="absolute -bottom-8 -right-8 bg-natural-peach/80 rounded-lg p-6 shadow-md">

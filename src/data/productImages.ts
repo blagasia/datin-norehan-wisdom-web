@@ -3,16 +3,17 @@
 export const images: Record<number, string[]> = {
   1: [ // Organic Detox Tea
     "/lovable-uploads/f91e20f1-b533-4a99-8571-6b67480a4f46.png",
-    "https://images.unsplash.com/photo-1576092768241-dec231879fc3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1615270016290-ea67a2c7556f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+    "/lovable-uploads/e764b251-1929-4b30-aa8e-eea084ef5647.png", // Adding ceramic painting
+    "https://images.unsplash.com/photo-1576092768241-dec231879fc3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
   ],
   2: [ // Natural Collagen Boost
     "/lovable-uploads/10e4607c-d8a7-4884-a2c1-cc5b220a1c49.png",
     "/lovable-uploads/afa1593f-8b8c-4b88-9806-09cbc6f7618d.png",
-    "/lovable-uploads/56c8ecfc-b55a-466b-8542-f2c698fb2dc3.png"
+    "/lovable-uploads/f971d600-dd8b-4ec9-b0cb-adc7e2ba35bc.png" // Adding ceramic painting
   ],
   3: [ // Herbal Wellness Tonic
     "/lovable-uploads/ba6aa273-f8a4-4313-9d28-65b4a2be27a5.png",
+    "/lovable-uploads/0b730717-61b7-43a1-87d3-af95a3cf601b.png", // Adding ceramic painting
     "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
   ],
   4: [ // Natural Beauty Elixir
@@ -37,4 +38,3 @@ export const images: Record<number, string[]> = {
     "https://images.unsplash.com/photo-1585751119414-ef2636f8aede?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
   ]
 };
-

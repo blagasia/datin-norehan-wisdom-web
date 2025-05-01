@@ -11,24 +11,27 @@ import TikTokContent from '@/components/TikTokContent';
 import About from '@/components/About';
 import Footer from '@/components/Footer';
 import { Toaster } from '@/components/ui/toaster';
+import { LoyaltyProvider } from '@/context/LoyaltyContext';
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navbar />
-      <main className="flex-grow">
-        <Hero />
-        <Products />
-        <Features />
-        <RitualsPreview />
-        <Articles />
-        <EventsPreview />
-        <About />
-        <TikTokContent />
-      </main>
-      <Footer />
-      <Toaster />
-    </div>
+    <LoyaltyProvider>
+      <div className="min-h-screen flex flex-col">
+        <Navbar />
+        <main className="flex-grow">
+          <Hero />
+          <Products />
+          <Features />
+          <RitualsPreview />
+          <Articles />
+          <EventsPreview />
+          <About />
+          <TikTokContent />
+        </main>
+        <Footer />
+        <Toaster />
+      </div>
+    </LoyaltyProvider>
   );
 };
 

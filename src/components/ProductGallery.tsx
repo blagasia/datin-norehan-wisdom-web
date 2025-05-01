@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Carousel,
   CarouselContent,
@@ -23,9 +23,14 @@ const ProductGallery = ({ productId, mainImage }: ProductGalleryProps) => {
     ? additionalImages 
     : [mainImage, ...additionalImages];
   
+  const [activeIndex, setActiveIndex] = useState(0);
+  
   return (
     <div className="relative">
-      <Carousel className="w-full">
+      <Carousel 
+        className="w-full"
+        onSelect={(index) => setActiveIndex(index)}
+      >
         <CarouselContent>
           {allImages.map((image, index) => (
             <CarouselItem key={index} className="md:basis-full">
@@ -39,9 +44,32 @@ const ProductGallery = ({ productId, mainImage }: ProductGalleryProps) => {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="absolute left-4 bg-white/80 hover:bg-white" />
-        <CarouselNext className="absolute right-4 bg-white/80 hover:bg-white" />
+        <div className="absolute inset-0 flex items-center justify-between">
+          <CarouselPrevious className="relative left-0 ml-2 bg-white/80 hover:bg-white" />
+          <CarouselNext className="relative right-0 mr-2 bg-white/80 hover:bg-white" />
+        </div>
       </Carousel>
+      
+      {/* Thumbnail navigation */}
+      {allImages.length > 1 && (
+        <div className="flex justify-center gap-2 mt-4">
+          {allImages.map((image, index) => (
+            <button
+              key={index}
+              onClick={() => setActiveIndex(index)}
+              className={`w-16 h-16 border-2 rounded overflow-hidden transition-all ${
+                activeIndex === index ? 'border-brand-deep-teal' : 'border-transparent opacity-70'
+              }`}
+            >
+              <img 
+                src={image} 
+                alt={`Thumbnail ${index + 1}`}
+                className="w-full h-full object-cover" 
+              />
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

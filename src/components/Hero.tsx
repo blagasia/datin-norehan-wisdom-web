@@ -94,9 +94,9 @@ const Hero = () => {
       {/* Full-width hero image with parallax effect */}
       <section className="parallax-container w-full h-[80vh] relative overflow-hidden">
         <div 
-          className="parallax-bg" 
+          className="parallax-bg bg-cover bg-center w-full h-[100vh] absolute" 
           style={{
-            backgroundImage: `url("https://images.unsplash.com/photo-1617897903246-719242758050?q=80&w=2670&auto=format&fit=crop")`,
+            backgroundImage: `url("/lovable-uploads/e764b251-1929-4b30-aa8e-eea084ef5647.png")`,
             ...getParallaxStyle(0.3)
           }}
         ></div>
@@ -148,9 +148,9 @@ const Hero = () => {
       {/* Dreamy Nature Imagery Section with Parallax */}
       <section className="parallax-container h-[60vh] relative overflow-hidden">
         <div 
-          className="parallax-bg dreamy-filter" 
+          className="parallax-bg bg-cover bg-center w-full h-[70vh] absolute dreamy-filter" 
           style={{
-            backgroundImage: `url("https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?q=80&w=2670&auto=format&fit=crop")`,
+            backgroundImage: `url("/lovable-uploads/f971d600-dd8b-4ec9-b0cb-adc7e2ba35bc.png")`,
             ...getParallaxStyle(0.4)
           }}
         ></div>
@@ -193,7 +193,7 @@ const Hero = () => {
             <Link to="/rituals" className="group">
               <div className="aspect-square bg-white relative overflow-hidden mb-4 shadow-sm">
                 <img 
-                  src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?q=80&w=1480&auto=format&fit=crop" 
+                  src="/lovable-uploads/0b730717-61b7-43a1-87d3-af95a3cf601b.png" 
                   alt="DNA Ritual Kits" 
                   className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
                 />
@@ -219,7 +219,7 @@ const Hero = () => {
             <div className="group relative">
               <div className="aspect-square bg-white relative overflow-hidden mb-4 shadow-sm">
                 <img 
-                  src="https://images.unsplash.com/photo-1611242320536-f12d3541249b?q=80&w=1470&auto=format&fit=crop" 
+                  src="/lovable-uploads/7e6f7992-a735-45ec-b641-98b2928c9e3f.png" 
                   alt="DNA Curations" 
                   className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 opacity-90"
                 />
@@ -249,9 +249,9 @@ const Hero = () => {
       {/* Whimsical Natural Elements with Parallax */}
       <section className="parallax-container h-[50vh] relative overflow-hidden">
         <div 
-          className="parallax-bg dreamy-filter" 
+          className="parallax-bg bg-cover bg-center w-full h-[60vh] absolute dreamy-filter" 
           style={{
-            backgroundImage: `url("https://images.unsplash.com/photo-1518495973542-4542c06a5843?q=80&w=2670&auto=format&fit=crop")`,
+            backgroundImage: `url("/lovable-uploads/0b730717-61b7-43a1-87d3-af95a3cf601b.png")`,
             ...getParallaxStyle(0.5)
           }}
         ></div>
