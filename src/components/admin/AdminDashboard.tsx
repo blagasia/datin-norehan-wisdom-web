@@ -11,7 +11,9 @@ import TikTokManager from './content/TikTokManager';
 import PageEditor from './content/PageEditor';
 import LoyaltyManager from './content/LoyaltyManager';
 import ReferralManager from './content/ReferralManager';
-import { Database, Folder, FolderOpen, Video, Columns, Gift, Tag } from 'lucide-react';
+import AboutManager from './content/AboutManager';
+import FeaturesManager from './content/FeaturesManager';
+import { Database, Folder, FolderOpen, Video, Columns, Gift, Tag, User, Award } from 'lucide-react';
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -45,7 +47,7 @@ const AdminDashboard = () => {
 
       <main className="container mx-auto px-4 py-8">
         <Tabs defaultValue="events" className="w-full">
-          <TabsList className="grid grid-cols-7 mb-8">
+          <TabsList className="grid grid-cols-9 mb-8">
             <TabsTrigger value="events" className="flex items-center gap-2">
               <Database className="h-4 w-4" />
               Events
@@ -69,6 +71,14 @@ const AdminDashboard = () => {
             <TabsTrigger value="referrals" className="flex items-center gap-2">
               <Tag className="h-4 w-4" />
               Referrals
+            </TabsTrigger>
+            <TabsTrigger value="features" className="flex items-center gap-2">
+              <Award className="h-4 w-4" />
+              Features
+            </TabsTrigger>
+            <TabsTrigger value="about" className="flex items-center gap-2">
+              <User className="h-4 w-4" />
+              About
             </TabsTrigger>
             <TabsTrigger value="pages" className="flex items-center gap-2">
               <Columns className="h-4 w-4" />
@@ -98,6 +108,14 @@ const AdminDashboard = () => {
           
           <TabsContent value="referrals" className="bg-white p-6 rounded-md shadow-sm">
             <ReferralManager />
+          </TabsContent>
+          
+          <TabsContent value="features" className="bg-white p-6 rounded-md shadow-sm">
+            <FeaturesManager />
+          </TabsContent>
+          
+          <TabsContent value="about" className="bg-white p-6 rounded-md shadow-sm">
+            <AboutManager />
           </TabsContent>
           
           <TabsContent value="pages" className="bg-white p-6 rounded-md shadow-sm">
