@@ -85,7 +85,7 @@ const Hero = () => {
       <section className="relative bg-gradient-to-b from-white to-brand-creamy-ivory pt-24 pb-16 md:pt-32 md:pb-20 overflow-hidden">
         {/* Video Background */}
         <VideoBackground 
-          videoSrc="https://assets.mixkit.co/videos/preview/mixkit-meditation-stones-path-in-a-zen-garden-4176-large.mp4"
+          videoSrc="https://vimeo.com/1080492231"
           fallbackImageSrc="/lovable-uploads/64130d34-d04d-40bb-9931-9c8f94a36cae.png"
         />
         
