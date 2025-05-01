@@ -18,16 +18,18 @@ const Index = () => {
     <LoyaltyProvider>
       <div className="min-h-screen flex flex-col">
         <Navbar />
-        <main className="flex-grow">
-          <Hero />
-          <Features />
-          <Products />
-          <RitualsPreview />
-          <About />
-          <Articles />
-          <EventsPreview />
-          <TikTokContent />
-        </main>
+        <div className="pt-16 md:pt-20 lg:pt-24"> {/* Added padding-top to offset the fixed navbar */}
+          <main className="flex-grow">
+            <Hero />
+            <Features />
+            <Products />
+            <RitualsPreview />
+            <About />
+            <Articles />
+            <EventsPreview />
+            <TikTokContent />
+          </main>
+        </div>
         <Footer />
         <Toaster />
       </div>

@@ -39,26 +39,24 @@ const About = () => {
             </div>
             
             <Link to="/story">
-              <Button className="bg-transparent rounded-none text-natural-dark border-natural-dark hover:bg-natural-dark hover:text-white group">
+              <Button className="bg-brand-deep-teal hover:bg-brand-deep-teal/90 text-white group flex items-center gap-2">
                 Explore Our Founder's Journey
-                <span className="inline-block transition-transform group-hover:translate-x-1">
-                  <ArrowRight className="h-4 w-4" />
-                </span>
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Button>
             </Link>
           </div>
           
           <div className="order-1 lg:order-2 flex justify-center">
             <div className="relative">
-              <div className="w-72 h-72 md:w-96 md:h-96 rounded-full overflow-hidden border-8 border-natural-green/30 shadow-lg">
+              <div className="w-72 h-72 md:w-96 md:h-96 rounded-full overflow-hidden border-8 border-brand-sage-mist shadow-lg">
                 <img 
                   src="/lovable-uploads/7e6f7992-a735-45ec-b641-98b2928c9e3f.png" 
                   alt="Datin Norehan"
                   className="w-full h-full object-cover object-top" 
                 />
               </div>
-              <div className="absolute -bottom-8 -right-8 bg-natural-peach/80 rounded-lg p-6 shadow-md">
-                <p className="font-italiana text-lg italic">
+              <div className="absolute -bottom-8 -right-8 bg-brand-blush-rose/80 rounded-lg p-6 shadow-md">
+                <p className="font-italiana text-lg italic text-natural-dark">
                   "True wellness starts with nature's wisdom."
                 </p>
               </div>
