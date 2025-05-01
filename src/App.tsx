@@ -24,6 +24,9 @@ import RitualDetail from "./pages/RitualDetail";
 import RitualCustom from "./pages/RitualCustom";
 import { LoyaltyProvider } from "@/context/LoyaltyContext";
 import PromotionManager from "@/components/promotions/PromotionManager";
+import DnaBrand from "./pages/DnaBrand";
+import Categories from "./pages/Categories";
+import ChatAgent from "./components/ChatAgent";
 
 const queryClient = new QueryClient();
 
@@ -35,6 +38,7 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <PromotionManager />
+          <ChatAgent />
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/products" element={<Products />} />
@@ -53,6 +57,9 @@ const App = () => (
             <Route path="/rituals" element={<Rituals />} />
             <Route path="/rituals/:productId" element={<RitualDetail />} />
             <Route path="/rituals/custom" element={<RitualCustom />} />
+            {/* New DNA brand routes */}
+            <Route path="/dna-brand" element={<DnaBrand />} />
+            <Route path="/categories" element={<Categories />} />
             {/* Curations routes */}
             <Route path="/curations/upcoming" element={<NotFound />} />
             <Route path="/curations/exclusive" element={<NotFound />} />

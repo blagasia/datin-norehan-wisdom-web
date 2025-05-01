@@ -38,6 +38,7 @@ const Navbar = () => {
 
   // Updated navigation structure - removed Home and Contact
   const mainNavItems = [
+    { name: 'Our Story', path: '/story' },
     { name: 'About', path: '/about' },
     { name: 'Ask Datin', path: '/ask' },
   ];
@@ -70,6 +71,16 @@ const Navbar = () => {
     { name: 'Exclusive Sets', path: '/curations/exclusive', description: 'Limited edition wellness collections' },
     { name: 'Membership Access', path: '/curations/membership', description: 'Special access for loyal customers' },
     { name: 'Register Interest', path: '/curations/register', description: 'Be notified when curations launch' },
+  ];
+
+  // DNA brand menu items
+  const dnaNavItems = [
+    { name: 'DNA Brand Story', path: '/dna-brand', description: 'The philosophy behind our collections' },
+    { name: 'Explore Categories', path: '/categories', description: 'Discover all four DNA pillars' },
+    { name: 'DNA Elixirs', path: '/categories?type=elixirs', description: 'Internal wellness formulations' },
+    { name: 'DNA Rituals', path: '/categories?type=rituals', description: 'Tools for mindful practices' },
+    { name: 'DNA Wisdom', path: '/categories?type=wisdom', description: 'Knowledge & education' },
+    { name: 'DNA Curations', path: '/categories?type=curations', description: 'Limited edition collections' },
   ];
 
   const renderMainNavItems = () => (
@@ -132,6 +143,25 @@ const Navbar = () => {
             <nav className="flex items-center gap-6">
               <NavigationMenu>
                 <NavigationMenuList>
+                  <NavigationMenuItem>
+                    <NavigationMenuTrigger className="bg-transparent hover:bg-transparent hover:text-brand-gilded-gold">
+                      DNA Brand
+                    </NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                      <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2">
+                        {dnaNavItems.map((item) => (
+                          <ListItem
+                            key={item.name}
+                            title={item.name}
+                            href={item.path}
+                          >
+                            {item.description}
+                          </ListItem>
+                        ))}
+                      </ul>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+                  
                   <NavigationMenuItem>
                     <NavigationMenuTrigger className="bg-transparent hover:bg-transparent hover:text-brand-gilded-gold">
                       DNA Elixirs
@@ -242,6 +272,19 @@ const Navbar = () => {
                       <Link to="/" className="text-xl font-italiana tracking-wide">
                         Datin Norehan Apothecary
                       </Link>
+                    </div>
+                    
+                    <div className="mt-6">
+                      <p className="text-xs uppercase font-semibold text-brand-soft-gray px-2 mb-2">DNA Brand</p>
+                      <ul className="space-y-2 pl-2">
+                        {dnaNavItems.map((item) => (
+                          <li key={item.name}>
+                            <Link to={item.path} className="text-sm text-brand-soft-gray hover:text-brand-gilded-gold">
+                              {item.name}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
                     
                     <div className="mt-6">
