@@ -10,6 +10,7 @@ import EventsPreview from '@/components/EventsPreview';
 import TikTokContent from '@/components/TikTokContent';
 import About from '@/components/About';
 import Footer from '@/components/Footer';
+import { Toaster } from '@/components/ui/toaster';
 
 const Index = () => {
   return (
@@ -26,9 +27,9 @@ const Index = () => {
         <TikTokContent />
       </main>
       <Footer />
+      <Toaster />
     </div>
   );
 };
 
 export default Index;
-

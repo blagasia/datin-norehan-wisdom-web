@@ -18,8 +18,10 @@ const ProductGallery = ({ productId, mainImage }: ProductGalleryProps) => {
   // Get additional images for this product from our gallery
   const additionalImages = GalleryImages[productId] || [];
   
-  // Combine main image with additional images
-  const allImages = [mainImage, ...additionalImages];
+  // Combine main image with additional images, if main image isn't already in additional images
+  const allImages = additionalImages.includes(mainImage) 
+    ? additionalImages 
+    : [mainImage, ...additionalImages];
   
   return (
     <div className="relative">
