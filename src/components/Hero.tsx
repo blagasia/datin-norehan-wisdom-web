@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -144,27 +145,37 @@ const Hero = () => {
         </div>
       </section>
       
-      {/* Dreamy Nature Imagery Section with Parallax - Updated with new image */}
-      <section className="parallax-container h-[60vh] relative overflow-hidden">
-        <div 
-          className="parallax-bg bg-cover bg-center w-full h-[70vh] absolute dreamy-filter" 
-          style={{
-            backgroundImage: `url("/lovable-uploads/5a036f15-ad25-4f98-b74e-196eb003b9c9.png")`,
-            ...getParallaxStyle(0.4)
-          }}
-        ></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/10 to-black/30 dreamy-overlay z-10"></div>
-        
-        {/* Nature's Treasures - Now full width */}
-        <div className="relative z-20 h-full flex items-center">
-          <div className="w-full bg-white/80 backdrop-blur-sm py-8 px-4" 
-               style={{backgroundImage: "url('/lovable-uploads/56c8ecfc-b55a-466b-8542-f2c698fb2dc3.png')", backgroundSize: '400px', backgroundBlendMode: 'overlay'}}>
-            <div className="container mx-auto text-center">
-              <h3 className="font-italiana text-2xl md:text-3xl mb-4">Nature's Treasures</h3>
-              <p className="font-karla text-brand-soft-gray max-w-2xl mx-auto">
-                Our formulations harness the power of Malaysia's botanical heritage, carefully selected and crafted to restore balance and harmony.
+      {/* Updated Traditional Wisdom. Modern Wellness section with new image and enlarged animated text */}
+      <section className="relative overflow-hidden">
+        {/* New image as background */}
+        <div className="w-full h-[70vh] md:h-[80vh] bg-cover bg-center" 
+             style={{backgroundImage: `url("/lovable-uploads/64130d34-d04d-40bb-9931-9c8f94a36cae.png")`}}>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60"></div>
+          
+          {/* Centered text with animation */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="text-center px-4 animate-fade-in">
+              <h2 className="font-italiana text-4xl md:text-5xl lg:text-6xl text-white mb-6 tracking-wide animate-scale-in">
+                <span className="block animate-fade-up" style={{animationDelay: '0.3s'}}>Traditional wisdom.</span>
+                <span className="block animate-fade-up" style={{animationDelay: '0.6s'}}>Modern wellness.</span>
+              </h2>
+              <p className="font-karla text-xl md:text-2xl text-white/90 max-w-2xl mx-auto animate-fade-up" style={{animationDelay: '0.9s'}}>
+                Celebrating diverse beauty through holistic self-care.
               </p>
             </div>
+          </div>
+        </div>
+      </section>
+      
+      {/* Nature's Treasures - Now full width */}
+      <section className="relative z-20 w-full">
+        <div className="w-full bg-white/80 backdrop-blur-sm py-12 px-4" 
+             style={{backgroundImage: "url('/lovable-uploads/56c8ecfc-b55a-466b-8542-f2c698fb2dc3.png')", backgroundSize: '400px', backgroundBlendMode: 'overlay'}}>
+          <div className="container mx-auto text-center">
+            <h3 className="font-italiana text-2xl md:text-3xl lg:text-4xl mb-6 animate-fade-in">Nature's Treasures</h3>
+            <p className="font-karla text-lg md:text-xl text-brand-soft-gray max-w-2xl mx-auto animate-fade-up" style={{animationDelay: '0.3s'}}>
+              Our formulations harness the power of Malaysia's botanical heritage, carefully selected and crafted to restore balance and harmony.
+            </p>
           </div>
         </div>
       </section>
