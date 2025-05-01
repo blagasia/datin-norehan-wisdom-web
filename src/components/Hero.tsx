@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -33,7 +34,7 @@ const Hero = () => {
     },
   });
   
-  // Handle parallax effect
+  // Handle scroll position for effects
   useEffect(() => {
     const handleScroll = () => {
       setScrollPosition(window.scrollY);
@@ -76,13 +77,6 @@ const Hero = () => {
       description: "You've been added to our exclusive circle of wellness enthusiasts.",
     });
     form.reset();
-  };
-
-  const getParallaxStyle = (speed: number) => {
-    return {
-      transform: `translateY(${scrollPosition * speed}px)`,
-      transition: 'transform 0.1s ease-out',
-    };
   };
 
   return (
@@ -129,7 +123,7 @@ const Hero = () => {
         </div>
       </section>
       
-      {/* New Scrolling Image Carousel - Full Width & Height */}
+      {/* Scrolling Image Carousel - Full Width & Height */}
       <section className="w-full py-0 bg-white">
         <div className="max-w-full mx-auto">
           <div className="text-center mb-10 pt-16">
@@ -280,7 +274,7 @@ const Hero = () => {
               <h3 className="font-italiana text-center text-xl tracking-wide group-hover:text-brand-muted-rose transition-colors">Elixirs</h3>
             </Link>
             
-            {/* DNA Ritual Kits - Swapped with DNA Curations image */}
+            {/* DNA Ritual Kits */}
             <Link to="/rituals" className="group">
               <div className="aspect-square bg-white relative overflow-hidden mb-4 shadow-sm">
                 <img 
@@ -306,7 +300,7 @@ const Hero = () => {
               <h3 className="font-italiana text-center text-xl tracking-wide group-hover:text-brand-muted-rose transition-colors">Wisdom</h3>
             </Link>
             
-            {/* DNA Curations - Updated with swapped image */}
+            {/* DNA Curations */}
             <div className="group relative">
               <div className="aspect-square bg-white relative overflow-hidden mb-4 shadow-sm">
                 <img 
@@ -337,27 +331,7 @@ const Hero = () => {
         </div>
       </section>
       
-      {/* Whimsical Natural Elements with Parallax - Updated with new image */}
-      <section className="parallax-container h-[50vh] relative overflow-hidden">
-        <div 
-          className="parallax-bg bg-cover bg-center w-full h-[60vh] absolute dreamy-filter" 
-          style={{
-            backgroundImage: `url("/lovable-uploads/c1cf7a81-becb-434a-ba10-34f2bfc6e418.png")`,
-            ...getParallaxStyle(0.5)
-          }}
-        ></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-transparent to-white/30 dreamy-overlay z-10"></div>
-        <div className="container mx-auto relative z-20 h-full flex items-center">
-          <div className="px-4 md:max-w-lg">
-            <h3 className="font-italiana text-white text-3xl md:text-4xl mb-3 text-shadow">Natural Harmony</h3>
-            <p className="font-karla text-white text-shadow-sm">
-              Our ingredients are thoughtfully sourced to bring you the purest essence of nature's gifts.
-            </p>
-          </div>
-        </div>
-      </section>
-      
-      {/* Updated Natural Harmony section with better styling and clarity */}
+      {/* Natural Harmony section with better styling and clarity */}
       <section className="w-full h-[50vh] md:h-[60vh] bg-cover bg-center relative overflow-hidden" 
                style={{backgroundImage: `url("/lovable-uploads/c1cf7a81-becb-434a-ba10-34f2bfc6e418.png")`}}>
         <div className="absolute inset-0 bg-black/30 backdrop-blur-[1px]"></div>
