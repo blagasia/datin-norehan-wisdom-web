@@ -8,12 +8,12 @@ import MobileMenu from './components/MobileMenu';
 
 const MobileNavigation = () => {
   return (
-    <div className="flex items-center">
+    <div className="flex items-center gap-2">
       <CartButton />
       
       <Sheet>
         <SheetTrigger asChild>
-          <Button variant="ghost" size="icon" aria-label="Menu">
+          <Button variant="ghost" size="icon" aria-label="Menu" className="focus:outline-none focus:ring-2 focus:ring-brand-deep-teal/20 focus:ring-offset-2">
             <Menu className="h-6 w-6" />
           </Button>
         </SheetTrigger>

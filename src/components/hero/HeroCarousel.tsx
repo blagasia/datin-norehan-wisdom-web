@@ -13,6 +13,7 @@ interface HeroCarouselProps {
 
 const HeroCarousel = ({ slides }: HeroCarouselProps) => {
   const [api, setApi] = useState<any>(null);
+  const [currentSlide, setCurrentSlide] = useState(0);
   
   // Set up auto-scroll for carousel
   useEffect(() => {
@@ -28,8 +29,16 @@ const HeroCarousel = ({ slides }: HeroCarouselProps) => {
 
     const intervalRef = window.setInterval(autoPlay, 5000);
     
+    // Update current slide when carousel changes
+    const onSelect = () => {
+      setCurrentSlide(api.selectedScrollSnap());
+    };
+    
+    api.on("select", onSelect);
+    
     return () => {
       window.clearInterval(intervalRef);
+      api.off("select", onSelect);
     };
   }, [api]);
 
@@ -59,6 +68,19 @@ const HeroCarousel = ({ slides }: HeroCarouselProps) => {
       </CarouselContent>
       <div className="flex justify-center gap-2 mt-6 absolute bottom-8 left-0 right-0 z-10">
         <CarouselPrevious className="static translate-y-0 mx-2 bg-white/20 hover:bg-white/40 border-white/30" />
+        {/* Add indicators */}
+        <div className="flex gap-2 items-center">
+          {slides.map((_, index) => (
+            <button 
+              key={`indicator-${index}`}
+              className={`w-2 h-2 rounded-full transition-all ${
+                currentSlide === index ? "bg-white w-4" : "bg-white/50"
+              }`}
+              onClick={() => api?.scrollTo(index)}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
         <CarouselNext className="static translate-y-0 mx-2 bg-white/20 hover:bg-white/40 border-white/30" />
       </div>
     </Carousel>

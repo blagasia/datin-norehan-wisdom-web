@@ -13,6 +13,7 @@ import Footer from '@/components/Footer';
 import { Toaster } from '@/components/ui/toaster';
 import { LoyaltyProvider } from '@/context/LoyaltyContext';
 import { useEffect } from 'react';
+import CookieConsent from '@/components/CookieConsent';
 
 const Index = () => {
   // Optimize performance by scrolling to top when component mounts
@@ -38,6 +39,7 @@ const Index = () => {
         </div>
         <Footer />
         <Toaster />
+        <CookieConsent />
       </div>
     </LoyaltyProvider>
   );

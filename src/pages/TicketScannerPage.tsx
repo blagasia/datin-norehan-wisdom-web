@@ -9,7 +9,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { useToast } from '@/hooks/use-toast';
 import NotFound from './NotFound';
 import { Badge } from '@/components/ui/badge';
-import { Calendar, MapPin, Users } from 'lucide-react';
+import { Calendar, MapPin, Users, Check } from 'lucide-react';
 
 const TicketScannerPage = () => {
   const { eventId } = useParams<{ eventId: string }>();
@@ -23,14 +23,35 @@ const TicketScannerPage = () => {
   }
   
   const handleScanSuccess = (ticketData: any) => {
-    // In a real app, you would send this to your server to validate and mark as redeemed
+    // Check if ticket has already been scanned
+    const isAlreadyScanned = scannedTickets.some(
+      ticket => ticket.id === ticketData.id
+    );
+    
+    if (isAlreadyScanned) {
+      toast({
+        variant: "destructive",
+        title: "Ticket already scanned",
+        description: `This ticket for ${ticketData.name} has already been checked in.`
+      });
+      return;
+    }
+    
+    // Add to scanned tickets
     setScannedTickets([ticketData, ...scannedTickets]);
+    
+    toast({
+      title: "Check-in successful",
+      description: `${ticketData.name} has been successfully checked in.`,
+    });
   };
+  
+  const checkInPercentage = Math.round((scannedTickets.length / (event.currentParticipants || 1)) * 100);
   
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
-      <main className="flex-grow py-8">
+      <main className="flex-grow py-8 pt-24">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
             <h1 className="font-playfair text-3xl font-bold mb-6">Ticket Scanner</h1>
@@ -52,7 +73,7 @@ const TicketScannerPage = () => {
                       {event.currentParticipants} registered • {scannedTickets.length} checked in
                     </span>
                   </div>
-                  <Badge className="bg-natural-green">{Math.round((scannedTickets.length / event.currentParticipants) * 100)}% Checked In</Badge>
+                  <Badge className="bg-natural-green">{checkInPercentage}% Checked In</Badge>
                 </div>
               </CardContent>
             </Card>
@@ -71,7 +92,9 @@ const TicketScannerPage = () => {
                           {ticket.type} • {new Date().toLocaleTimeString()}
                         </div>
                       </div>
-                      <Badge className="bg-natural-green">Checked In</Badge>
+                      <Badge className="bg-natural-green flex items-center gap-1">
+                        <Check className="h-3 w-3" /> Checked In
+                      </Badge>
                     </div>
                   ))}
                 </div>
