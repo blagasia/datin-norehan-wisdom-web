@@ -29,14 +29,14 @@ const Hero = () => {
   
   // Adjust parallax effects based on device type
   const parallaxConfig = isMobile 
-    ? { speed: 0.05, direction: 'up' } 
-    : { speed: 0.1, direction: 'up' };
+    ? { speed: 0.05, direction: 'up' as const } 
+    : { speed: 0.1, direction: 'up' as const };
   
   // Parallax effects for different elements - reduced effect on mobile
   const quoteParallax = useParallax(parallaxConfig);
   const featureParallax = useParallax({ 
     ...parallaxConfig, 
-    direction: 'down', 
+    direction: 'down' as const, 
     reverseDirection: true,
     speed: isMobile ? 0.03 : 0.05
   });
