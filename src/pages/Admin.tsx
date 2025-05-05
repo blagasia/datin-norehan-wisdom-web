@@ -3,33 +3,22 @@ import React, { useState, useEffect } from 'react';
 import AdminLogin from '@/components/admin/AdminLogin';
 import AdminDashboard from '@/components/admin/AdminDashboard';
 import { useToast } from '@/components/ui/use-toast';
+import { useAuth } from '@/context/AuthContext';
+import { Navigate } from 'react-router-dom';
 
 const Admin = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const { toast } = useToast();
+  const { user, loading } = useAuth();
   
   useEffect(() => {
-    // Check if user is authenticated
-    const authStatus = localStorage.getItem('cmsAuthenticated') === 'true';
-    setIsAuthenticated(authStatus);
-    setIsLoading(false);
-    
-    // Show authentication status for debugging purposes
-    console.log('Authentication status:', authStatus);
-  }, []);
+    // When auth state is resolved, update loading state
+    if (!loading) {
+      setIsLoading(false);
+    }
+  }, [loading]);
   
-  // Function to handle successful login
-  const handleLoginSuccess = () => {
-    console.log('Login successful, updating state');
-    setIsAuthenticated(true);
-    toast({
-      title: "Login successful",
-      description: "Welcome to the admin dashboard",
-    });
-  };
-  
-  if (isLoading) {
+  if (isLoading || loading) {
     // Show loading state while checking authentication
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -38,10 +27,12 @@ const Admin = () => {
     );
   }
 
-  if (!isAuthenticated) {
-    return <AdminLogin onLoginSuccess={handleLoginSuccess} />;
+  // If not authenticated, redirect to auth page
+  if (!user) {
+    return <Navigate to="/auth" />;
   }
 
+  // If authenticated, show dashboard
   return <AdminDashboard />;
 };
 
