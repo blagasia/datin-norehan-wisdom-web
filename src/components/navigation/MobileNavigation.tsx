@@ -17,7 +17,7 @@ const MobileNavigation = () => {
             <Menu className="h-6 w-6" />
           </Button>
         </SheetTrigger>
-        <SheetContent side="right" className="w-[85%] max-w-sm bg-white overflow-y-auto">
+        <SheetContent side="right" className="w-[85%] max-w-sm bg-white overflow-y-auto p-0">
           <MobileMenu />
         </SheetContent>
       </Sheet>

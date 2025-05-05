@@ -1,5 +1,6 @@
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
+import { useIsMobile } from './use-mobile';
 
 interface ParallaxOptions {
   speed?: number;
@@ -7,6 +8,7 @@ interface ParallaxOptions {
   reverseDirection?: boolean;
   startOffset?: number;
   maxOffset?: number;
+  disabled?: boolean;
 }
 
 interface ParallaxReturn {
@@ -25,12 +27,20 @@ const useParallax = (options: ParallaxOptions = {}): ParallaxReturn => {
     direction = 'up', 
     reverseDirection = false,
     startOffset = 0,
-    maxOffset = 100
+    maxOffset = 100,
+    disabled = false
   } = options;
   
   const [offset, setOffset] = useState<number>(startOffset);
+  const isMobile = useIsMobile();
+  const effectivelyDisabled = disabled || isMobile;
   
   useEffect(() => {
+    // Don't set up scroll events if parallax is disabled
+    if (effectivelyDisabled) {
+      return;
+    }
+    
     const handleScroll = () => {
       // Calculate how far the user has scrolled down the page
       const scrollTop = window.pageYOffset;
@@ -58,10 +68,14 @@ const useParallax = (options: ParallaxOptions = {}): ParallaxReturn => {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [speed, direction, reverseDirection, startOffset, maxOffset]);
+  }, [speed, direction, reverseDirection, startOffset, maxOffset, effectivelyDisabled]);
   
   // Return appropriate transform style based on direction
   const getTransformStyle = (): React.CSSProperties => {
+    if (effectivelyDisabled) {
+      return {}; // Return empty object for no transform on mobile
+    }
+    
     switch (direction) {
       case 'up':
         return { transform: `translateY(-${offset}px)` };
