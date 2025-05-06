@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
@@ -31,38 +31,107 @@ import {
   FileText,
   UserSquare,
   FileQuestion,
-  Settings
+  Settings,
+  Menu,
+  X
 } from 'lucide-react';
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const { signOut, isAdmin, userRole } = useAuth();
+  const { signOut, isAdmin, userRole, user } = useAuth();
+  const [activeTab, setActiveTab] = useState('pages');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
   
-  const handleLogout = () => {
-    signOut();
-    navigate('/auth');
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 1024);
+      if (window.innerWidth >= 1024) {
+        setMobileMenuOpen(false);
+      }
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+  
+  const handleLogout = async () => {
+    try {
+      await signOut();
+      toast({
+        title: "Logged out",
+        description: "You've been successfully logged out"
+      });
+      navigate('/auth');
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: `Failed to log out: ${error.message}`,
+        variant: "destructive"
+      });
+    }
+  };
+
+  const renderTabContent = () => {
+    switch (activeTab) {
+      case 'pages': return <PageManager />;
+      case 'events': return <EventsManager />;
+      case 'products': return <ProductsManager />;
+      case 'articles': return <ArticlesManager />;
+      case 'tiktok': return <TikTokManager />;
+      case 'crm': return <AdminCRM />;
+      case 'loyalty': return <LoyaltyManager />;
+      case 'referrals': return <ReferralManager />;
+      case 'features': return <FeaturesManager />;
+      case 'about': return <AboutManager />;
+      case 'guides': return <UserGuide />;
+      case 'settings': return isAdmin() ? <AdminSettings /> : (
+        <div className="text-center py-12">
+          <p className="text-muted-foreground">You need administrator privileges to access these settings.</p>
+        </div>
+      );
+      default: return <PageManager />;
+    }
   };
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <header className="bg-white shadow-sm">
+      <header className="bg-white shadow-sm sticky top-0 z-10">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <h1 className="font-playfair text-2xl font-bold">Datin Norehan CMS</h1>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
+            {isMobile && (
+              <Button 
+                variant="ghost" 
+                size="icon"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                aria-label="Toggle menu"
+              >
+                {mobileMenuOpen ? <X /> : <Menu />}
+              </Button>
+            )}
+            <h1 className="font-playfair text-xl md:text-2xl font-bold">Datin Norehan CMS</h1>
+          </div>
+          <div className="flex items-center gap-2 md:gap-4">
             <HelpAssistant />
             <Button 
               variant="outline" 
               onClick={() => navigate('/')}
+              className="hidden sm:flex"
             >
               View Website
             </Button>
-            <Button variant="ghost" onClick={handleLogout}>Logout</Button>
+            <div className="flex items-center gap-2">
+              <span className="text-sm text-muted-foreground hidden md:inline-block">
+                {user?.email}
+              </span>
+              <Button variant="ghost" onClick={handleLogout}>Logout</Button>
+            </div>
           </div>
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-8">
+      <main className="container mx-auto px-4 py-4 md:py-8">
         <div className="mb-6">
           <div className="bg-white rounded-md shadow-sm p-4 flex justify-between items-center">
             <div>
@@ -71,117 +140,97 @@ const AdminDashboard = () => {
                 You are logged in as: <span className="font-medium capitalize">{userRole || 'User'}</span>
               </p>
             </div>
+            <Button 
+              variant="outline" 
+              size="sm"
+              onClick={() => navigate('/')}
+              className="sm:hidden"
+            >
+              View Site
+            </Button>
           </div>
         </div>
         
-        <Tabs defaultValue="pages" className="w-full">
-          <TabsList className="grid grid-cols-12 mb-8">
-            <TabsTrigger value="pages" className="flex items-center gap-2">
-              <FileText className="h-4 w-4" />
-              Pages
-            </TabsTrigger>
-            <TabsTrigger value="events" className="flex items-center gap-2">
-              <Database className="h-4 w-4" />
-              Events
-            </TabsTrigger>
-            <TabsTrigger value="products" className="flex items-center gap-2">
-              <Folder className="h-4 w-4" />
-              Products
-            </TabsTrigger>
-            <TabsTrigger value="articles" className="flex items-center gap-2">
-              <FolderOpen className="h-4 w-4" />
-              Articles
-            </TabsTrigger>
-            <TabsTrigger value="tiktok" className="flex items-center gap-2">
-              <Video className="h-4 w-4" />
-              TikTok
-            </TabsTrigger>
-            <TabsTrigger value="crm" className="flex items-center gap-2">
-              <UserSquare className="h-4 w-4" />
-              CRM
-            </TabsTrigger>
-            <TabsTrigger value="loyalty" className="flex items-center gap-2">
-              <Gift className="h-4 w-4" />
-              Loyalty
-            </TabsTrigger>
-            <TabsTrigger value="referrals" className="flex items-center gap-2">
-              <Tag className="h-4 w-4" />
-              Referrals
-            </TabsTrigger>
-            <TabsTrigger value="features" className="flex items-center gap-2">
-              <Award className="h-4 w-4" />
-              Features
-            </TabsTrigger>
-            <TabsTrigger value="about" className="flex items-center gap-2">
-              <User className="h-4 w-4" />
-              About
-            </TabsTrigger>
-            <TabsTrigger value="guides" className="flex items-center gap-2">
-              <FileQuestion className="h-4 w-4" />
-              Guides
-            </TabsTrigger>
-            <TabsTrigger value="settings" className="flex items-center gap-2">
-              <Settings className="h-4 w-4" />
-              Settings
-            </TabsTrigger>
-          </TabsList>
-          
-          <TabsContent value="pages" className="bg-white p-6 rounded-md shadow-sm">
-            <PageManager />
-          </TabsContent>
-          
-          <TabsContent value="events" className="bg-white p-6 rounded-md shadow-sm">
-            <EventsManager />
-          </TabsContent>
-          
-          <TabsContent value="products" className="bg-white p-6 rounded-md shadow-sm">
-            <ProductsManager />
-          </TabsContent>
-          
-          <TabsContent value="articles" className="bg-white p-6 rounded-md shadow-sm">
-            <ArticlesManager />
-          </TabsContent>
-          
-          <TabsContent value="tiktok" className="bg-white p-6 rounded-md shadow-sm">
-            <TikTokManager />
-          </TabsContent>
-          
-          <TabsContent value="crm" className="bg-white p-6 rounded-md shadow-sm">
-            <AdminCRM />
-          </TabsContent>
-          
-          <TabsContent value="loyalty" className="bg-white p-6 rounded-md shadow-sm">
-            <LoyaltyManager />
-          </TabsContent>
-          
-          <TabsContent value="referrals" className="bg-white p-6 rounded-md shadow-sm">
-            <ReferralManager />
-          </TabsContent>
-          
-          <TabsContent value="features" className="bg-white p-6 rounded-md shadow-sm">
-            <FeaturesManager />
-          </TabsContent>
-          
-          <TabsContent value="about" className="bg-white p-6 rounded-md shadow-sm">
-            <AboutManager />
-          </TabsContent>
-          
-          <TabsContent value="guides" className="bg-white p-6 rounded-md shadow-sm">
-            <UserGuide />
-          </TabsContent>
-          
-          <TabsContent value="settings" className="bg-white p-6 rounded-md shadow-sm">
-            {isAdmin() ? (
-              <AdminSettings />
-            ) : (
-              <div className="text-center py-12">
-                <p className="text-muted-foreground">You need administrator privileges to access these settings.</p>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          {/* Side navigation for desktop */}
+          {!isMobile && (
+            <div className="lg:col-span-2">
+              <div className="bg-white rounded-md shadow-sm p-3">
+                <ul className="space-y-1">
+                  <NavItem icon={<FileText className="h-4 w-4" />} label="Pages" value="pages" activeTab={activeTab} onClick={setActiveTab} />
+                  <NavItem icon={<Database className="h-4 w-4" />} label="Events" value="events" activeTab={activeTab} onClick={setActiveTab} />
+                  <NavItem icon={<Folder className="h-4 w-4" />} label="Products" value="products" activeTab={activeTab} onClick={setActiveTab} />
+                  <NavItem icon={<FolderOpen className="h-4 w-4" />} label="Articles" value="articles" activeTab={activeTab} onClick={setActiveTab} />
+                  <NavItem icon={<Video className="h-4 w-4" />} label="TikTok" value="tiktok" activeTab={activeTab} onClick={setActiveTab} />
+                  <NavItem icon={<UserSquare className="h-4 w-4" />} label="CRM" value="crm" activeTab={activeTab} onClick={setActiveTab} />
+                  <NavItem icon={<Gift className="h-4 w-4" />} label="Loyalty" value="loyalty" activeTab={activeTab} onClick={setActiveTab} />
+                  <NavItem icon={<Tag className="h-4 w-4" />} label="Referrals" value="referrals" activeTab={activeTab} onClick={setActiveTab} />
+                  <NavItem icon={<Award className="h-4 w-4" />} label="Features" value="features" activeTab={activeTab} onClick={setActiveTab} />
+                  <NavItem icon={<User className="h-4 w-4" />} label="About" value="about" activeTab={activeTab} onClick={setActiveTab} />
+                  <NavItem icon={<FileQuestion className="h-4 w-4" />} label="Guides" value="guides" activeTab={activeTab} onClick={setActiveTab} />
+                  <NavItem icon={<Settings className="h-4 w-4" />} label="Settings" value="settings" activeTab={activeTab} onClick={setActiveTab} />
+                </ul>
               </div>
-            )}
-          </TabsContent>
-        </Tabs>
+            </div>
+          )}
+          
+          {/* Mobile menu */}
+          {isMobile && mobileMenuOpen && (
+            <div className="fixed inset-0 z-40 bg-white p-4 pt-20">
+              <ul className="space-y-2">
+                <NavItem icon={<FileText className="h-5 w-5" />} label="Pages" value="pages" activeTab={activeTab} onClick={(tab) => { setActiveTab(tab); setMobileMenuOpen(false); }} />
+                <NavItem icon={<Database className="h-5 w-5" />} label="Events" value="events" activeTab={activeTab} onClick={(tab) => { setActiveTab(tab); setMobileMenuOpen(false); }} />
+                <NavItem icon={<Folder className="h-5 w-5" />} label="Products" value="products" activeTab={activeTab} onClick={(tab) => { setActiveTab(tab); setMobileMenuOpen(false); }} />
+                <NavItem icon={<FolderOpen className="h-5 w-5" />} label="Articles" value="articles" activeTab={activeTab} onClick={(tab) => { setActiveTab(tab); setMobileMenuOpen(false); }} />
+                <NavItem icon={<Video className="h-5 w-5" />} label="TikTok" value="tiktok" activeTab={activeTab} onClick={(tab) => { setActiveTab(tab); setMobileMenuOpen(false); }} />
+                <NavItem icon={<UserSquare className="h-5 w-5" />} label="CRM" value="crm" activeTab={activeTab} onClick={(tab) => { setActiveTab(tab); setMobileMenuOpen(false); }} />
+                <NavItem icon={<Gift className="h-5 w-5" />} label="Loyalty" value="loyalty" activeTab={activeTab} onClick={(tab) => { setActiveTab(tab); setMobileMenuOpen(false); }} />
+                <NavItem icon={<Tag className="h-5 w-5" />} label="Referrals" value="referrals" activeTab={activeTab} onClick={(tab) => { setActiveTab(tab); setMobileMenuOpen(false); }} />
+                <NavItem icon={<Award className="h-5 w-5" />} label="Features" value="features" activeTab={activeTab} onClick={(tab) => { setActiveTab(tab); setMobileMenuOpen(false); }} />
+                <NavItem icon={<User className="h-5 w-5" />} label="About" value="about" activeTab={activeTab} onClick={(tab) => { setActiveTab(tab); setMobileMenuOpen(false); }} />
+                <NavItem icon={<FileQuestion className="h-5 w-5" />} label="Guides" value="guides" activeTab={activeTab} onClick={(tab) => { setActiveTab(tab); setMobileMenuOpen(false); }} />
+                <NavItem icon={<Settings className="h-5 w-5" />} label="Settings" value="settings" activeTab={activeTab} onClick={(tab) => { setActiveTab(tab); setMobileMenuOpen(false); }} />
+              </ul>
+            </div>
+          )}
+          
+          {/* Main content area */}
+          <div className={`${isMobile ? 'col-span-1' : 'lg:col-span-10'}`}>
+            <div className="bg-white p-6 rounded-md shadow-sm">
+              {renderTabContent()}
+            </div>
+          </div>
+        </div>
       </main>
     </div>
+  );
+};
+
+interface NavItemProps {
+  icon: React.ReactNode;
+  label: string;
+  value: string;
+  activeTab: string;
+  onClick: (value: string) => void;
+}
+
+const NavItem: React.FC<NavItemProps> = ({ icon, label, value, activeTab, onClick }) => {
+  const isActive = activeTab === value;
+  
+  return (
+    <li>
+      <button
+        className={`w-full flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors ${
+          isActive 
+            ? 'bg-primary text-primary-foreground' 
+            : 'text-muted-foreground hover:bg-muted'
+        }`}
+        onClick={() => onClick(value)}
+      >
+        {icon}
+        <span>{label}</span>
+      </button>
+    </li>
   );
 };
 
@@ -301,7 +350,7 @@ const AdminSettings = () => (
   <div>
     <h2 className="text-2xl font-semibold mb-6">Admin Settings</h2>
     <p className="text-muted-foreground mb-6">
-      This section allows administrators to configure system settings an manage users.
+      This section allows administrators to configure system settings and manage users.
     </p>
     
     <div className="space-y-8 max-w-3xl">
@@ -320,7 +369,7 @@ const AdminSettings = () => (
       <div className="border rounded-md p-6">
         <h3 className="text-lg font-medium mb-4">Backup & Restore</h3>
         <p className="text-muted-foreground mb-4">Create backups of your content or restore from previous backups.</p>
-        <div className="flex gap-3">
+        <div className="flex flex-wrap gap-3">
           <Button variant="outline" disabled>Create Backup</Button>
           <Button variant="outline" disabled>Restore Backup</Button>
         </div>

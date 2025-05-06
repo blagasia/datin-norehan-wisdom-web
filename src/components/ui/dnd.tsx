@@ -21,6 +21,7 @@ interface DroppableProps {
 interface DraggableProps {
   draggableId: string;
   index: number;
+  isDragDisabled?: boolean; // Added isDragDisabled prop
   children: (provided: {
     innerRef: React.RefCallback<HTMLElement>;
     draggableProps: any;
@@ -66,7 +67,7 @@ export const Droppable = ({ droppableId, children }: DroppableProps) => {
 };
 
 // Simple implementation of Draggable
-export const Draggable = ({ draggableId, index, children }: DraggableProps) => {
+export const Draggable = ({ draggableId, index, isDragDisabled = false, children }: DraggableProps) => {
   return (
     <>
       {children({
@@ -77,7 +78,8 @@ export const Draggable = ({ draggableId, index, children }: DraggableProps) => {
         draggableProps: {
           'data-draggable-id': draggableId,
           'data-index': index,
-          draggable: true,
+          'data-drag-disabled': isDragDisabled, // Add the data attribute
+          draggable: !isDragDisabled, // Set draggable based on isDragDisabled
         },
         dragHandleProps: {
           'data-drag-handle': true,

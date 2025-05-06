@@ -3,14 +3,25 @@ import React, { useState } from 'react';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Upload, Trash2 } from 'lucide-react';
-import { supabase } from '@/integrations/supabase/client';
-import { useToast } from '@/components/ui/use-toast';
+import { Card, CardContent } from '@/components/ui/card';
+import { 
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogDescription,
+  DialogFooter
+} from '@/components/ui/dialog';
+import { Image as ImageIcon } from 'lucide-react';
+import MediaLibrary from './MediaLibrary';
 
 interface ImageBlockContent {
   url: string;
   alt: string;
-  caption?: string;
+  caption: string;
+  align?: 'left' | 'center' | 'right';
+  size?: 'small' | 'medium' | 'large' | 'full';
 }
 
 interface ImageBlockEditorProps {
@@ -24,74 +35,52 @@ const ImageBlockEditor: React.FC<ImageBlockEditorProps> = ({
   onChange,
   readOnly = false
 }) => {
-  const [uploading, setUploading] = useState(false);
-  const { toast } = useToast();
+  const [mediaLibraryOpen, setMediaLibraryOpen] = useState(false);
 
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files || e.target.files.length === 0) {
-      return;
+  const handleMediaSelect = (url: string) => {
+    onChange({ ...content, url });
+    setMediaLibraryOpen(false);
+  };
+
+  const getSizeClass = () => {
+    switch (content.size) {
+      case 'small': return 'max-w-sm mx-auto';
+      case 'medium': return 'max-w-md mx-auto';
+      case 'large': return 'max-w-lg mx-auto';
+      case 'full': return 'w-full';
+      default: return 'max-w-md mx-auto';
     }
+  };
 
-    const file = e.target.files[0];
-    const fileExt = file.name.split('.').pop();
-    const fileName = `${Math.random().toString(36).substring(2, 9)}.${fileExt}`;
-    const filePath = `uploads/${fileName}`;
-
-    setUploading(true);
-
-    try {
-      // Check if storage bucket exists, if not this will fail
-      const { data: bucketExists } = await supabase.storage.getBucket('cms-images');
-      
-      if (!bucketExists) {
-        // Create the bucket if it doesn't exist
-        await supabase.storage.createBucket('cms-images', {
-          public: true
-        });
-      }
-      
-      const { error: uploadError } = await supabase.storage
-        .from('cms-images')
-        .upload(filePath, file);
-
-      if (uploadError) throw uploadError;
-
-      const { data } = supabase.storage.from('cms-images').getPublicUrl(filePath);
-      
-      onChange({
-        ...content,
-        url: data.publicUrl
-      });
-      
-      toast({
-        title: "Success",
-        description: "Image uploaded successfully"
-      });
-    } catch (error: any) {
-      toast({
-        title: "Error",
-        description: `Upload failed: ${error.message}`,
-        variant: "destructive"
-      });
-    } finally {
-      setUploading(false);
+  const getAlignClass = () => {
+    switch (content.align) {
+      case 'left': return 'ml-0 mr-auto';
+      case 'right': return 'mr-0 ml-auto';
+      case 'center': return 'mx-auto';
+      default: return 'mx-auto';
     }
   };
 
   if (readOnly) {
     return (
-      <figure className="my-4">
-        {content.url && (
-          <img 
-            src={content.url} 
-            alt={content.alt} 
-            className="max-w-full h-auto rounded-md"
-          />
-        )}
-        {content.caption && (
-          <figcaption className="text-sm text-center mt-2 text-muted-foreground">
-            {content.caption}
-          </figcaption>
+      <figure className={`${getSizeClass()} ${getAlignClass()}`}>
+        {content.url ? (
+          <>
+            <img 
+              src={content.url} 
+              alt={content.alt || ''} 
+              className="rounded-md w-full h-auto"
+            />
+            {content.caption && (
+              <figcaption className="text-sm text-muted-foreground text-center mt-2">
+                {content.caption}
+              </figcaption>
+            )}
+          </>
+        ) : (
+          <div className="bg-muted rounded-md flex items-center justify-center p-12">
+            <p className="text-muted-foreground">No image selected</p>
+          </div>
         )}
       </figure>
     );
@@ -100,80 +89,164 @@ const ImageBlockEditor: React.FC<ImageBlockEditorProps> = ({
   return (
     <div className="space-y-4">
       <div>
-        <Label htmlFor="image-url">Image URL</Label>
-        <div className="flex mt-2">
-          <Input
-            id="image-url"
-            value={content.url}
-            onChange={(e) => onChange({ ...content, url: e.target.value })}
-            placeholder="Enter image URL or upload"
-            className="flex-1"
-          />
-          <div className="ml-2">
-            <label className="cursor-pointer">
-              <input 
-                type="file" 
-                className="hidden" 
-                accept="image/*" 
-                onChange={handleFileUpload}
-                disabled={uploading}
-              />
-              <Button variant="outline" disabled={uploading}>
-                <Upload className="h-4 w-4 mr-2" /> {uploading ? 'Uploading...' : 'Upload'}
-              </Button>
-            </label>
-          </div>
-          {content.url && (
-            <Button 
-              variant="ghost" 
-              className="ml-1" 
-              onClick={() => onChange({ ...content, url: '' })}
-            >
-              <Trash2 className="h-4 w-4 text-destructive" />
-            </Button>
-          )}
-        </div>
-      </div>
-      
-      <div>
-        <Label htmlFor="image-alt">Alt Text</Label>
-        <Input
-          id="image-alt"
-          value={content.alt}
-          onChange={(e) => onChange({ ...content, alt: e.target.value })}
-          placeholder="Describe the image for accessibility"
-          className="mt-2"
-        />
-      </div>
-      
-      <div>
-        <Label htmlFor="image-caption">Caption (Optional)</Label>
-        <Input
-          id="image-caption"
-          value={content.caption || ''}
-          onChange={(e) => onChange({ ...content, caption: e.target.value })}
-          placeholder="Add a caption for the image"
-          className="mt-2"
-        />
-      </div>
-      
-      {content.url && (
-        <div>
-          <h4 className="text-sm font-medium mb-2">Preview</h4>
-          <div className="border rounded-md p-4 bg-white">
-            <figure>
+        <Label htmlFor="image-url" className="mb-2 block">Image</Label>
+        <div className="flex flex-col space-y-2">
+          {content.url ? (
+            <div className="relative rounded-md overflow-hidden mb-2">
               <img 
                 src={content.url} 
-                alt={content.alt} 
-                className="max-w-full h-auto rounded-md"
+                alt={content.alt || ''} 
+                className="w-full h-auto" 
               />
-              {content.caption && (
-                <figcaption className="text-sm text-center mt-2 text-muted-foreground">
-                  {content.caption}
-                </figcaption>
-              )}
-            </figure>
+              <div className="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-30 transition-opacity flex items-center justify-center opacity-0 hover:opacity-100">
+                <Button 
+                  variant="secondary" 
+                  size="sm"
+                  onClick={() => setMediaLibraryOpen(true)}
+                >
+                  Change Image
+                </Button>
+              </div>
+            </div>
+          ) : (
+            <div 
+              className="border-2 border-dashed rounded-md p-12 flex flex-col items-center justify-center cursor-pointer hover:border-primary transition-colors"
+              onClick={() => setMediaLibraryOpen(true)}
+            >
+              <ImageIcon className="h-12 w-12 text-muted-foreground mb-3" />
+              <p className="text-muted-foreground mb-2">No image selected</p>
+              <Button variant="secondary" size="sm">Choose Image</Button>
+            </div>
+          )}
+
+          <Dialog open={mediaLibraryOpen} onOpenChange={setMediaLibraryOpen}>
+            <DialogContent className="max-w-4xl">
+              <DialogHeader>
+                <DialogTitle>Media Library</DialogTitle>
+                <DialogDescription>
+                  Select an image from the media library or upload a new one.
+                </DialogDescription>
+              </DialogHeader>
+              <MediaLibrary onSelect={handleMediaSelect} />
+              <DialogFooter>
+                <Button variant="outline" onClick={() => setMediaLibraryOpen(false)}>
+                  Cancel
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+        </div>
+      </div>
+
+      <div>
+        <Label htmlFor="image-alt" className="mb-2 block">Alt Text</Label>
+        <Input
+          id="image-alt"
+          placeholder="Describe the image for accessibility"
+          value={content.alt || ''}
+          onChange={(e) => onChange({ ...content, alt: e.target.value })}
+        />
+      </div>
+
+      <div>
+        <Label htmlFor="image-caption" className="mb-2 block">Caption (optional)</Label>
+        <Input
+          id="image-caption"
+          placeholder="Add a caption for the image"
+          value={content.caption || ''}
+          onChange={(e) => onChange({ ...content, caption: e.target.value })}
+        />
+      </div>
+
+      <div className="grid grid-cols-2 gap-4">
+        <div>
+          <Label htmlFor="image-align" className="mb-2 block">Alignment</Label>
+          <div className="flex border rounded-md overflow-hidden">
+            <Button
+              type="button"
+              variant={content.align === 'left' ? 'default' : 'ghost'}
+              className="flex-1 rounded-none"
+              onClick={() => onChange({ ...content, align: 'left' })}
+            >
+              Left
+            </Button>
+            <Button
+              type="button"
+              variant={!content.align || content.align === 'center' ? 'default' : 'ghost'}
+              className="flex-1 rounded-none"
+              onClick={() => onChange({ ...content, align: 'center' })}
+            >
+              Center
+            </Button>
+            <Button
+              type="button"
+              variant={content.align === 'right' ? 'default' : 'ghost'}
+              className="flex-1 rounded-none"
+              onClick={() => onChange({ ...content, align: 'right' })}
+            >
+              Right
+            </Button>
           </div>
+        </div>
+
+        <div>
+          <Label htmlFor="image-size" className="mb-2 block">Size</Label>
+          <div className="flex border rounded-md overflow-hidden">
+            <Button
+              type="button"
+              variant={content.size === 'small' ? 'default' : 'ghost'}
+              className="flex-1 rounded-none"
+              onClick={() => onChange({ ...content, size: 'small' })}
+            >
+              S
+            </Button>
+            <Button
+              type="button"
+              variant={!content.size || content.size === 'medium' ? 'default' : 'ghost'}
+              className="flex-1 rounded-none"
+              onClick={() => onChange({ ...content, size: 'medium' })}
+            >
+              M
+            </Button>
+            <Button
+              type="button"
+              variant={content.size === 'large' ? 'default' : 'ghost'}
+              className="flex-1 rounded-none"
+              onClick={() => onChange({ ...content, size: 'large' })}
+            >
+              L
+            </Button>
+            <Button
+              type="button"
+              variant={content.size === 'full' ? 'default' : 'ghost'}
+              className="flex-1 rounded-none"
+              onClick={() => onChange({ ...content, size: 'full' })}
+            >
+              Full
+            </Button>
+          </div>
+        </div>
+      </div>
+
+      {content.url && (
+        <div className="mt-4">
+          <Label className="mb-2 block">Preview</Label>
+          <Card>
+            <CardContent className="p-4">
+              <figure className={`${getSizeClass()} ${getAlignClass()}`}>
+                <img 
+                  src={content.url} 
+                  alt={content.alt || ''} 
+                  className="rounded-md w-full h-auto"
+                />
+                {content.caption && (
+                  <figcaption className="text-sm text-muted-foreground text-center mt-2">
+                    {content.caption}
+                  </figcaption>
+                )}
+              </figure>
+            </CardContent>
+          </Card>
         </div>
       )}
     </div>

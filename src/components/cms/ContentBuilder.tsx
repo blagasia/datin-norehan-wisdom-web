@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -14,10 +14,11 @@ import ProductsBlockEditor from './blocks/ProductsBlockEditor';
 import ArticlesBlockEditor from './blocks/ArticlesBlockEditor';
 import { supabase } from '@/integrations/supabase/client';
 
+// Use a more specific type that matches Json
 export interface ContentBlock {
   id: string;
   type: 'text' | 'image' | 'hero' | 'features' | 'products' | 'articles' | 'custom';
-  content: any;
+  content: Record<string, any>; // Changed to Record<string, any> to match Json type
 }
 
 interface ContentBuilderProps {
@@ -146,9 +147,18 @@ const ContentBuilder: React.FC<ContentBuilderProps> = ({
 
     setIsSaving(true);
     try {
+      // Fix for TS2322 error - explicitly shape the content object to match Json type
       const { error } = await supabase
         .from('content_pages')
-        .update({ content: { blocks } })
+        .update({ 
+          content: { 
+            blocks: blocks.map(block => ({
+              id: block.id,
+              type: block.type,
+              content: block.content
+            }))
+          } 
+        })
         .eq('id', pageId);
       
       if (error) throw error;
@@ -388,7 +398,6 @@ const ContentBuilder: React.FC<ContentBuilderProps> = ({
                       key={block.id}
                       draggableId={block.id}
                       index={index}
-                      isDragDisabled={previewMode}
                     >
                       {(provided) => (
                         <div

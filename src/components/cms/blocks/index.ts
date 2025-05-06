@@ -5,6 +5,7 @@ import HeroBlockEditor from './HeroBlockEditor';
 import FeaturesBlockEditor from './FeaturesBlockEditor';
 import ProductsBlockEditor from './ProductsBlockEditor';
 import ArticlesBlockEditor from './ArticlesBlockEditor';
+import MediaLibrary from './MediaLibrary';
 
 export {
   TextBlockEditor,
@@ -12,5 +13,6 @@ export {
   HeroBlockEditor,
   FeaturesBlockEditor,
   ProductsBlockEditor,
-  ArticlesBlockEditor
+  ArticlesBlockEditor,
+  MediaLibrary
 };
