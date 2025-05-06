@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -6,19 +5,77 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { PlusCircle, Trash2, Save, Eye, Copy, Upload, Download, Image, Type, Layout, Columns } from 'lucide-react';
 import { DragDropContext, Droppable, Draggable } from '@/components/ui/dnd';
 import { useToast } from '@/components/ui/use-toast';
-import TextBlockEditor from './blocks/TextBlockEditor';
-import ImageBlockEditor from './blocks/ImageBlockEditor';
-import HeroBlockEditor from './blocks/HeroBlockEditor';
-import FeaturesBlockEditor from './blocks/FeaturesBlockEditor';
-import ProductsBlockEditor from './blocks/ProductsBlockEditor';
-import ArticlesBlockEditor from './blocks/ArticlesBlockEditor';
+import { 
+  TextBlockEditor, 
+  ImageBlockEditor, 
+  HeroBlockEditor, 
+  FeaturesBlockEditor, 
+  ProductsBlockEditor,
+  ArticlesBlockEditor
+} from './blocks';
 import { supabase } from '@/integrations/supabase/client';
+
+// Define specific content types for each block type
+interface TextBlockContent {
+  text: string;
+}
+
+interface ImageBlockContent {
+  url: string;
+  alt: string;
+  caption: string;
+  align?: 'left' | 'center' | 'right';
+  size?: 'small' | 'medium' | 'large' | 'full';
+}
+
+interface HeroBlockContent {
+  title: string;
+  subtitle: string;
+  buttonText: string;
+  buttonLink: string;
+  backgroundImage: string;
+}
+
+interface FeaturesBlockContent {
+  title: string;
+  features: Array<{
+    id: string;
+    title: string;
+    description: string;
+    icon: string;
+  }>;
+}
+
+interface ProductsBlockContent {
+  title: string;
+  description: string;
+  products: Array<any>;
+}
+
+interface ArticlesBlockContent {
+  title: string;
+  description: string;
+  articles: Array<any>;
+}
+
+interface CustomBlockContent {
+  [key: string]: any;
+}
+
+type BlockContent = 
+  | TextBlockContent 
+  | ImageBlockContent 
+  | HeroBlockContent 
+  | FeaturesBlockContent 
+  | ProductsBlockContent 
+  | ArticlesBlockContent 
+  | CustomBlockContent;
 
 // Use a more specific type that matches Json
 export interface ContentBlock {
   id: string;
   type: 'text' | 'image' | 'hero' | 'features' | 'products' | 'articles' | 'custom';
-  content: Record<string, any>; // Changed to Record<string, any> to match Json type
+  content: BlockContent;
 }
 
 interface ContentBuilderProps {
@@ -50,7 +107,7 @@ const ContentBuilder: React.FC<ContentBuilderProps> = ({
     setSelectedBlockIndex(blocks.length);
   };
 
-  const getDefaultContentForType = (type: ContentBlock['type']) => {
+  const getDefaultContentForType = (type: ContentBlock['type']): BlockContent => {
     switch (type) {
       case 'text':
         return { text: '<p>Enter your text here</p>' };
@@ -86,7 +143,7 @@ const ContentBuilder: React.FC<ContentBuilderProps> = ({
           articles: [] 
         };
       default:
-        return {};
+        return {} as CustomBlockContent;
     }
   };
 
@@ -147,7 +204,6 @@ const ContentBuilder: React.FC<ContentBuilderProps> = ({
 
     setIsSaving(true);
     try {
-      // Fix for TS2322 error - explicitly shape the content object to match Json type
       const { error } = await supabase
         .from('content_pages')
         .update({ 
@@ -222,7 +278,7 @@ const ContentBuilder: React.FC<ContentBuilderProps> = ({
       case 'text':
         return (
           <TextBlockEditor 
-            content={block.content} 
+            content={block.content as TextBlockContent} 
             onChange={(content) => updateBlockContent(index, content)} 
             readOnly={previewMode || readOnly}
           />
@@ -230,7 +286,7 @@ const ContentBuilder: React.FC<ContentBuilderProps> = ({
       case 'image':
         return (
           <ImageBlockEditor 
-            content={block.content} 
+            content={block.content as ImageBlockContent} 
             onChange={(content) => updateBlockContent(index, content)} 
             readOnly={previewMode || readOnly}
           />
@@ -238,7 +294,7 @@ const ContentBuilder: React.FC<ContentBuilderProps> = ({
       case 'hero':
         return (
           <HeroBlockEditor 
-            content={block.content} 
+            content={block.content as HeroBlockContent} 
             onChange={(content) => updateBlockContent(index, content)} 
             readOnly={previewMode || readOnly}
           />
@@ -246,7 +302,7 @@ const ContentBuilder: React.FC<ContentBuilderProps> = ({
       case 'features':
         return (
           <FeaturesBlockEditor 
-            content={block.content} 
+            content={block.content as FeaturesBlockContent} 
             onChange={(content) => updateBlockContent(index, content)} 
             readOnly={previewMode || readOnly}
           />
@@ -254,7 +310,7 @@ const ContentBuilder: React.FC<ContentBuilderProps> = ({
       case 'products':
         return (
           <ProductsBlockEditor 
-            content={block.content} 
+            content={block.content as ProductsBlockContent} 
             onChange={(content) => updateBlockContent(index, content)} 
             readOnly={previewMode || readOnly}
           />
@@ -262,7 +318,7 @@ const ContentBuilder: React.FC<ContentBuilderProps> = ({
       case 'articles':
         return (
           <ArticlesBlockEditor 
-            content={block.content} 
+            content={block.content as ArticlesBlockContent} 
             onChange={(content) => updateBlockContent(index, content)} 
             readOnly={previewMode || readOnly}
           />

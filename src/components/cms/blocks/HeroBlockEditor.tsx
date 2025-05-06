@@ -92,7 +92,7 @@ const HeroBlockEditor: React.FC<HeroBlockEditorProps> = ({
         <Label>Background Image</Label>
         <div className="mt-2">
           <ImageBlockEditor
-            content={{ url: content.backgroundImage, alt: "Hero background" }}
+            content={{ url: content.backgroundImage, alt: "Hero background", caption: "" }}
             onChange={(imageContent) => onChange({ ...content, backgroundImage: imageContent.url })}
           />
         </div>

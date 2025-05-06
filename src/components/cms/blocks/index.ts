@@ -5,6 +5,7 @@ import HeroBlockEditor from './HeroBlockEditor';
 import FeaturesBlockEditor from './FeaturesBlockEditor';
 import ProductsBlockEditor from './ProductsBlockEditor';
 import ArticlesBlockEditor from './ArticlesBlockEditor';
+import LoyaltyBlockEditor from './LoyaltyBlockEditor';
 import MediaLibrary from './MediaLibrary';
 
 export {
@@ -14,5 +15,6 @@ export {
   FeaturesBlockEditor,
   ProductsBlockEditor,
   ArticlesBlockEditor,
+  LoyaltyBlockEditor,
   MediaLibrary
 };
