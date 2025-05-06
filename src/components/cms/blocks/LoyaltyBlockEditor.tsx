@@ -27,7 +27,7 @@ import {
   Heart
 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
-import { LoyaltyTier, LoyaltyReward } from '@/types/loyalty';
+import { LoyaltyTier, LoyaltyReward, LoyaltyLevel } from '@/types/loyalty';
 import { cn } from '@/lib/utils';
 import { loyaltyTiers, loyaltyRewards } from '@/data/loyalty';
 
@@ -123,7 +123,7 @@ const LoyaltyBlockEditor: React.FC<LoyaltyBlockEditorProps> = ({
 
   const handleAddTier = () => {
     const newTier: LoyaltyTier = {
-      level: `tier-${Date.now()}`,
+      level: 'bronze' as LoyaltyLevel, // Use one of the allowed values from LoyaltyLevel
       name: 'New Tier',
       requiredPoints: 0,
       benefits: ['New benefit'],
@@ -398,13 +398,18 @@ const LoyaltyBlockEditor: React.FC<LoyaltyBlockEditorProps> = ({
                                 />
                               </div>
                               <div>
-                                <Label htmlFor={`tier-level-${index}`}>Level ID</Label>
-                                <Input
+                                <Label htmlFor={`tier-level-${index}`}>Level</Label>
+                                <select
                                   id={`tier-level-${index}`}
                                   value={tier.level}
                                   onChange={(e) => handleUpdateTier(index, 'level', e.target.value)}
-                                  className="mt-1"
-                                />
+                                  className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm mt-1"
+                                >
+                                  <option value="bronze">Bronze</option>
+                                  <option value="silver">Silver</option>
+                                  <option value="gold">Gold</option>
+                                  <option value="platinum">Platinum</option>
+                                </select>
                               </div>
                               <div>
                                 <Label htmlFor={`tier-color-${index}`}>Color</Label>

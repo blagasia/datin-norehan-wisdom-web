@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -15,7 +14,9 @@ import {
   ArticlesBlockEditor,
   LoyaltyBlockEditor
 } from './blocks';
+import { loyaltyTiers } from '@/data/loyalty';
 import { supabase } from '@/integrations/supabase/client';
+import { LoyaltyTier, LoyaltyReward } from '@/types/loyalty';
 
 // Define specific content types for each block type
 export interface TextBlockContent {
@@ -60,25 +61,8 @@ export interface ArticlesBlockContent {
   articles: Array<any>;
 }
 
-export interface LoyaltyBlockContent {
-  title: string;
-  description: string;
-  tiers: Array<{
-    level: string;
-    name: string;
-    requiredPoints: number;
-    benefits: string[];
-    color: string;
-  }>;
-  rewards: Array<{
-    id: string;
-    title: string;
-    description: string;
-    pointsCost: number;
-    rewardCode: string;
-    isActive: boolean;
-  }>;
-}
+// Import LoyaltyBlockContent from LoyaltyBlockEditor to ensure they match
+import { LoyaltyBlockContent } from './blocks/LoyaltyBlockEditor';
 
 export interface CustomBlockContent {
   [key: string]: string | number | boolean | null | CustomBlockContent | Array<string | number | boolean | null | CustomBlockContent>;
@@ -175,22 +159,7 @@ const ContentBuilder: React.FC<ContentBuilderProps> = ({
         return {
           title: 'Loyalty Program',
           description: 'Join our loyalty program and earn rewards',
-          tiers: [
-            { 
-              level: 'bronze', 
-              name: 'Bronze', 
-              requiredPoints: 0, 
-              benefits: ['5% discount on all products'],
-              color: 'bg-amber-600'
-            },
-            { 
-              level: 'silver', 
-              name: 'Silver', 
-              requiredPoints: 500, 
-              benefits: ['10% discount on all products', 'Free shipping'],
-              color: 'bg-gray-400'
-            }
-          ],
+          tiers: loyaltyTiers,
           rewards: [
             {
               id: 'reward-1',
