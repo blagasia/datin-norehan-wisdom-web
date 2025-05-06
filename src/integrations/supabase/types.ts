@@ -158,6 +158,163 @@ export type Database = {
         }
         Relationships: []
       }
+      loyalty_challenges: {
+        Row: {
+          created_at: string
+          deadline: string | null
+          description: string
+          icon: string | null
+          id: string
+          is_active: boolean | null
+          points_reward: number
+          requirement_type: string
+          requirement_value: number
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          deadline?: string | null
+          description: string
+          icon?: string | null
+          id?: string
+          is_active?: boolean | null
+          points_reward: number
+          requirement_type: string
+          requirement_value: number
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          deadline?: string | null
+          description?: string
+          icon?: string | null
+          id?: string
+          is_active?: boolean | null
+          points_reward?: number
+          requirement_type?: string
+          requirement_value?: number
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      loyalty_rewards: {
+        Row: {
+          code: string | null
+          created_at: string
+          description: string
+          icon: string | null
+          id: string
+          is_active: boolean | null
+          min_purchase_amount: number | null
+          points_cost: number
+          reward_type: string
+          title: string
+          updated_at: string
+          valid_until: string | null
+          value_amount: number | null
+        }
+        Insert: {
+          code?: string | null
+          created_at?: string
+          description: string
+          icon?: string | null
+          id?: string
+          is_active?: boolean | null
+          min_purchase_amount?: number | null
+          points_cost: number
+          reward_type: string
+          title: string
+          updated_at?: string
+          valid_until?: string | null
+          value_amount?: number | null
+        }
+        Update: {
+          code?: string | null
+          created_at?: string
+          description?: string
+          icon?: string | null
+          id?: string
+          is_active?: boolean | null
+          min_purchase_amount?: number | null
+          points_cost?: number
+          reward_type?: string
+          title?: string
+          updated_at?: string
+          valid_until?: string | null
+          value_amount?: number | null
+        }
+        Relationships: []
+      }
+      loyalty_user_challenges: {
+        Row: {
+          challenge_id: string
+          completed_at: string
+          id: string
+          points_earned: number
+          user_id: string
+        }
+        Insert: {
+          challenge_id: string
+          completed_at?: string
+          id?: string
+          points_earned: number
+          user_id: string
+        }
+        Update: {
+          challenge_id?: string
+          completed_at?: string
+          id?: string
+          points_earned?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "loyalty_user_challenges_challenge_id_fkey"
+            columns: ["challenge_id"]
+            isOneToOne: false
+            referencedRelation: "loyalty_challenges"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      loyalty_user_rewards: {
+        Row: {
+          expiration_date: string | null
+          id: string
+          redeemed_at: string
+          reward_id: string
+          status: string | null
+          user_id: string
+        }
+        Insert: {
+          expiration_date?: string | null
+          id?: string
+          redeemed_at?: string
+          reward_id: string
+          status?: string | null
+          user_id: string
+        }
+        Update: {
+          expiration_date?: string | null
+          id?: string
+          redeemed_at?: string
+          reward_id?: string
+          status?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "loyalty_user_rewards_reward_id_fkey"
+            columns: ["reward_id"]
+            isOneToOne: false
+            referencedRelation: "loyalty_rewards"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           avatar_url: string | null

@@ -1,8 +1,9 @@
+
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { PlusCircle, Trash2, Save, Eye, Copy, Upload, Download, Image, Type, Layout, Columns } from 'lucide-react';
+import { PlusCircle, Trash2, Save, Eye, Copy, Upload, Download, Image, Type, Layout, Columns, Star } from 'lucide-react';
 import { DragDropContext, Droppable, Draggable } from '@/components/ui/dnd';
 import { useToast } from '@/components/ui/use-toast';
 import { 
@@ -11,16 +12,17 @@ import {
   HeroBlockEditor, 
   FeaturesBlockEditor, 
   ProductsBlockEditor,
-  ArticlesBlockEditor
+  ArticlesBlockEditor,
+  LoyaltyBlockEditor
 } from './blocks';
 import { supabase } from '@/integrations/supabase/client';
 
 // Define specific content types for each block type
-interface TextBlockContent {
+export interface TextBlockContent {
   text: string;
 }
 
-interface ImageBlockContent {
+export interface ImageBlockContent {
   url: string;
   alt: string;
   caption: string;
@@ -28,7 +30,7 @@ interface ImageBlockContent {
   size?: 'small' | 'medium' | 'large' | 'full';
 }
 
-interface HeroBlockContent {
+export interface HeroBlockContent {
   title: string;
   subtitle: string;
   buttonText: string;
@@ -36,7 +38,7 @@ interface HeroBlockContent {
   backgroundImage: string;
 }
 
-interface FeaturesBlockContent {
+export interface FeaturesBlockContent {
   title: string;
   features: Array<{
     id: string;
@@ -46,36 +48,63 @@ interface FeaturesBlockContent {
   }>;
 }
 
-interface ProductsBlockContent {
+export interface ProductsBlockContent {
   title: string;
   description: string;
   products: Array<any>;
 }
 
-interface ArticlesBlockContent {
+export interface ArticlesBlockContent {
   title: string;
   description: string;
   articles: Array<any>;
 }
 
-interface CustomBlockContent {
-  [key: string]: any;
+export interface LoyaltyBlockContent {
+  title: string;
+  description: string;
+  tiers: Array<{
+    level: string;
+    name: string;
+    requiredPoints: number;
+    benefits: string[];
+    color: string;
+  }>;
+  rewards: Array<{
+    id: string;
+    title: string;
+    description: string;
+    pointsCost: number;
+    rewardCode: string;
+    isActive: boolean;
+  }>;
 }
 
-type BlockContent = 
+export interface CustomBlockContent {
+  [key: string]: string | number | boolean | null | CustomBlockContent | Array<string | number | boolean | null | CustomBlockContent>;
+}
+
+export type BlockContent = 
   | TextBlockContent 
   | ImageBlockContent 
   | HeroBlockContent 
   | FeaturesBlockContent 
   | ProductsBlockContent 
-  | ArticlesBlockContent 
+  | ArticlesBlockContent
+  | LoyaltyBlockContent
   | CustomBlockContent;
 
 // Use a more specific type that matches Json
 export interface ContentBlock {
   id: string;
-  type: 'text' | 'image' | 'hero' | 'features' | 'products' | 'articles' | 'custom';
+  type: 'text' | 'image' | 'hero' | 'features' | 'products' | 'articles' | 'loyalty' | 'custom';
   content: BlockContent;
+}
+
+export interface SerializableContentBlock {
+  id: string;
+  type: string;
+  content: Record<string, any>;
 }
 
 interface ContentBuilderProps {
@@ -110,9 +139,9 @@ const ContentBuilder: React.FC<ContentBuilderProps> = ({
   const getDefaultContentForType = (type: ContentBlock['type']): BlockContent => {
     switch (type) {
       case 'text':
-        return { text: '<p>Enter your text here</p>' };
+        return { text: '<p>Enter your text here</p>' } as TextBlockContent;
       case 'image':
-        return { url: '', alt: '', caption: '' };
+        return { url: '', alt: '', caption: '' } as ImageBlockContent;
       case 'hero':
         return { 
           title: 'Hero Title', 
@@ -120,7 +149,7 @@ const ContentBuilder: React.FC<ContentBuilderProps> = ({
           buttonText: 'Learn More', 
           buttonLink: '/',
           backgroundImage: '' 
-        };
+        } as HeroBlockContent;
       case 'features':
         return { 
           title: 'Features', 
@@ -129,19 +158,50 @@ const ContentBuilder: React.FC<ContentBuilderProps> = ({
             { id: '2', title: 'Feature 2', description: 'Description', icon: 'heart' },
             { id: '3', title: 'Feature 3', description: 'Description', icon: 'zap' }
           ] 
-        };
+        } as FeaturesBlockContent;
       case 'products':
         return { 
           title: 'Products',
           description: 'Our featured products',
           products: [] 
-        };
+        } as ProductsBlockContent;
       case 'articles':
         return { 
           title: 'Articles',
           description: 'Latest articles',
           articles: [] 
-        };
+        } as ArticlesBlockContent;
+      case 'loyalty':
+        return {
+          title: 'Loyalty Program',
+          description: 'Join our loyalty program and earn rewards',
+          tiers: [
+            { 
+              level: 'bronze', 
+              name: 'Bronze', 
+              requiredPoints: 0, 
+              benefits: ['5% discount on all products'],
+              color: 'bg-amber-600'
+            },
+            { 
+              level: 'silver', 
+              name: 'Silver', 
+              requiredPoints: 500, 
+              benefits: ['10% discount on all products', 'Free shipping'],
+              color: 'bg-gray-400'
+            }
+          ],
+          rewards: [
+            {
+              id: 'reward-1',
+              title: '10% Discount',
+              description: 'Get 10% off your next purchase',
+              pointsCost: 100,
+              rewardCode: 'LOYALTY10',
+              isActive: true
+            }
+          ]
+        } as LoyaltyBlockContent;
       default:
         return {} as CustomBlockContent;
     }
@@ -187,6 +247,14 @@ const ContentBuilder: React.FC<ContentBuilderProps> = ({
     setSelectedBlockIndex(result.destination.index);
   };
 
+  const serializeBlockForStorage = (block: ContentBlock): Record<string, any> => {
+    return {
+      id: block.id,
+      type: block.type,
+      content: block.content as Record<string, any>
+    };
+  };
+
   const handleSave = async () => {
     if (onSave) {
       onSave(blocks);
@@ -208,11 +276,7 @@ const ContentBuilder: React.FC<ContentBuilderProps> = ({
         .from('content_pages')
         .update({ 
           content: { 
-            blocks: blocks.map(block => ({
-              id: block.id,
-              type: block.type,
-              content: block.content
-            }))
+            blocks: blocks.map(block => serializeBlockForStorage(block))
           } 
         })
         .eq('id', pageId);
@@ -323,6 +387,14 @@ const ContentBuilder: React.FC<ContentBuilderProps> = ({
             readOnly={previewMode || readOnly}
           />
         );
+      case 'loyalty':
+        return (
+          <LoyaltyBlockEditor 
+            content={block.content as LoyaltyBlockContent} 
+            onChange={(content) => updateBlockContent(index, content)} 
+            readOnly={previewMode || readOnly}
+          />
+        );
       default:
         return <div>Unsupported block type</div>;
     }
@@ -342,9 +414,9 @@ const ContentBuilder: React.FC<ContentBuilderProps> = ({
 
   return (
     <div className="flex flex-col space-y-4">
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center flex-wrap gap-3">
         <h2 className="text-xl font-semibold">Page Content Builder</h2>
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center gap-2 flex-wrap">
           <label className="cursor-pointer">
             <input 
               type="file" 
@@ -382,7 +454,7 @@ const ContentBuilder: React.FC<ContentBuilderProps> = ({
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {!previewMode && (
           <div className="lg:col-span-3">
-            <Card>
+            <Card className="sticky top-4">
               <CardContent className="p-4">
                 <Tabs defaultValue="blocks">
                   <TabsList className="grid grid-cols-1 w-full">
@@ -431,6 +503,13 @@ const ContentBuilder: React.FC<ContentBuilderProps> = ({
                         onClick={() => addBlock('articles')}
                       >
                         <PlusCircle className="h-4 w-4 mr-2" /> Articles Block
+                      </Button>
+                      <Button 
+                        variant="outline" 
+                        className="w-full justify-start" 
+                        onClick={() => addBlock('loyalty')}
+                      >
+                        <Star className="h-4 w-4 mr-2" /> Loyalty Block
                       </Button>
                     </div>
                   </TabsContent>
