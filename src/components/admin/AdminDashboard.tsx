@@ -5,7 +5,7 @@ import AdminCRM from './AdminCRM';
 import PageManager from '@/components/cms/PageManager';
 import { Separator } from '@/components/ui/separator';
 import SEOManager from './content/SEOManager';
-import { DataIcon, Users, FileText, Tag, BarChart3, ShoppingCart, Monitor } from 'lucide-react';
+import { Users, FileText, Tag, BarChart3, ShoppingCart, Monitor } from 'lucide-react';
 
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState('dashboard');

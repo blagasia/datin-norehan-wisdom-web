@@ -2,11 +2,11 @@
 import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
+import Home from './pages/Index';
 import About from './pages/About';
 import Products from './pages/Products';
 import Contact from './pages/Contact';
-import Events from './pages/Events';
+import Events from './pages/VirtualEvents';
 import Story from './pages/Story';
 import Philosophy from './pages/Philosophy';
 import Admin from './pages/Admin';
