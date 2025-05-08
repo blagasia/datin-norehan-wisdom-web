@@ -1,9 +1,10 @@
+
 import React, { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
-import { Quote, Book, Image, ArrowRight, Feather } from 'lucide-react';
+import { Quote, Book, Image as ImageIcon, ArrowRight, Feather } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 
@@ -150,13 +151,18 @@ const Story = () => {
                     </div>
                   </div>
                   
+                  {/* Herb Garden Image - New Addition */}
                   <div className="mb-12">
                     <div className="relative h-64 md:h-96 rounded-xl overflow-hidden mb-4">
-                      <div className="absolute inset-0 bg-natural-purple/20 flex items-center justify-center">
-                        <Image className="h-16 w-16 text-natural-dark/30" />
-                      </div>
+                      <img 
+                        src="/lovable-uploads/56c8ecfc-b55a-466b-8542-f2c698fb2dc3.png" 
+                        alt="Datin Norehan in her herb garden" 
+                        className="object-cover w-full h-full"
+                      />
                     </div>
-                    <p className="text-sm text-center text-natural-gray italic">Datin Norehan in her grandmother's garden, learning the traditional ways of identifying healing herbs</p>
+                    <p className="text-sm text-center text-natural-gray italic">
+                      Datin Norehan in her herb garden, carefully tending to medicinal plants passed down through generations
+                    </p>
                   </div>
                   
                   <p className="text-natural-gray mb-6 leading-relaxed">
