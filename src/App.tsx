@@ -6,25 +6,27 @@ import Home from './pages/Index';
 import About from './pages/About';
 import Products from './pages/Products';
 import Contact from './pages/Contact';
-import Events from './pages/VirtualEvents';
+import VirtualEvents from './pages/VirtualEvents';
 import Story from './pages/Story';
 import Philosophy from './pages/Philosophy';
 import Admin from './pages/Admin';
 import { Toaster } from '@/components/ui/toaster';
 import { AuthProvider } from '@/context/AuthContext';
 import { HelmetProvider } from 'react-helmet-async';
+import SEO from './components/SEO';
 
 const App = () => {
   return (
     <HelmetProvider>
       <AuthProvider>
         <Router>
+          <SEO />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/products" element={<Products />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/events" element={<Events />} />
+            <Route path="/events" element={<VirtualEvents />} />
             <Route path="/story" element={<Story />} />
             <Route path="/philosophy" element={<Philosophy />} />
             <Route path="/admin" element={<Admin />} />
