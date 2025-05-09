@@ -14,11 +14,19 @@ const MobileNavigation = () => {
       
       <Sheet>
         <SheetTrigger asChild>
-          <Button variant="ghost" size="icon" aria-label="Menu" className="focus:outline-none focus:ring-2 focus:ring-brand-deep-teal/20 focus:ring-offset-2">
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            aria-label="Menu" 
+            className="focus:outline-none focus:ring-2 focus:ring-brand-deep-teal/20 focus:ring-offset-2"
+          >
             <Menu className="h-6 w-6" />
           </Button>
         </SheetTrigger>
-        <SheetContent side="right" className="w-[85%] sm:max-w-sm bg-white overflow-y-auto p-0">
+        <SheetContent 
+          side="right" 
+          className="w-[85%] sm:max-w-sm bg-white overflow-y-auto p-0 pt-safe-area"
+        >
           <MobileMenu />
         </SheetContent>
       </Sheet>

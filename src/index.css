@@ -76,6 +76,15 @@
     font-feature-settings: "rlig" 1, "calt" 1;
   }
   
+  /* Safe area insets for mobile */
+  .pt-safe-area {
+    padding-top: env(safe-area-inset-top, 16px);
+  }
+  
+  .pb-safe-area {
+    padding-bottom: env(safe-area-inset-bottom, 16px);
+  }
+  
   /* Fixed header padding for mobile */
   main {
     padding-top: env(safe-area-inset-top, 16px);

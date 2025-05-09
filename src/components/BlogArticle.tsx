@@ -28,6 +28,7 @@ export interface BlogArticleProps {
   eventLocation?: string;
   upcoming?: boolean;
   quote?: string;
+  tags?: string[]; // Added missing tags property
 }
 
 const BlogArticle = ({ article }: { article: BlogArticleProps }) => {

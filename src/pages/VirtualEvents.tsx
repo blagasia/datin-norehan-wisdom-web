@@ -18,7 +18,7 @@ const VirtualEvents = () => {
         description="Join our virtual wellness events and learn about traditional remedies and natural products."
       />
       <Navbar />
-      <main className="flex-grow pt-16 md:pt-20 lg:pt-24">
+      <main className="flex-grow pt-20 md:pt-24 lg:pt-28">
         <div className="container mx-auto px-4 py-12">
           <h1 className="text-3xl font-bold mb-8">Virtual Events</h1>
           <EventsPreview />
