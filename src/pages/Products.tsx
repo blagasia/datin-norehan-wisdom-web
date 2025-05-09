@@ -11,6 +11,7 @@ import { products } from '@/data/products';
 import { useLoyalty } from '@/context/LoyaltyContext';
 import { useToast } from '@/hooks/use-toast';
 import { useCart } from '@/context/CartContext';
+import { CartProvider } from '@/context/CartContext';
 import { ShoppingBag } from 'lucide-react';
 
 const ProductItem = ({ product }: { product: any }) => {
@@ -234,4 +235,11 @@ const Products = () => {
   );
 };
 
-export default Products;
+// Wrap the exported component with CartProvider
+const ProductsWithProvider = () => (
+  <CartProvider>
+    <Products />
+  </CartProvider>
+);
+
+export default ProductsWithProvider;

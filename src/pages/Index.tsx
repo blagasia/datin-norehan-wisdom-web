@@ -12,6 +12,7 @@ import About from '@/components/About';
 import Footer from '@/components/Footer';
 import { Toaster } from '@/components/ui/toaster';
 import { LoyaltyProvider } from '@/context/LoyaltyContext';
+import { CartProvider } from '@/context/CartContext';
 import { useEffect } from 'react';
 import CookieConsent from '@/components/CookieConsent';
 
@@ -23,24 +24,26 @@ const Index = () => {
 
   return (
     <LoyaltyProvider>
-      <div className="min-h-screen flex flex-col relative">
-        <Navbar />
-        <div className="pt-16 md:pt-20 lg:pt-24 relative z-10">
-          <main className="flex-grow overflow-hidden"> {/* Changed from overflow-x-hidden to overflow-hidden to prevent all scroll issues */}
-            <Hero />
-            <Features />
-            <Products />
-            <RitualsPreview />
-            <About />
-            <Articles />
-            <EventsPreview />
-            <TikTokContent />
-          </main>
+      <CartProvider>
+        <div className="min-h-screen flex flex-col relative">
+          <Navbar />
+          <div className="pt-16 md:pt-20 lg:pt-24 relative z-10">
+            <main className="flex-grow overflow-hidden">
+              <Hero />
+              <Features />
+              <Products />
+              <RitualsPreview />
+              <About />
+              <Articles />
+              <EventsPreview />
+              <TikTokContent />
+            </main>
+          </div>
+          <Footer />
+          <Toaster />
+          <CookieConsent />
         </div>
-        <Footer />
-        <Toaster />
-        <CookieConsent />
-      </div>
+      </CartProvider>
     </LoyaltyProvider>
   );
 };

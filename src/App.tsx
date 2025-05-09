@@ -1,41 +1,43 @@
-
 import React from 'react';
-import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './pages/Index';
-import About from './pages/About';
-import Products from './pages/Products';
-import Contact from './pages/Contact';
-import VirtualEvents from './pages/VirtualEvents';
-import Story from './pages/Story';
-import Philosophy from './pages/Philosophy';
-import Admin from './pages/Admin';
-import { Toaster } from '@/components/ui/toaster';
-import { AuthProvider } from '@/context/AuthContext';
 import { HelmetProvider } from 'react-helmet-async';
-import SEO from './components/SEO';
+import { ThemeProvider } from '@/components/theme-provider';
+import Index from '@/pages/Index';
+import About from '@/pages/About';
+import Products from '@/pages/Products';
+import ProductDetail from '@/pages/ProductDetail';
+import Articles from '@/pages/Articles';
+import ArticleDetail from '@/pages/ArticleDetail';
+import VirtualEvents from '@/pages/VirtualEvents';
+import Contact from '@/pages/Contact';
+import NotFound from '@/pages/NotFound';
+import { CartProvider } from '@/context/CartContext';
+import { LoyaltyProvider } from '@/context/LoyaltyContext';
 
-const App = () => {
+function App() {
   return (
     <HelmetProvider>
-      <AuthProvider>
-        <Router>
-          <SEO />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/products" element={<Products />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/events" element={<VirtualEvents />} />
-            <Route path="/story" element={<Story />} />
-            <Route path="/philosophy" element={<Philosophy />} />
-            <Route path="/admin" element={<Admin />} />
-          </Routes>
-          <Toaster />
-        </Router>
-      </AuthProvider>
+      <ThemeProvider defaultTheme="light" storageKey="dna-ui-theme">
+        <LoyaltyProvider>
+          <CartProvider>
+            <Router>
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/products" element={<Products />} />
+                <Route path="/products/:id" element={<ProductDetail />} />
+                <Route path="/articles" element={<Articles />} />
+                <Route path="/articles/:id" element={<ArticleDetail />} />
+                <Route path="/events" element={<VirtualEvents />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </Router>
+          </CartProvider>
+        </LoyaltyProvider>
+      </ThemeProvider>
     </HelmetProvider>
   );
-};
+}
 
 export default App;
