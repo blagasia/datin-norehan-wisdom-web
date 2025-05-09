@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import CartButton from '@/components/cart/CartButton';
 import MobileMenu from './components/MobileMenu';
+import { useCart } from '@/context/CartContext';
 
 const MobileNavigation = () => {
   return (

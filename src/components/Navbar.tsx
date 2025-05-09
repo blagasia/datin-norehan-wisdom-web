@@ -1,61 +1,56 @@
 
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { useLoyalty } from '@/context/LoyaltyContext';
-import { useToast } from '@/components/ui/use-toast';
-import CartButton from './cart/CartButton';
-import MobileNavigation from './navigation/MobileNavigation';
+import { Link } from 'react-router-dom';
+import { cn } from '@/lib/utils';
 import MainNavigation from './navigation/MainNavigation';
-import { useIsMobile } from '@/hooks/use-mobile';
+import MobileNavigation from './navigation/MobileNavigation';
 
 const Navbar = () => {
-  const { isLoggedIn, logout } = useLoyalty();
-  const { toast } = useToast();
-  const location = useLocation();
-  const isMobile = useIsMobile();
   const [isScrolled, setIsScrolled] = useState(false);
   
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 20) {
+      if (window.scrollY > 10) {
         setIsScrolled(true);
       } else {
         setIsScrolled(false);
       }
     };
-    
+
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    
+    // Check initial scroll position
+    handleScroll();
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
-  
-  const handleLogout = () => {
-    logout();
-    toast({
-      title: "Logged out",
-      description: "You have been successfully logged out.",
-    });
-  };
 
   return (
-    <header className={`fixed w-full z-40 ${isScrolled ? 'bg-white/95' : 'bg-white/90'} backdrop-blur-sm border-b border-gray-100 transition-all duration-300`}>
+    <header 
+      className={cn(
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+        isScrolled ? 'bg-white shadow-sm py-2' : 'bg-white/80 backdrop-blur-sm py-3'
+      )}
+    >
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between py-4">
-          {/* Updated brand logo with botanical watercolor styling */}
-          <Link to="/" className="flex flex-col items-start">
-            <span className="font-italiana text-lg md:text-xl tracking-wide">Datin Norehan</span>
-            <span className="text-xs text-brand-deep-teal tracking-wider">APOTHECARY</span>
-          </Link>
-
-          {/* Desktop Navigation */}
-          {!isMobile && (
-            <div className="hidden lg:flex justify-between w-full pl-10">
-              <MainNavigation />
+        <nav className="flex items-center justify-between">
+          <Link to="/" className="block lg:hidden">
+            <div className="flex flex-col items-center">
+              <span className="text-xl font-italiana tracking-wide">DNA</span>
+              <span className="text-xs text-brand-deep-teal tracking-wider">BY DATIN NOREHAN</span>
             </div>
-          )}
-
-          {/* Mobile Navigation */}
-          {isMobile && <MobileNavigation />}
-        </div>
+          </Link>
+          
+          <div className="hidden lg:flex items-center justify-between w-full">
+            <MainNavigation />
+          </div>
+          
+          <div className="lg:hidden">
+            <MobileNavigation />
+          </div>
+        </nav>
       </div>
     </header>
   );

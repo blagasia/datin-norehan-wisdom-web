@@ -1,8 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Italiana&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Karla:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -10,54 +5,65 @@
 
 @layer base {
   :root {
-    --background: 36 33% 97%;
-    --foreground: 0 0% 23%;
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
 
-    --card: 36 33% 97%;
-    --card-foreground: 0 0% 23%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
 
-    --popover: 36 33% 97%;
-    --popover-foreground: 0 0% 23%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
 
-    /* Updated primary to blush rose */
-    --primary: 7 55% 90%;
-    --primary-foreground: 0 0% 23%;
+    --primary: 142 72% 29%;
+    --primary-foreground: 0 0% 98%;
 
-    /* Updated secondary to sage mist */
-    --secondary: 108 18% 84%;
-    --secondary-foreground: 0 0% 23%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
 
-    --muted: 240 5% 96%;
-    --muted-foreground: 240 4% 46%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
 
-    /* Updated accent to lavender mist */
-    --accent: 249 55% 89%;
-    --accent-foreground: 0 0% 23%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 7 55% 90% / 30%;
-    --input: 7 55% 90% / 30%;
-    --ring: 7 55% 90%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 142 76.2% 29.4%;
 
     --radius: 0.5rem;
-
-    --sidebar-background: 7 55% 90% / 10%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 7 55% 90%;
-    --sidebar-primary-foreground: 0 0% 23%;
-    --sidebar-accent: 108 18% 84%;
-    --sidebar-accent-foreground: 0 0% 23%;
-    --sidebar-border: 7 55% 90% / 30%;
-    --sidebar-ring: 7 55% 90%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
 
-    /* ... keep existing code */
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
+
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
   }
 }
 
@@ -65,132 +71,120 @@
   * {
     @apply border-border;
   }
-
   body {
-    @apply bg-background text-foreground font-karla;
-    letter-spacing: 0.02em;
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
   }
-
-  h1, h2 {
-    @apply font-italiana;
-    letter-spacing: 0.05em;
-  }
-
-  h3, h4, h5, h6 {
-    @apply font-karla font-medium;
-    letter-spacing: 0.03em;
+  
+  /* Fixed header padding for mobile */
+  main {
+    padding-top: env(safe-area-inset-top, 16px);
   }
 }
 
 @layer components {
   .btn-primary {
-    @apply bg-brand-dark text-white hover:bg-opacity-90 px-6 py-3 rounded-none transition-all duration-300 font-medium;
+    @apply bg-brand-deep-teal hover:bg-brand-deep-teal/90 text-white;
   }
   
-  .btn-secondary {
-    @apply bg-brand-sage-mist text-brand-dark hover:bg-opacity-90 px-6 py-3 rounded-none transition-all duration-300 font-medium;
-  }
-
   .btn-outline {
-    @apply border border-brand-blush-rose text-brand-dark hover:bg-brand-blush-rose hover:bg-opacity-20 px-6 py-3 rounded-none transition-all duration-300 font-medium;
+    @apply border-brand-deep-teal text-brand-deep-teal hover:bg-brand-deep-teal/10;
   }
   
   .section-title {
-    @apply text-3xl md:text-4xl font-italiana font-normal mb-4 tracking-wide uppercase;
+    @apply font-playfair text-3xl md:text-4xl font-bold mb-4;
   }
   
   .section-subtitle {
-    @apply text-lg text-brand-soft-gray mb-8 max-w-3xl mx-auto font-karla;
-  }
-
-  /* Asever-inspired elements */
-  .asever-nav-link {
-    @apply relative font-karla uppercase text-sm tracking-widest pb-1 transition-all;
+    @apply text-xl text-natural-gray max-w-3xl mx-auto mb-16;
   }
   
-  .asever-nav-link::after {
-    @apply content-[''] absolute left-0 bottom-0 w-0 h-px bg-current transition-all duration-300;
-  }
-  
-  .asever-nav-link:hover::after {
-    @apply w-full;
-  }
-  
-  .asever-button {
-    @apply uppercase text-xs tracking-widest py-3 px-6 border border-brand-deep-teal transition-all duration-300 hover:bg-brand-deep-teal hover:text-white;
-  }
-  
-  .asever-product-card {
-    @apply group relative overflow-hidden transition-all duration-500;
-  }
-  
-  .asever-product-title {
-    @apply font-italiana text-xl mb-1;
-  }
-  
-  .asever-product-price {
-    @apply font-karla text-brand-soft-gray;
-  }
-
-  /* Text shadow utilities for overlaying text on images */
   .text-shadow {
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
   }
   
-  .text-shadow-sm {
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  .gradient-text {
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-brand-deep-teal to-brand-gilded-gold;
   }
   
-  .text-shadow-lg {
-    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-  }
-}
-
-@layer utilities {
-  .parallax-tag {
-    @apply transition-all duration-500 ease-out;
+  .bg-gradient-sage {
+    @apply bg-gradient-to-br from-brand-sage-mist/40 to-brand-creamy-ivory/60;
   }
   
-  .parallax-tag:hover {
-    @apply transform -translate-y-1;
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
   }
   
-  .subtle-breathe {
-    animation: subtle-breathe 6s infinite ease-in-out;
-  }
-
-  .text-shadow {
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  .animate-fade-in {
+    opacity: 0;
+    animation: fadeIn 0.8s ease-out forwards;
   }
   
-  .text-shadow-lg {
-    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  @keyframes float {
+    0% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Quote styles */
+  .quote-container {
+    position: relative;
+    padding: 2rem 4rem;
+  }
+  
+  .quote-mark {
+    position: absolute;
+    font-size: 6rem;
+    font-family: 'Georgia', serif;
+    opacity: 0.2;
+    color: #16594a;
+    line-height: 1;
+  }
+  
+  .quote-mark-left {
+    top: 10px;
+    left: 10px;
+  }
+  
+  .quote-mark-right {
+    bottom: 10px;
+    right: 10px;
   }
 }
 
-@keyframes subtle-breathe {
-  0%, 100% {
-    transform: scale(1);
-    opacity: 0.8;
-  }
-  50% {
-    transform: scale(1.05);
-    opacity: 1;
-  }
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
 }
 
-.quote-container {
-  @apply relative py-16 overflow-hidden;
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
 }
 
-.quote-mark {
-  @apply absolute text-brand-blush-rose/10 text-[200px] font-serif pointer-events-none;
+::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
 }
 
-.quote-mark-left {
-  @apply -top-16 left-4 md:left-12 select-none;
-}
-
-.quote-mark-right {
-  @apply -bottom-40 right-4 md:right-12 select-none;
+::-webkit-scrollbar-thumb:hover {
+  background: #b3b3b3;
 }

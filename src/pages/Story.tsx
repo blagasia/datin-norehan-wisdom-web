@@ -1,241 +1,226 @@
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
-import { Quote, Book, Image as ImageIcon, ArrowRight, Feather } from 'lucide-react';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+import { ArrowRight, BookOpen, Star, History } from 'lucide-react';
+import VideoBackground from '@/components/VideoBackground';
+import { Badge } from '@/components/ui/badge';
+import SEO from '@/components/SEO';
 
 const Story = () => {
-  const [api, setApi] = useState<any>(null);
-  
   useEffect(() => {
-    if (!api) return;
-    
-    const autoPlay = () => {
-      if (api.canScrollNext()) {
-        api.scrollNext();
-      } else {
-        api.scrollTo(0);
-      }
-    };
-
-    const interval = window.setInterval(autoPlay, 5000);
-    
-    return () => clearInterval(interval);
-  }, [api]);
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col relative">
+      <SEO 
+        title="Our Story | Datin Norehan's Journey"
+        description="Discover the inspiring journey of Datin Norehan from traditional herbalist to founder of a premium wellness brand."
+      />
       <Navbar />
-      <main className="flex-grow">
+      <main className="flex-grow pt-16 md:pt-20 lg:pt-24 relative z-10">
         {/* Hero Section */}
-        <div className="py-16 md:py-24 bg-natural-green/20">
-          <div className="container mx-auto px-4 text-center">
-            <h1 className="font-playfair text-4xl md:text-5xl font-bold mb-6">Our Story</h1>
-            <p className="text-xl text-natural-gray max-w-3xl mx-auto">
-              The journey of Datin Norehan and her quest to preserve the wisdom of natural wellness.
-            </p>
-          </div>
-        </div>
-
-        {/* Story Image Carousel */}
-        <section className="w-full bg-white">
-          <Carousel className="w-full" setApi={setApi}>
-            <CarouselContent>
-              {/* Slide 1: The Origins */}
-              <CarouselItem>
-                <div className="h-[600px] md:h-[700px] relative overflow-hidden">
-                  <div className="absolute inset-0 bg-cover bg-center" 
-                       style={{backgroundImage: `url("/lovable-uploads/64130d34-d04d-40bb-9931-9c8f94a36cae.png")`}}>
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-black/10"></div>
-                  </div>
-                  <div className="absolute inset-0 flex items-center justify-center p-8">
-                    <div className="text-center animate-fade-in max-w-2xl">
-                      <h2 className="font-italiana text-4xl md:text-5xl lg:text-6xl text-white mb-8 tracking-wide animate-fade-up">
-                        The Origins
-                      </h2>
-                      <p className="font-karla text-xl md:text-2xl text-white/90 animate-fade-up" style={{animationDelay: '0.3s'}}>
-                        A heritage of healing passed down through generations, rooted in respect for nature's wisdom.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </CarouselItem>
-              
-              {/* Slide 2: The Journey */}
-              <CarouselItem>
-                <div className="h-[600px] md:h-[700px] relative overflow-hidden">
-                  <div className="absolute inset-0 bg-cover bg-center" 
-                       style={{backgroundImage: `url("/lovable-uploads/1d2d4ba3-6798-432d-b239-3d1bdc235172.png")`}}>
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-black/10"></div>
-                  </div>
-                  <div className="absolute inset-0 flex items-center justify-center p-8">
-                    <div className="text-center animate-fade-in max-w-2xl">
-                      <h2 className="font-italiana text-4xl md:text-5xl lg:text-6xl text-white mb-8 tracking-wide animate-fade-up">
-                        The Journey
-                      </h2>
-                      <p className="font-karla text-xl md:text-2xl text-white/90 animate-fade-up" style={{animationDelay: '0.3s'}}>
-                        Years of exploration through Southeast Asia, studying with master herbalists and traditional healers.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </CarouselItem>
-              
-              {/* Slide 3: The Vision */}
-              <CarouselItem>
-                <div className="h-[600px] md:h-[700px] relative overflow-hidden">
-                  <div className="absolute inset-0 bg-cover bg-center" 
-                       style={{backgroundImage: `url("/lovable-uploads/5f0e6477-2199-4db9-babb-73c92b345eea.png")`}}>
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-black/10"></div>
-                  </div>
-                  <div className="absolute inset-0 flex items-center justify-center p-8">
-                    <div className="text-center animate-fade-in max-w-2xl">
-                      <h2 className="font-italiana text-4xl md:text-5xl lg:text-6xl text-white mb-8 tracking-wide animate-fade-up">
-                        The Vision
-                      </h2>
-                      <p className="font-karla text-xl md:text-2xl text-white/90 animate-fade-up" style={{animationDelay: '0.3s'}}>
-                        Creating a bridge between ancient wisdom and modern science, honoring tradition while embracing innovation.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </CarouselItem>
-            </CarouselContent>
-            <div className="flex justify-center gap-2 absolute bottom-8 left-0 right-0 z-10">
-              <CarouselPrevious className="static translate-y-0 mx-2 bg-white/20 hover:bg-white/40 border-white/30" />
-              <CarouselNext className="static translate-y-0 mx-2 bg-white/20 hover:bg-white/40 border-white/30" />
+        <section className="py-16 md:py-24 relative overflow-hidden">
+          <VideoBackground 
+            videoSrc="https://vimeo.com/1080492231"
+            fallbackImageSrc="/lovable-uploads/ef24f11c-1a63-4afa-b882-f95a045b873f.png"
+          />
+          <div className="container mx-auto px-4 relative z-10">
+            <div className="max-w-4xl mx-auto text-center mb-16">
+              <Badge className="bg-white/70 text-brand-deep-teal mb-4">Our Journey</Badge>
+              <h1 className="font-italiana text-5xl md:text-6xl text-white font-bold mb-8 text-shadow animate-fade-in">The Datin Norehan Story</h1>
+              <p className="text-xl md:text-2xl text-white text-shadow max-w-3xl mx-auto animate-fade-in" style={{ animationDelay: "200ms" }}>
+                From traditional herbalist to founder of a premium wellness brand - a journey of passion, wisdom, and natural healing.
+              </p>
             </div>
-          </Carousel>
+          </div>
         </section>
 
-        {/* Origin Story */}
-        <section className="py-16 md:py-24 bg-white">
+        {/* Founder Story Section */}
+        <section className="py-20 md:py-28 bg-white">
           <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto">
-              <ScrollArea className="h-auto">
-                <div className="mb-16">
-                  <div className="inline-block mb-5 relative">
-                    <span className="inline-block w-12 h-[1px] bg-brand-muted-rose"></span>
-                    <span className="inline-block mx-4 font-karla text-sm tracking-widest text-brand-muted-rose">HERITAGE</span>
-                    <span className="inline-block w-12 h-[1px] bg-brand-muted-rose"></span>
+            <div className="max-w-6xl mx-auto">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
+                <div>
+                  <div className="aspect-square overflow-hidden rounded-lg">
+                    <img 
+                      src="/lovable-uploads/ef24f11c-1a63-4afa-b882-f95a045b873f.png" 
+                      alt="Datin Norehan" 
+                      className="w-full h-full object-cover object-center"
+                    />
                   </div>
-                  <h2 className="text-3xl md:text-4xl font-playfair font-semibold mb-8">The Origins</h2>
-                  
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-                    <div className="md:col-span-2">
-                      <p className="text-natural-gray mb-6 leading-relaxed">
-                        Born into a family where traditional healing practices were revered and preserved, Datin Norehan's earliest memories are filled with the scents of herbs drying in her grandmother's kitchen and the patient teachings of plant identification in the family garden.
-                      </p>
-                      
-                      <p className="text-natural-gray mb-6 leading-relaxed">
-                        "My grandmother was the keeper of knowledge," Datin Norehan recalls. "She could identify hundreds of plants by their scent alone and knew precisely which part—root, stem, leaf, or flower—contained the medicine and when it should be harvested."
-                      </p>
-                      
-                      <p className="text-natural-gray leading-relaxed">
-                        This inheritance of wisdom became the foundation upon which Datin Norehan would later build her wellness philosophy. But first, she would embark on a journey that took her far from home, seeking to complement traditional knowledge with formal education.
-                      </p>
-                    </div>
-                    
-                    <div className="bg-natural-peach/10 p-6 rounded-lg flex items-center">
-                      <div>
-                        <Book className="h-10 w-10 mb-4 text-natural-peach/80" />
-                        <p className="italic text-natural-dark/80 font-playfair">
-                          "The most profound lessons often come wrapped in the simplest packages—a grandmother's gentle hands showing you how to press oil from seeds, or the patience to wait for the perfect moment to harvest."
-                        </p>
-                        <p className="text-right mt-3 font-medium text-natural-dark/70">— Datin Norehan</p>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Herb Garden Image - New Addition */}
-                  <div className="mb-12">
-                    <div className="relative h-64 md:h-96 rounded-xl overflow-hidden mb-4">
-                      <img 
-                        src="/lovable-uploads/56c8ecfc-b55a-466b-8542-f2c698fb2dc3.png" 
-                        alt="Datin Norehan in her herb garden" 
-                        className="object-cover w-full h-full"
-                      />
-                    </div>
-                    <p className="text-sm text-center text-natural-gray italic">
-                      Datin Norehan in her herb garden, carefully tending to medicinal plants passed down through generations
-                    </p>
-                  </div>
-                  
-                  <p className="text-natural-gray mb-6 leading-relaxed">
-                    After completing her formal education in botanical sciences and traditional medicine, Datin Norehan spent years traveling throughout Southeast Asia, studying with master herbalists and traditional healers. Each encounter added to her understanding of how different cultures approach wellness and healing.
-                  </p>
-                  
-                  <p className="text-natural-gray leading-relaxed">
-                    "What struck me most during my travels was the common thread running through all these healing traditions—a profound reverence for nature and an understanding that true healing comes from restoring balance, not just treating symptoms," she explains.
-                  </p>
-                </div>
-                
-                <div className="bg-natural-green/10 p-10 rounded-xl mb-16">
-                  <div className="flex items-start">
-                    <Quote className="h-10 w-10 text-natural-dark/60 mr-6 flex-shrink-0 mt-2" />
-                    <p className="italic text-natural-dark/80 font-playfair text-xl leading-relaxed">
-                      "I realized that my purpose wasn't to choose between tradition and modernity, but to create a bridge between them—honoring ancestral wisdom while embracing scientific understanding. Only by holding both could I create something truly meaningful."
-                    </p>
-                  </div>
-                  <p className="text-right mt-4 font-medium text-natural-dark/70">— Datin Norehan</p>
                 </div>
                 
                 <div>
-                  <div className="inline-block mb-5 relative">
-                    <span className="inline-block w-12 h-[1px] bg-brand-muted-rose"></span>
-                    <span className="inline-block mx-4 font-karla text-sm tracking-widest text-brand-muted-rose">CREATION</span>
-                    <span className="inline-block w-12 h-[1px] bg-brand-muted-rose"></span>
-                  </div>
-                  <h2 className="text-3xl font-playfair font-semibold mb-8">The Birth of a Vision</h2>
-                  
-                  <p className="text-natural-gray mb-6 leading-relaxed">
-                    Returning to Malaysia with a wealth of knowledge and experience, Datin Norehan began experimenting in earnest—creating formulations that combined her grandmother's teachings with the insights gained during her travels and studies.
+                  <Badge className="mb-3">The Founder</Badge>
+                  <h2 className="font-italiana text-4xl mb-6">Meet Datin Norehan</h2>
+                  <p className="text-natural-gray mb-4">
+                    Datin Norehan's journey began over three decades ago in her grandmother's kitchen, where she was first introduced to the healing power of herbs and natural remedies.
                   </p>
-                  
-                  <p className="text-natural-gray mb-6 leading-relaxed">
-                    What began as small batches of herbal remedies shared with family and friends gradually evolved into something larger. Word spread about the effectiveness of her creations, and soon Datin Norehan found herself at a crossroads—continue as a small, local herbalist or expand her vision to reach more people.
+                  <p className="text-natural-gray mb-4">
+                    With roots deeply embedded in traditional Malaysian healing practices and an insatiable curiosity for botanical science, she soon became known in her community as the woman who could "heal with nature's gifts."
                   </p>
-                  
-                  <p className="text-natural-gray mb-8 leading-relaxed">
-                    "The decision to establish a brand was not made lightly," she says. "I worried that scaling production might compromise the integrity of the formulations. But I realized that keeping this knowledge and these remedies to myself was counter to everything I had learned—that healing wisdom is meant to be shared."
+                  <p className="text-natural-gray mb-8">
+                    Her dedication to natural wellness became her life's work, transforming from a passionate herbalist to the founder of a wellness brand that bridges ancestral wisdom with modern science.
                   </p>
-                  
-                  <div className="text-center mt-12">
-                    <Link to="/philosophy">
-                      <Button className="bg-transparent rounded-none text-natural-dark border-natural-dark hover:bg-natural-dark hover:text-white group mr-4">
-                        Explore Our Philosophy
-                        <span className="inline-block transition-transform group-hover:translate-x-1">
-                          <ArrowRight className="h-4 w-4" />
-                        </span>
-                      </Button>
-                    </Link>
-                    <Link to="/products">
-                      <Button className="bg-natural-peach hover:bg-natural-peach/90 text-white rounded-none group">
-                        Discover Our Products
-                        <span className="inline-block transition-transform group-hover:translate-x-1">
-                          <ArrowRight className="h-4 w-4" />
-                        </span>
-                      </Button>
-                    </Link>
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+                    <div className="flex items-center">
+                      <BookOpen className="h-5 w-5 text-brand-deep-teal mr-2" />
+                      <span className="text-natural-gray">30+ Years Experience</span>
+                    </div>
+                    <div className="flex items-center">
+                      <Star className="h-5 w-5 text-brand-deep-teal mr-2" />
+                      <span className="text-natural-gray">Master Herbalist</span>
+                    </div>
+                    <div className="flex items-center">
+                      <History className="h-5 w-5 text-brand-deep-teal mr-2" />
+                      <span className="text-natural-gray">Third Generation</span>
+                    </div>
                   </div>
                 </div>
-              </ScrollArea>
+              </div>
+              
+              <div className="max-w-4xl mx-auto">
+                <h3 className="font-italiana text-3xl mb-6 text-center">The Evolution of Our Brand</h3>
+                
+                <div className="relative border-l-2 border-brand-deep-teal/30 pl-8 ml-4 space-y-12 my-16">
+                  <div className="relative">
+                    <div className="absolute -left-12 top-0 w-6 h-6 rounded-full bg-brand-deep-teal flex items-center justify-center">
+                      <span className="text-white font-semibold text-xs">1</span>
+                    </div>
+                    <h4 className="font-playfair text-xl mb-3">The Early Years (1990s)</h4>
+                    <p className="text-natural-gray">
+                      Datin Norehan began sharing her handcrafted herbal remedies with friends and family. Word spread quickly about the efficacy of her formulations, particularly her signature detoxification tonic.
+                    </p>
+                  </div>
+                  
+                  <div className="relative">
+                    <div className="absolute -left-12 top-0 w-6 h-6 rounded-full bg-brand-deep-teal flex items-center justify-center">
+                      <span className="text-white font-semibold text-xs">2</span>
+                    </div>
+                    <h4 className="font-playfair text-xl mb-3">First Apothecary (2003)</h4>
+                    <p className="text-natural-gray">
+                      After years of perfecting her recipes, Datin Norehan opened her first small apothecary in Kuala Lumpur. The modest shop quickly became a sanctuary for those seeking natural alternatives to conventional wellness approaches.
+                    </p>
+                  </div>
+                  
+                  <div className="relative">
+                    <div className="absolute -left-12 top-0 w-6 h-6 rounded-full bg-brand-deep-teal flex items-center justify-center">
+                      <span className="text-white font-semibold text-xs">3</span>
+                    </div>
+                    <h4 className="font-playfair text-xl mb-3">Scientific Validation (2010-2015)</h4>
+                    <p className="text-natural-gray">
+                      Passionate about bridging traditional wisdom with modern science, Datin Norehan collaborated with researchers to validate the efficacy of her formulations. This period marked a significant evolution in her approach to product development.
+                    </p>
+                  </div>
+                  
+                  <div className="relative">
+                    <div className="absolute -left-12 top-0 w-6 h-6 rounded-full bg-brand-deep-teal flex items-center justify-center">
+                      <span className="text-white font-semibold text-xs">4</span>
+                    </div>
+                    <h4 className="font-playfair text-xl mb-3">Birth of DNA (2018)</h4>
+                    <p className="text-natural-gray">
+                      Recognizing the growing demand for premium natural wellness products, Datin Norehan launched DNA - a carefully curated collection that represents the perfect balance between ancestral wisdom and modern science.
+                    </p>
+                  </div>
+                  
+                  <div className="relative">
+                    <div className="absolute -left-12 top-0 w-6 h-6 rounded-full bg-brand-deep-teal flex items-center justify-center">
+                      <span className="text-white font-semibold text-xs">5</span>
+                    </div>
+                    <h4 className="font-playfair text-xl mb-3">Present Day</h4>
+                    <p className="text-natural-gray">
+                      Today, Datin Norehan's Apothecary and DNA represent a holistic ecosystem that offers not just products, but education, community, and a pathway to balanced wellness. With devotees across Southeast Asia and beyond, our mission to share nature's wisdom continues to grow.
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
         
-        {/* Closing Quote */}
-        <section className="py-16 bg-natural-green/10">
-          <div className="container mx-auto max-w-2xl text-center px-4">
-            <Feather className="mx-auto mb-6 text-brand-orchid-pink h-8 w-8 opacity-80 subtle-breathe" />
-            <blockquote className="font-italiana text-2xl md:text-3xl italic mb-6 text-natural-dark">
-              "Our story is one of reverence—for ancestral wisdom, for the gifts of nature, and for the delicate balance that sustains all life."
-            </blockquote>
-            <p className="font-karla text-brand-deep-teal tracking-widest uppercase text-sm">— Datin Norehan</p>
+        {/* Values Section */}
+        <section className="py-20 md:py-24 bg-gradient-sage">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto text-center mb-16">
+              <h2 className="font-italiana text-4xl md:text-5xl uppercase tracking-wide mb-8">Our Core Values</h2>
+              <p className="text-natural-gray max-w-3xl mx-auto text-lg">
+                These principles have guided our journey from a small apothecary to a beloved wellness brand.
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+              <div className="bg-white rounded-lg p-8 shadow-sm hover:shadow-md transition-shadow duration-300">
+                <div className="w-16 h-16 rounded-full bg-brand-sage-mist/40 flex items-center justify-center mb-6">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-brand-deep-teal">
+                    <path d="M18.5 2h-13L2 9.5 12 22 22 9.5 18.5 2Z"></path>
+                    <path d="M12 22 2 9.5l3.5-7.5"></path>
+                    <path d="m12 22 10-12.5-3.5-7.5"></path>
+                    <path d="M7 8.5h10"></path>
+                    <path d="M12 2v6.5"></path>
+                  </svg>
+                </div>
+                <h3 className="font-italiana text-2xl mb-3">Authenticity</h3>
+                <p className="text-natural-gray">
+                  We stay true to the pure essence of natural ingredients and ancient wisdom, ensuring that every product delivers authentic benefits without compromise.
+                </p>
+              </div>
+              
+              <div className="bg-white rounded-lg p-8 shadow-sm hover:shadow-md transition-shadow duration-300">
+                <div className="w-16 h-16 rounded-full bg-brand-blush-rose/30 flex items-center justify-center mb-6">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-brand-deep-teal">
+                    <path d="M14.5 2v17.5c0 1.4-1.1 2.5-2.5 2.5h0c-1.4 0-2.5-1.1-2.5-2.5V2"></path>
+                    <path d="M8.5 2h7"></path>
+                    <path d="M14.5 16h-5"></path>
+                  </svg>
+                </div>
+                <h3 className="font-italiana text-2xl mb-3">Education</h3>
+                <p className="text-natural-gray">
+                  We believe in empowering our community through knowledge, sharing both ancestral wisdom and scientific understanding about natural wellness.
+                </p>
+              </div>
+              
+              <div className="bg-white rounded-lg p-8 shadow-sm hover:shadow-md transition-shadow duration-300">
+                <div className="w-16 h-16 rounded-full bg-brand-lavender-mist/30 flex items-center justify-center mb-6">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-brand-deep-teal">
+                    <path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"></path>
+                    <path d="M12 8v8"></path>
+                    <path d="M8 12h8"></path>
+                  </svg>
+                </div>
+                <h3 className="font-italiana text-2xl mb-3">Holistic Balance</h3>
+                <p className="text-natural-gray">
+                  We recognize that true wellness emerges from balance - between tradition and innovation, between mind and body, between humans and nature.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        {/* Join Our Journey Section */}
+        <section className="py-20 md:py-24 bg-white">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto text-center">
+              <h2 className="font-italiana text-4xl mb-8">Join Our Journey</h2>
+              <p className="text-natural-gray mb-8 text-lg">
+                Discover a world where ancestral wisdom meets modern wellness - explore our products, attend our events, or connect with our community of wellness seekers.
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <Link to="/products">
+                  <Button className="w-full" variant="outline">Shop Collection</Button>
+                </Link>
+                <Link to="/events">
+                  <Button className="w-full" variant="outline">Attend Events</Button>
+                </Link>
+                <Link to="/loyalty">
+                  <Button className="w-full" variant="outline">Join Community</Button>
+                </Link>
+              </div>
+            </div>
           </div>
         </section>
       </main>

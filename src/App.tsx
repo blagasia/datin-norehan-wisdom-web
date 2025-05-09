@@ -15,6 +15,12 @@ import NotFound from '@/pages/NotFound';
 import { CartProvider } from '@/context/CartContext';
 import { LoyaltyProvider } from '@/context/LoyaltyContext';
 import Admin from '@/pages/Admin';
+import Philosophy from '@/pages/Philosophy';
+import Story from '@/pages/Story';
+import DnaBrand from '@/pages/DnaBrand';
+import Rituals from '@/pages/Rituals';
+import Curations from '@/pages/Curations';
+import Home from '@/pages/Home';
 
 function App() {
   return (
@@ -25,6 +31,7 @@ function App() {
             <Router>
               <Routes>
                 <Route path="/" element={<Index />} />
+                <Route path="/home" element={<Home />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/products" element={<Products />} />
                 <Route path="/products/:id" element={<ProductDetail />} />
@@ -32,6 +39,12 @@ function App() {
                 <Route path="/articles/:id" element={<ArticleDetail />} />
                 <Route path="/events" element={<VirtualEvents />} />
                 <Route path="/contact" element={<Contact />} />
+                <Route path="/philosophy" element={<Philosophy />} />
+                <Route path="/story" element={<Story />} />
+                <Route path="/dna-brand" element={<DnaBrand />} />
+                <Route path="/rituals" element={<Rituals />} />
+                <Route path="/rituals/custom" element={<Rituals />} />
+                <Route path="/curations" element={<Curations />} />
                 <Route path="/admin" element={<Admin />} />
                 <Route path="/admin/*" element={<Admin />} />
                 <Route path="*" element={<NotFound />} />
