@@ -12,9 +12,9 @@ const MobileNavLink = ({ name, path }: MobileNavLinkProps) => {
     <NavLink 
       to={path}
       className={({ isActive }) => 
-        `block py-2 px-3 text-base ${isActive 
-          ? 'text-brand-deep-teal font-medium' 
-          : 'text-natural-dark hover:bg-brand-blush-rose/10'}`
+        `block py-2.5 px-4 text-base ${isActive 
+          ? 'text-brand-deep-teal font-medium bg-brand-blush-rose/10 rounded' 
+          : 'text-natural-dark hover:bg-brand-blush-rose/10 hover:rounded transition-all duration-200'}`
       }
       end={path === '/'}
     >

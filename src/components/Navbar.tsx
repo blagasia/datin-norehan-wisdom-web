@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useLoyalty } from '@/context/LoyaltyContext';
 import { useToast } from '@/components/ui/use-toast';
@@ -13,6 +13,20 @@ const Navbar = () => {
   const { toast } = useToast();
   const location = useLocation();
   const isMobile = useIsMobile();
+  const [isScrolled, setIsScrolled] = useState(false);
+  
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 20) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
   
   const handleLogout = () => {
     logout();
@@ -23,7 +37,7 @@ const Navbar = () => {
   };
 
   return (
-    <header className="fixed w-full z-40 bg-white/90 backdrop-blur-sm border-b border-gray-100">
+    <header className={`fixed w-full z-40 ${isScrolled ? 'bg-white/95' : 'bg-white/90'} backdrop-blur-sm border-b border-gray-100 transition-all duration-300`}>
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between py-4">
           {/* Updated brand logo with botanical watercolor styling */}

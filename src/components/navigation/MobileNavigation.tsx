@@ -8,7 +8,7 @@ import MobileMenu from './components/MobileMenu';
 
 const MobileNavigation = () => {
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-4">
       <CartButton />
       
       <Sheet>
@@ -17,7 +17,7 @@ const MobileNavigation = () => {
             <Menu className="h-6 w-6" />
           </Button>
         </SheetTrigger>
-        <SheetContent side="right" className="w-[85%] max-w-sm bg-white overflow-y-auto p-0">
+        <SheetContent side="right" className="w-[85%] sm:max-w-sm bg-white overflow-y-auto p-0">
           <MobileMenu />
         </SheetContent>
       </Sheet>

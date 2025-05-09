@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import Features from '@/components/Features';
@@ -12,7 +13,7 @@ import About from '@/components/About';
 import Footer from '@/components/Footer';
 import { Toaster } from '@/components/ui/toaster';
 import CookieConsent from '@/components/CookieConsent';
-import { useEffect } from 'react';
+import SEO from '@/components/SEO';
 
 const Index = () => {
   // Optimize performance by scrolling to top when component mounts
@@ -22,8 +23,12 @@ const Index = () => {
 
   return (
     <div className="min-h-screen flex flex-col relative">
+      <SEO 
+        title="Datin Norehan - Natural Wellness Products & Remedies"
+        description="Discover premium natural wellness products and traditional remedies by Datin Norehan for holistic health and beauty."
+      />
       <Navbar />
-      <div className="pt-16 md:pt-20 lg:pt-24 relative z-10">
+      <div className="pt-20 md:pt-24 lg:pt-28 relative z-10">
         <main className="flex-grow overflow-hidden">
           <Hero />
           <Features />
