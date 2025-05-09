@@ -3,20 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useLocation } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
-
-interface SEOMetadata {
-  id: string;
-  page_path: string;
-  title: string | null;
-  description: string | null;
-  keywords: string[] | null;
-  og_title: string | null;
-  og_description: string | null;
-  og_image_url: string | null;
-  canonical_url: string | null;
-  created_at: string;
-  updated_at: string;
-}
+import { SEOMetadata } from '@/types/seo';
 
 interface SEOProps {
   title?: string;
@@ -49,19 +36,18 @@ const SEO: React.FC<SEOProps> = ({
   useEffect(() => {
     const fetchSEOData = async () => {
       try {
-        // Use a type assertion to make TypeScript happy
         const { data, error } = await supabase
           .from('seo_metadata')
           .select('*')
           .eq('page_path', currentPath)
-          .maybeSingle() as { data: SEOMetadata | null, error: any };
+          .maybeSingle();
         
         if (error) {
           console.error('Error fetching SEO data:', error);
         }
         
         if (data) {
-          setMetadata(data);
+          setMetadata(data as SEOMetadata);
         }
       } catch (error) {
         console.error('Error in SEO component:', error);

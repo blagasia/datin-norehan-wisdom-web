@@ -1,155 +1,66 @@
+
 import React, { useState, useEffect } from 'react';
-import { 
-  Table, 
-  TableBody, 
-  TableCell, 
-  TableHead, 
-  TableHeader, 
-  TableRow 
-} from '@/components/ui/table';
-import { 
-  Dialog, 
-  DialogContent, 
-  DialogDescription, 
-  DialogFooter, 
-  DialogHeader, 
-  DialogTitle, 
-  DialogTrigger
-} from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { useToast } from '@/components/ui/use-toast';
+import { Textarea } from '@/components/ui/textarea';
+import { toast } from '@/hooks/use-toast';
+import { PlusCircle, Trash2, Save } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
 import { supabase } from '@/integrations/supabase/client';
-import { 
-  Search, 
-  Plus, 
-  Edit, 
-  Trash2, 
-  Tag, 
-  X
-} from 'lucide-react';
+import { SEOMetadata } from '@/types/seo';
 
-// Define a custom type for SEO metadata to avoid conflicts with generated types
-interface SEOMetadata {
-  id: string;
-  page_path: string;
-  title: string | null;
-  description: string | null;
-  keywords: string[] | null;
-  og_title: string | null;
-  og_description: string | null;
-  og_image_url: string | null;
-  canonical_url: string | null;
-  created_at: string;
-  updated_at: string;
-}
-
-const SEOManager: React.FC = () => {
-  const [seoEntries, setSEOEntries] = useState<SEOMetadata[]>([]);
-  const [filteredEntries, setFilteredEntries] = useState<SEOMetadata[]>([]);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [currentTag, setCurrentTag] = useState('');
+const SEOManager = () => {
+  const [seoEntries, setSeoEntries] = useState<SEOMetadata[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [activeEntry, setActiveEntry] = useState<SEOMetadata | null>(null);
   const [isEditMode, setIsEditMode] = useState(false);
-  const [currentSEO, setCurrentSEO] = useState<SEOMetadata | null>(null);
-  const [formData, setFormData] = useState({
-    id: '',
+  
+  // Form state
+  const [formData, setFormData] = useState<Partial<SEOMetadata>>({
     page_path: '',
     title: '',
     description: '',
-    keywords: [] as string[],
+    keywords: [],
     og_title: '',
     og_description: '',
     og_image_url: '',
     canonical_url: ''
   });
   
-  const { toast } = useToast();
-  
   useEffect(() => {
-    fetchSEOData();
+    fetchSEOEntries();
   }, []);
   
-  useEffect(() => {
-    if (searchTerm) {
-      const filtered = seoEntries.filter(entry => 
-        entry.page_path.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        (entry.title || '').toLowerCase().includes(searchTerm.toLowerCase())
-      );
-      setFilteredEntries(filtered);
-    } else {
-      setFilteredEntries(seoEntries);
-    }
-  }, [searchTerm, seoEntries]);
-  
-  const fetchSEOData = async () => {
-    setIsLoading(true);
+  const fetchSEOEntries = async () => {
     try {
-      // Use a type assertion to make TypeScript happy
+      setLoading(true);
       const { data, error } = await supabase
         .from('seo_metadata')
         .select('*')
-        .order('page_path', { ascending: true }) as { data: SEOMetadata[] | null, error: any };
+        .order('page_path');
       
-      if (error) throw error;
+      if (error) {
+        throw error;
+      }
       
-      setSEOEntries(data || []);
-      setFilteredEntries(data || []);
-    } catch (error: any) {
-      console.error('Error fetching SEO data:', error);
+      setSeoEntries(data as SEOMetadata[]);
+    } catch (error) {
+      console.error('Error fetching SEO entries:', error);
       toast({
-        title: "Error",
-        description: `Failed to fetch SEO data: ${error.message}`,
-        variant: "destructive"
+        title: 'Error',
+        description: 'Could not load SEO entries',
+        variant: 'destructive',
       });
     } finally {
-      setIsLoading(false);
+      setLoading(false);
     }
   };
   
-  const handleAddTag = () => {
-    if (!currentTag.trim()) return;
-    
-    if (!formData.keywords.includes(currentTag.trim())) {
-      setFormData({
-        ...formData,
-        keywords: [...formData.keywords, currentTag.trim()]
-      });
-    }
-    
-    setCurrentTag('');
-  };
-  
-  const handleRemoveTag = (tag: string) => {
+  const handleAddNew = () => {
+    setActiveEntry(null);
     setFormData({
-      ...formData,
-      keywords: formData.keywords.filter(t => t !== tag)
-    });
-  };
-  
-  const handleEditSEO = (seo: SEOMetadata) => {
-    setCurrentSEO(seo);
-    setFormData({
-      id: seo.id,
-      page_path: seo.page_path,
-      title: seo.title || '',
-      description: seo.description || '',
-      keywords: seo.keywords || [],
-      og_title: seo.og_title || '',
-      og_description: seo.og_description || '',
-      og_image_url: seo.og_image_url || '',
-      canonical_url: seo.canonical_url || ''
-    });
-    setIsEditMode(true);
-    setIsDialogOpen(true);
-  };
-  
-  const handleCreateNew = () => {
-    setCurrentSEO(null);
-    setFormData({
-      id: '',
       page_path: '',
       title: '',
       description: '',
@@ -159,70 +70,67 @@ const SEOManager: React.FC = () => {
       og_image_url: '',
       canonical_url: ''
     });
-    setIsEditMode(false);
-    setIsDialogOpen(true);
+    setIsEditMode(true);
   };
   
-  const handleDeleteSEO = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this SEO data? This action cannot be undone.")) {
-      return;
-    }
-    
-    try {
-      const { error } = await supabase
-        .from('seo_metadata')
-        .delete()
-        .eq('id', id);
-      
-      if (error) throw error;
-      
-      toast({
-        title: "Success",
-        description: "SEO data deleted successfully"
-      });
-      
-      fetchSEOData();
-    } catch (error: any) {
-      toast({
-        title: "Error",
-        description: `Failed to delete SEO data: ${error.message}`,
-        variant: "destructive"
-      });
-    }
+  const handleEdit = (entry: SEOMetadata) => {
+    setActiveEntry(entry);
+    setFormData({
+      page_path: entry.page_path,
+      title: entry.title || '',
+      description: entry.description || '',
+      keywords: entry.keywords || [],
+      og_title: entry.og_title || '',
+      og_description: entry.og_description || '',
+      og_image_url: entry.og_image_url || '',
+      canonical_url: entry.canonical_url || ''
+    });
+    setIsEditMode(true);
   };
   
-  const handleSaveSEO = async () => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+  
+  const handleKeywordsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    const keywordArray = value.split(',').map(k => k.trim()).filter(k => k);
+    setFormData(prev => ({ ...prev, keywords: keywordArray }));
+  };
+  
+  const handleSave = async () => {
     try {
       if (!formData.page_path) {
         toast({
-          title: "Validation Error",
-          description: "Page path is required",
-          variant: "destructive"
+          title: 'Validation Error',
+          description: 'Page path is required',
+          variant: 'destructive',
         });
         return;
       }
       
-      if (isEditMode && currentSEO) {
+      if (activeEntry) {
         // Update existing entry
         const { error } = await supabase
           .from('seo_metadata')
           .update({
             title: formData.title || null,
             description: formData.description || null,
-            keywords: formData.keywords.length > 0 ? formData.keywords : null,
+            keywords: formData.keywords || [],
             og_title: formData.og_title || null,
             og_description: formData.og_description || null,
             og_image_url: formData.og_image_url || null,
             canonical_url: formData.canonical_url || null,
             updated_at: new Date().toISOString()
           })
-          .eq('id', currentSEO.id);
+          .eq('id', activeEntry.id);
         
         if (error) throw error;
         
         toast({
-          title: "Success",
-          description: "SEO data updated successfully"
+          title: 'Success',
+          description: 'SEO metadata updated successfully'
         });
       } else {
         // Create new entry
@@ -232,7 +140,7 @@ const SEOManager: React.FC = () => {
             page_path: formData.page_path,
             title: formData.title || null,
             description: formData.description || null,
-            keywords: formData.keywords.length > 0 ? formData.keywords : null,
+            keywords: formData.keywords || [],
             og_title: formData.og_title || null,
             og_description: formData.og_description || null,
             og_image_url: formData.og_image_url || null,
@@ -242,260 +150,236 @@ const SEOManager: React.FC = () => {
         if (error) throw error;
         
         toast({
-          title: "Success",
-          description: "SEO data created successfully"
+          title: 'Success',
+          description: 'SEO metadata created successfully'
         });
       }
       
-      setIsDialogOpen(false);
-      fetchSEOData();
-    } catch (error: any) {
+      // Reset and refresh
+      setIsEditMode(false);
+      fetchSEOEntries();
+      
+    } catch (error) {
+      console.error('Error saving SEO entry:', error);
       toast({
-        title: "Error",
-        description: `Failed to save SEO data: ${error.message}`,
-        variant: "destructive"
+        title: 'Error',
+        description: 'Could not save SEO entry',
+        variant: 'destructive',
       });
     }
   };
   
+  const handleDelete = async (id: string) => {
+    try {
+      const { error } = await supabase
+        .from('seo_metadata')
+        .delete()
+        .eq('id', id);
+      
+      if (error) throw error;
+      
+      toast({
+        title: 'Success',
+        description: 'SEO entry deleted successfully'
+      });
+      
+      fetchSEOEntries();
+      
+      if (activeEntry?.id === id) {
+        setActiveEntry(null);
+        setIsEditMode(false);
+      }
+      
+    } catch (error) {
+      console.error('Error deleting SEO entry:', error);
+      toast({
+        title: 'Error',
+        description: 'Could not delete SEO entry',
+        variant: 'destructive',
+      });
+    }
+  };
+  
+  const handleCancel = () => {
+    setIsEditMode(false);
+    setActiveEntry(null);
+  };
+  
   return (
-    <div>
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-semibold">SEO Management</h2>
-        <div className="flex items-center gap-4">
-          <div className="relative">
-            <Search className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
-            <Input
-              placeholder="Search pages..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-9 w-[250px]"
-            />
-          </div>
-          
-          <Button onClick={handleCreateNew}>
-            <Plus className="h-4 w-4 mr-2" /> Add SEO Data
-          </Button>
-        </div>
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <h2 className="text-2xl font-semibold">SEO Manager</h2>
+        <Button onClick={handleAddNew} className="gap-2">
+          <PlusCircle className="h-4 w-4" /> Add New
+        </Button>
       </div>
       
-      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="max-w-2xl">
-          <DialogHeader>
-            <DialogTitle>
-              {isEditMode ? "Edit SEO Data" : "Add New SEO Data"}
-            </DialogTitle>
-            <DialogDescription>
-              {isEditMode 
-                ? "Update the SEO metadata for this page" 
-                : "Add SEO metadata to improve search engine visibility"
-              }
-            </DialogDescription>
-          </DialogHeader>
-          
-          <div className="space-y-4 py-4">
-            <div className="space-y-2">
-              <Label htmlFor="page_path">Page Path</Label>
-              <Input
-                id="page_path"
-                value={formData.page_path}
-                onChange={(e) => setFormData({...formData, page_path: e.target.value})}
-                placeholder="e.g. /about or /products/herbal-tea"
-                readOnly={isEditMode}
-              />
-              {isEditMode && (
-                <p className="text-sm text-muted-foreground">
-                  Page path cannot be changed once created
+      {isEditMode ? (
+        <Card>
+          <CardContent className="p-6 space-y-4">
+            <h3 className="text-lg font-medium mb-4">
+              {activeEntry ? 'Edit SEO Metadata' : 'Add New SEO Metadata'}
+            </h3>
+            
+            <div className="space-y-3">
+              <div className="grid gap-2">
+                <Label htmlFor="page_path">Page Path</Label>
+                <Input 
+                  id="page_path"
+                  name="page_path"
+                  value={formData.page_path}
+                  onChange={handleInputChange}
+                  placeholder="/about"
+                  disabled={!!activeEntry} // Can't change path for existing entries
+                />
+                <p className="text-xs text-muted-foreground">
+                  Example: /about, /products, /contact
                 </p>
-              )}
-            </div>
-            
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="title">Meta Title</Label>
-                <Input
+              </div>
+              
+              <div className="grid gap-2">
+                <Label htmlFor="title">Page Title</Label>
+                <Input 
                   id="title"
-                  value={formData.title}
-                  onChange={(e) => setFormData({...formData, title: e.target.value})}
-                  placeholder="Page title for search engines"
+                  name="title"
+                  value={formData.title || ''}
+                  onChange={handleInputChange}
+                  placeholder="About Datin Norehan | Natural Wellness"
                 />
               </div>
               
-              <div className="space-y-2">
-                <Label htmlFor="canonical_url">Canonical URL</Label>
-                <Input
-                  id="canonical_url"
-                  value={formData.canonical_url}
-                  onChange={(e) => setFormData({...formData, canonical_url: e.target.value})}
-                  placeholder="Optional canonical URL"
+              <div className="grid gap-2">
+                <Label htmlFor="description">Meta Description</Label>
+                <Textarea 
+                  id="description"
+                  name="description"
+                  value={formData.description || ''}
+                  onChange={handleInputChange}
+                  placeholder="Learn about Datin Norehan's journey and our commitment to natural wellness."
+                  rows={3}
                 />
               </div>
-            </div>
-            
-            <div className="space-y-2">
-              <Label htmlFor="description">Meta Description</Label>
-              <textarea
-                id="description"
-                value={formData.description}
-                onChange={(e) => setFormData({...formData, description: e.target.value})}
-                placeholder="Brief description for search results"
-                className="w-full min-h-[80px] p-2 border rounded-md resize-y"
-              />
-            </div>
-            
-            <div className="space-y-2">
-              <Label htmlFor="keywords">Keywords</Label>
-              <div className="flex">
-                <div className="relative flex-1">
-                  <Tag className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    id="keywords"
-                    value={currentTag}
-                    onChange={(e) => setCurrentTag(e.target.value)}
-                    onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), handleAddTag())}
-                    placeholder="Add keywords..."
-                    className="pl-9"
-                  />
-                </div>
-                <Button 
-                  type="button" 
-                  variant="outline" 
-                  onClick={handleAddTag}
-                  className="ml-2"
-                >
-                  Add
-                </Button>
-              </div>
-              {formData.keywords.length > 0 && (
-                <div className="flex flex-wrap gap-2 mt-2">
-                  {formData.keywords.map(tag => (
-                    <div 
-                      key={tag} 
-                      className="flex items-center bg-muted px-2 py-1 rounded-md text-sm"
-                    >
-                      {tag}
-                      <button
-                        onClick={() => handleRemoveTag(tag)}
-                        className="ml-1 text-muted-foreground hover:text-foreground"
-                      >
-                        <X className="h-3 w-3" />
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-            
-            <div className="space-y-2 pt-4 border-t">
-              <h4 className="font-medium">Open Graph (Social Media) Settings</h4>
               
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="og_title">OG Title</Label>
-                  <Input
-                    id="og_title"
-                    value={formData.og_title}
-                    onChange={(e) => setFormData({...formData, og_title: e.target.value})}
-                    placeholder="Title for social media shares"
-                  />
-                </div>
-                
-                <div className="space-y-2">
-                  <Label htmlFor="og_image_url">OG Image URL</Label>
-                  <Input
-                    id="og_image_url"
-                    value={formData.og_image_url}
-                    onChange={(e) => setFormData({...formData, og_image_url: e.target.value})}
-                    placeholder="Image URL for social media"
-                  />
-                </div>
+              <div className="grid gap-2">
+                <Label htmlFor="keywords">Keywords (comma separated)</Label>
+                <Input 
+                  id="keywords"
+                  name="keywords"
+                  value={formData.keywords ? formData.keywords.join(', ') : ''}
+                  onChange={handleKeywordsChange}
+                  placeholder="wellness, natural, organic"
+                />
               </div>
               
-              <div className="space-y-2">
+              <div className="grid gap-2">
+                <Label htmlFor="og_title">OG Title (Social Media)</Label>
+                <Input 
+                  id="og_title"
+                  name="og_title"
+                  value={formData.og_title || ''}
+                  onChange={handleInputChange}
+                  placeholder="About Datin Norehan"
+                />
+              </div>
+              
+              <div className="grid gap-2">
                 <Label htmlFor="og_description">OG Description</Label>
-                <textarea
+                <Textarea 
                   id="og_description"
-                  value={formData.og_description}
-                  onChange={(e) => setFormData({...formData, og_description: e.target.value})}
-                  placeholder="Description for social media shares"
-                  className="w-full min-h-[80px] p-2 border rounded-md resize-y"
+                  name="og_description"
+                  value={formData.og_description || ''}
+                  onChange={handleInputChange}
+                  placeholder="Discover the story behind our premium wellness products."
+                  rows={2}
+                />
+              </div>
+              
+              <div className="grid gap-2">
+                <Label htmlFor="og_image_url">OG Image URL</Label>
+                <Input 
+                  id="og_image_url"
+                  name="og_image_url"
+                  value={formData.og_image_url || ''}
+                  onChange={handleInputChange}
+                  placeholder="https://example.com/image.jpg"
+                />
+              </div>
+              
+              <div className="grid gap-2">
+                <Label htmlFor="canonical_url">Canonical URL (optional)</Label>
+                <Input 
+                  id="canonical_url"
+                  name="canonical_url"
+                  value={formData.canonical_url || ''}
+                  onChange={handleInputChange}
+                  placeholder="https://datinnorehan.com/about"
                 />
               </div>
             </div>
-          </div>
-          
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setIsDialogOpen(false)}>
-              Cancel
-            </Button>
-            <Button onClick={handleSaveSEO}>
-              {isEditMode ? "Update" : "Save"}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-      
-      {isLoading ? (
-        <div className="flex justify-center items-center py-12">
-          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-primary"></div>
-        </div>
-      ) : filteredEntries.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-12 border rounded-md">
-          <p className="text-muted-foreground mb-4">No SEO data found</p>
-          <Button onClick={handleCreateNew}>
-            <Plus className="h-4 w-4 mr-2" /> Add Your First SEO Entry
-          </Button>
-        </div>
+            
+            <div className="flex justify-end gap-2 mt-6">
+              <Button variant="outline" onClick={handleCancel}>Cancel</Button>
+              <Button onClick={handleSave} className="gap-2">
+                <Save className="h-4 w-4" /> Save
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
       ) : (
-        <div className="bg-white rounded-md border overflow-hidden">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Page Path</TableHead>
-                <TableHead>Title</TableHead>
-                <TableHead>Description</TableHead>
-                <TableHead>Last Updated</TableHead>
-                <TableHead className="w-[100px]">Actions</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {filteredEntries.map(entry => (
-                <TableRow key={entry.id}>
-                  <TableCell className="font-medium">
-                    {entry.page_path}
-                  </TableCell>
-                  <TableCell className="max-w-[200px] truncate">
-                    {entry.title || <span className="text-muted-foreground italic">Not set</span>}
-                  </TableCell>
-                  <TableCell className="max-w-[300px] truncate">
-                    {entry.description || <span className="text-muted-foreground italic">Not set</span>}
-                  </TableCell>
-                  <TableCell>
-                    {new Date(entry.updated_at).toLocaleDateString()}
-                  </TableCell>
-                  <TableCell>
-                    <div className="flex space-x-2">
-                      <Button 
-                        variant="ghost" 
-                        size="sm" 
-                        onClick={() => handleEditSEO(entry)}
-                      >
-                        <Edit className="h-4 w-4" />
-                      </Button>
-                      <Button 
-                        variant="ghost" 
-                        size="sm" 
-                        className="text-red-500 hover:text-red-700"
-                        onClick={() => handleDeleteSEO(entry.id)}
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
+        <div className="space-y-4">
+          {loading ? (
+            <p className="text-center py-8">Loading SEO data...</p>
+          ) : seoEntries.length > 0 ? (
+            <div className="grid gap-4">
+              {seoEntries.map((entry) => (
+                <Card key={entry.id} className="overflow-hidden">
+                  <CardContent className="p-0">
+                    <div className="p-4 border-b flex justify-between items-center">
+                      <div>
+                        <h3 className="font-medium flex items-center gap-2">
+                          {entry.page_path}
+                          {entry.title && (
+                            <Badge variant="outline" className="font-normal">
+                              {entry.title}
+                            </Badge>
+                          )}
+                        </h3>
+                        <p className="text-sm text-muted-foreground">
+                          {entry.description ? 
+                            entry.description.length > 100 ? 
+                              `${entry.description.substring(0, 100)}...` : 
+                              entry.description
+                            : 
+                            "No description"
+                          }
+                        </p>
+                      </div>
+                      <div className="flex gap-2">
+                        <Button variant="ghost" size="sm" onClick={() => handleEdit(entry)}>
+                          Edit
+                        </Button>
+                        <Button 
+                          variant="ghost" 
+                          size="sm" 
+                          onClick={() => handleDelete(entry.id)}
+                          className="text-destructive hover:text-destructive"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div>
                     </div>
-                  </TableCell>
-                </TableRow>
+                  </CardContent>
+                </Card>
               ))}
-            </TableBody>
-          </Table>
+            </div>
+          ) : (
+            <div className="text-center py-12">
+              <p className="text-muted-foreground">No SEO entries found.</p>
+              <p className="mt-2">
+                Click "Add New" to create your first SEO entry.
+              </p>
+            </div>
+          )}
         </div>
       )}
     </div>
