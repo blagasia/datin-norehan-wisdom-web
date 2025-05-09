@@ -345,6 +345,48 @@ export type Database = {
         }
         Relationships: []
       }
+      seo_metadata: {
+        Row: {
+          canonical_url: string | null
+          created_at: string
+          description: string | null
+          id: string
+          keywords: string[] | null
+          og_description: string | null
+          og_image_url: string | null
+          og_title: string | null
+          page_path: string
+          title: string | null
+          updated_at: string
+        }
+        Insert: {
+          canonical_url?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          keywords?: string[] | null
+          og_description?: string | null
+          og_image_url?: string | null
+          og_title?: string | null
+          page_path: string
+          title?: string | null
+          updated_at?: string
+        }
+        Update: {
+          canonical_url?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          keywords?: string[] | null
+          og_description?: string | null
+          og_image_url?: string | null
+          og_title?: string | null
+          page_path?: string
+          title?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

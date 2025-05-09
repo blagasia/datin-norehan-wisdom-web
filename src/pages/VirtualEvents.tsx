@@ -1,7 +1,6 @@
 
 import React from 'react';
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import EventsPreview from '@/components/EventsPreview';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';

@@ -4,6 +4,20 @@ import { Helmet } from 'react-helmet-async';
 import { useLocation } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 
+interface SEOMetadata {
+  id: string;
+  page_path: string;
+  title: string | null;
+  description: string | null;
+  keywords: string[] | null;
+  og_title: string | null;
+  og_description: string | null;
+  og_image_url: string | null;
+  canonical_url: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
 interface SEOProps {
   title?: string;
   description?: string;
@@ -24,7 +38,7 @@ const SEO: React.FC<SEOProps> = ({
   canonicalUrl: customCanonicalUrl
 }) => {
   const location = useLocation();
-  const [metadata, setMetadata] = useState<SEOProps>({});
+  const [metadata, setMetadata] = useState<SEOMetadata | null>(null);
   const [loading, setLoading] = useState(true);
   const currentPath = location.pathname;
   
@@ -35,26 +49,19 @@ const SEO: React.FC<SEOProps> = ({
   useEffect(() => {
     const fetchSEOData = async () => {
       try {
+        // Use a type assertion to make TypeScript happy
         const { data, error } = await supabase
           .from('seo_metadata')
           .select('*')
           .eq('page_path', currentPath)
-          .maybeSingle();
+          .maybeSingle() as { data: SEOMetadata | null, error: any };
         
         if (error) {
           console.error('Error fetching SEO data:', error);
         }
         
         if (data) {
-          setMetadata({
-            title: data.title || DEFAULT_TITLE,
-            description: data.description || DEFAULT_DESCRIPTION,
-            keywords: data.keywords || [],
-            ogTitle: data.og_title || data.title || DEFAULT_TITLE,
-            ogDescription: data.og_description || data.description || DEFAULT_DESCRIPTION,
-            ogImage: data.og_image_url || '',
-            canonicalUrl: data.canonical_url || window.location.href
-          });
+          setMetadata(data);
         }
       } catch (error) {
         console.error('Error in SEO component:', error);
@@ -66,13 +73,13 @@ const SEO: React.FC<SEOProps> = ({
     fetchSEOData();
   }, [currentPath]);
   
-  const title = customTitle || metadata.title || DEFAULT_TITLE;
-  const description = customDescription || metadata.description || DEFAULT_DESCRIPTION;
-  const keywords = customKeywords || metadata.keywords || [];
-  const ogTitle = customOgTitle || metadata.ogTitle || title;
-  const ogDescription = customOgDescription || metadata.ogDescription || description;
-  const ogImage = customOgImage || metadata.ogImage || '';
-  const canonicalUrl = customCanonicalUrl || metadata.canonicalUrl || window.location.href;
+  const title = customTitle || metadata?.title || DEFAULT_TITLE;
+  const description = customDescription || metadata?.description || DEFAULT_DESCRIPTION;
+  const keywords = customKeywords || metadata?.keywords || [];
+  const ogTitle = customOgTitle || metadata?.og_title || title;
+  const ogDescription = customOgDescription || metadata?.og_description || description;
+  const ogImage = customOgImage || metadata?.og_image_url || '';
+  const canonicalUrl = customCanonicalUrl || metadata?.canonical_url || window.location.href;
   
   return (
     <Helmet>

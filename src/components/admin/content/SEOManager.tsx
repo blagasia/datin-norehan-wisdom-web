@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { 
   Table, 
@@ -30,9 +29,21 @@ import {
   Tag, 
   X
 } from 'lucide-react';
-import { Tables } from '@/types/supabase';
 
-type SEOMetadata = Tables<'seo_metadata'>;
+// Define a custom type for SEO metadata to avoid conflicts with generated types
+interface SEOMetadata {
+  id: string;
+  page_path: string;
+  title: string | null;
+  description: string | null;
+  keywords: string[] | null;
+  og_title: string | null;
+  og_description: string | null;
+  og_image_url: string | null;
+  canonical_url: string | null;
+  created_at: string;
+  updated_at: string;
+}
 
 const SEOManager: React.FC = () => {
   const [seoEntries, setSEOEntries] = useState<SEOMetadata[]>([]);
@@ -76,10 +87,11 @@ const SEOManager: React.FC = () => {
   const fetchSEOData = async () => {
     setIsLoading(true);
     try {
+      // Use a type assertion to make TypeScript happy
       const { data, error } = await supabase
         .from('seo_metadata')
         .select('*')
-        .order('page_path', { ascending: true });
+        .order('page_path', { ascending: true }) as { data: SEOMetadata[] | null, error: any };
       
       if (error) throw error;
       
