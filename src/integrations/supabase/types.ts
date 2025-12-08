@@ -7,395 +7,20 @@ export type Json =
   | Json[]
 
 export type Database = {
+  // Allows to automatically instantiate createClient with right options
+  // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
+  __InternalSupabase: {
+    PostgrestVersion: "13.0.5"
+  }
   public: {
     Tables: {
-      content_blocks: {
-        Row: {
-          content: Json
-          created_at: string
-          created_by: string | null
-          id: string
-          name: string
-          type: string
-          updated_at: string
-          updated_by: string | null
-        }
-        Insert: {
-          content?: Json
-          created_at?: string
-          created_by?: string | null
-          id?: string
-          name: string
-          type: string
-          updated_at?: string
-          updated_by?: string | null
-        }
-        Update: {
-          content?: Json
-          created_at?: string
-          created_by?: string | null
-          id?: string
-          name?: string
-          type?: string
-          updated_at?: string
-          updated_by?: string | null
-        }
-        Relationships: []
-      }
-      content_pages: {
-        Row: {
-          content: Json
-          created_at: string
-          created_by: string | null
-          id: string
-          meta_description: string | null
-          published: boolean | null
-          slug: string
-          title: string
-          updated_at: string
-          updated_by: string | null
-        }
-        Insert: {
-          content?: Json
-          created_at?: string
-          created_by?: string | null
-          id?: string
-          meta_description?: string | null
-          published?: boolean | null
-          slug: string
-          title: string
-          updated_at?: string
-          updated_by?: string | null
-        }
-        Update: {
-          content?: Json
-          created_at?: string
-          created_by?: string | null
-          id?: string
-          meta_description?: string | null
-          published?: boolean | null
-          slug?: string
-          title?: string
-          updated_at?: string
-          updated_by?: string | null
-        }
-        Relationships: []
-      }
-      lead_activities: {
-        Row: {
-          activity_type: string
-          created_at: string
-          created_by: string | null
-          description: string | null
-          id: string
-          lead_id: string
-        }
-        Insert: {
-          activity_type: string
-          created_at?: string
-          created_by?: string | null
-          description?: string | null
-          id?: string
-          lead_id: string
-        }
-        Update: {
-          activity_type?: string
-          created_at?: string
-          created_by?: string | null
-          description?: string | null
-          id?: string
-          lead_id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "lead_activities_lead_id_fkey"
-            columns: ["lead_id"]
-            isOneToOne: false
-            referencedRelation: "leads"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      leads: {
-        Row: {
-          assigned_to: string | null
-          created_at: string
-          email: string
-          full_name: string | null
-          id: string
-          notes: string | null
-          phone: string | null
-          source: string | null
-          status: string | null
-          tags: string[] | null
-          updated_at: string
-        }
-        Insert: {
-          assigned_to?: string | null
-          created_at?: string
-          email: string
-          full_name?: string | null
-          id?: string
-          notes?: string | null
-          phone?: string | null
-          source?: string | null
-          status?: string | null
-          tags?: string[] | null
-          updated_at?: string
-        }
-        Update: {
-          assigned_to?: string | null
-          created_at?: string
-          email?: string
-          full_name?: string | null
-          id?: string
-          notes?: string | null
-          phone?: string | null
-          source?: string | null
-          status?: string | null
-          tags?: string[] | null
-          updated_at?: string
-        }
-        Relationships: []
-      }
-      loyalty_challenges: {
-        Row: {
-          created_at: string
-          deadline: string | null
-          description: string
-          icon: string | null
-          id: string
-          is_active: boolean | null
-          points_reward: number
-          requirement_type: string
-          requirement_value: number
-          title: string
-          updated_at: string
-        }
-        Insert: {
-          created_at?: string
-          deadline?: string | null
-          description: string
-          icon?: string | null
-          id?: string
-          is_active?: boolean | null
-          points_reward: number
-          requirement_type: string
-          requirement_value: number
-          title: string
-          updated_at?: string
-        }
-        Update: {
-          created_at?: string
-          deadline?: string | null
-          description?: string
-          icon?: string | null
-          id?: string
-          is_active?: boolean | null
-          points_reward?: number
-          requirement_type?: string
-          requirement_value?: number
-          title?: string
-          updated_at?: string
-        }
-        Relationships: []
-      }
-      loyalty_rewards: {
-        Row: {
-          code: string | null
-          created_at: string
-          description: string
-          icon: string | null
-          id: string
-          is_active: boolean | null
-          min_purchase_amount: number | null
-          points_cost: number
-          reward_type: string
-          title: string
-          updated_at: string
-          valid_until: string | null
-          value_amount: number | null
-        }
-        Insert: {
-          code?: string | null
-          created_at?: string
-          description: string
-          icon?: string | null
-          id?: string
-          is_active?: boolean | null
-          min_purchase_amount?: number | null
-          points_cost: number
-          reward_type: string
-          title: string
-          updated_at?: string
-          valid_until?: string | null
-          value_amount?: number | null
-        }
-        Update: {
-          code?: string | null
-          created_at?: string
-          description?: string
-          icon?: string | null
-          id?: string
-          is_active?: boolean | null
-          min_purchase_amount?: number | null
-          points_cost?: number
-          reward_type?: string
-          title?: string
-          updated_at?: string
-          valid_until?: string | null
-          value_amount?: number | null
-        }
-        Relationships: []
-      }
-      loyalty_user_challenges: {
-        Row: {
-          challenge_id: string
-          completed_at: string
-          id: string
-          points_earned: number
-          user_id: string
-        }
-        Insert: {
-          challenge_id: string
-          completed_at?: string
-          id?: string
-          points_earned: number
-          user_id: string
-        }
-        Update: {
-          challenge_id?: string
-          completed_at?: string
-          id?: string
-          points_earned?: number
-          user_id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "loyalty_user_challenges_challenge_id_fkey"
-            columns: ["challenge_id"]
-            isOneToOne: false
-            referencedRelation: "loyalty_challenges"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      loyalty_user_rewards: {
-        Row: {
-          expiration_date: string | null
-          id: string
-          redeemed_at: string
-          reward_id: string
-          status: string | null
-          user_id: string
-        }
-        Insert: {
-          expiration_date?: string | null
-          id?: string
-          redeemed_at?: string
-          reward_id: string
-          status?: string | null
-          user_id: string
-        }
-        Update: {
-          expiration_date?: string | null
-          id?: string
-          redeemed_at?: string
-          reward_id?: string
-          status?: string | null
-          user_id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "loyalty_user_rewards_reward_id_fkey"
-            columns: ["reward_id"]
-            isOneToOne: false
-            referencedRelation: "loyalty_rewards"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      profiles: {
-        Row: {
-          avatar_url: string | null
-          created_at: string
-          email: string
-          full_name: string | null
-          id: string
-          role: string
-          updated_at: string
-        }
-        Insert: {
-          avatar_url?: string | null
-          created_at?: string
-          email: string
-          full_name?: string | null
-          id: string
-          role?: string
-          updated_at?: string
-        }
-        Update: {
-          avatar_url?: string | null
-          created_at?: string
-          email?: string
-          full_name?: string | null
-          id?: string
-          role?: string
-          updated_at?: string
-        }
-        Relationships: []
-      }
-      seo_metadata: {
-        Row: {
-          canonical_url: string | null
-          created_at: string
-          description: string | null
-          id: string
-          keywords: string[] | null
-          og_description: string | null
-          og_image_url: string | null
-          og_title: string | null
-          page_path: string
-          title: string | null
-          updated_at: string
-        }
-        Insert: {
-          canonical_url?: string | null
-          created_at?: string
-          description?: string | null
-          id?: string
-          keywords?: string[] | null
-          og_description?: string | null
-          og_image_url?: string | null
-          og_title?: string | null
-          page_path: string
-          title?: string | null
-          updated_at?: string
-        }
-        Update: {
-          canonical_url?: string | null
-          created_at?: string
-          description?: string | null
-          id?: string
-          keywords?: string[] | null
-          og_description?: string | null
-          og_image_url?: string | null
-          og_title?: string | null
-          page_path?: string
-          title?: string | null
-          updated_at?: string
-        }
-        Relationships: []
-      }
+      [_ in never]: never
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      get_user_role: {
-        Args: Record<PropertyKey, never>
-        Returns: string
-      }
+      [_ in never]: never
     }
     Enums: {
       [_ in never]: never
@@ -406,21 +31,25 @@ export type Database = {
   }
 }
 
-type DefaultSchema = Database[Extract<keyof Database, "public">]
+type DatabaseWithoutInternals = Omit<Database, "__InternalSupabase">
+
+type DefaultSchema = DatabaseWithoutInternals[Extract<keyof Database, "public">]
 
 export type Tables<
   DefaultSchemaTableNameOrOptions extends
     | keyof (DefaultSchema["Tables"] & DefaultSchema["Views"])
-    | { schema: keyof Database },
+    | { schema: keyof DatabaseWithoutInternals },
   TableName extends DefaultSchemaTableNameOrOptions extends {
-    schema: keyof Database
+    schema: keyof DatabaseWithoutInternals
   }
-    ? keyof (Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
-        Database[DefaultSchemaTableNameOrOptions["schema"]]["Views"])
+    ? keyof (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
+        DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])
     : never = never,
-> = DefaultSchemaTableNameOrOptions extends { schema: keyof Database }
-  ? (Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
-      Database[DefaultSchemaTableNameOrOptions["schema"]]["Views"])[TableName] extends {
+> = DefaultSchemaTableNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
+      DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])[TableName] extends {
       Row: infer R
     }
     ? R
@@ -438,14 +67,16 @@ export type Tables<
 export type TablesInsert<
   DefaultSchemaTableNameOrOptions extends
     | keyof DefaultSchema["Tables"]
-    | { schema: keyof Database },
+    | { schema: keyof DatabaseWithoutInternals },
   TableName extends DefaultSchemaTableNameOrOptions extends {
-    schema: keyof Database
+    schema: keyof DatabaseWithoutInternals
   }
-    ? keyof Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
+    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
     : never = never,
-> = DefaultSchemaTableNameOrOptions extends { schema: keyof Database }
-  ? Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+> = DefaultSchemaTableNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
       Insert: infer I
     }
     ? I
@@ -461,14 +92,16 @@ export type TablesInsert<
 export type TablesUpdate<
   DefaultSchemaTableNameOrOptions extends
     | keyof DefaultSchema["Tables"]
-    | { schema: keyof Database },
+    | { schema: keyof DatabaseWithoutInternals },
   TableName extends DefaultSchemaTableNameOrOptions extends {
-    schema: keyof Database
+    schema: keyof DatabaseWithoutInternals
   }
-    ? keyof Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
+    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
     : never = never,
-> = DefaultSchemaTableNameOrOptions extends { schema: keyof Database }
-  ? Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+> = DefaultSchemaTableNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
       Update: infer U
     }
     ? U
@@ -484,14 +117,16 @@ export type TablesUpdate<
 export type Enums<
   DefaultSchemaEnumNameOrOptions extends
     | keyof DefaultSchema["Enums"]
-    | { schema: keyof Database },
+    | { schema: keyof DatabaseWithoutInternals },
   EnumName extends DefaultSchemaEnumNameOrOptions extends {
-    schema: keyof Database
+    schema: keyof DatabaseWithoutInternals
   }
-    ? keyof Database[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
+    ? keyof DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
     : never = never,
-> = DefaultSchemaEnumNameOrOptions extends { schema: keyof Database }
-  ? Database[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"][EnumName]
+> = DefaultSchemaEnumNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"][EnumName]
   : DefaultSchemaEnumNameOrOptions extends keyof DefaultSchema["Enums"]
     ? DefaultSchema["Enums"][DefaultSchemaEnumNameOrOptions]
     : never
@@ -499,14 +134,16 @@ export type Enums<
 export type CompositeTypes<
   PublicCompositeTypeNameOrOptions extends
     | keyof DefaultSchema["CompositeTypes"]
-    | { schema: keyof Database },
+    | { schema: keyof DatabaseWithoutInternals },
   CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
-    schema: keyof Database
+    schema: keyof DatabaseWithoutInternals
   }
-    ? keyof Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
+    ? keyof DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
     : never = never,
-> = PublicCompositeTypeNameOrOptions extends { schema: keyof Database }
-  ? Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
+> = PublicCompositeTypeNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
   : PublicCompositeTypeNameOrOptions extends keyof DefaultSchema["CompositeTypes"]
     ? DefaultSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
     : never
