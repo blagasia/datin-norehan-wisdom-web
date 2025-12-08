@@ -63,7 +63,7 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Updated brand colors for Datin Norehan
+				// Updated brand colors to match the provided color palette
 				brand: {
 					"blush-rose": "#F7D8D5",    // Primary hue - blush rose
 					"creamy-ivory": "#F8F3E6",  // Primary hue - creamy ivory
@@ -71,12 +71,11 @@ export default {
 					"muted-rose": "#C99A96",    // Secondary color
 					"soft-taupe": "#B3A99A",    // Secondary color
 					"lavender-mist": "#DDD8EF", // Secondary color
-					"soft-lavender": "#E5DEFF", // Soft pastel secondary
+					"soft-lavender": "#E5DEFF", // New soft pastel secondary replacing gold
 					"orchid-pink": "#E68FAC",   // Accent color
 					"deep-teal": "#26767E",     // Accent color
-					"gilded-gold": "#D4AF37",   // Premium accent - gilded gold
-					"soft-gray": "#8E9196",     // Neutral gray
-					"dark": "#3A3A3A",          // Dark text
+					"soft-gray": "#8E9196",     // Kept as is
+					"dark": "#3A3A3A",          // Kept as is
 				},
 				natural: {
 					green: '#D2DFCD',           // Updated to match sage-mist
@@ -88,13 +87,13 @@ export default {
 				}
 			},
 			fontFamily: {
+				// Kept existing font families
 				italiana: ['Italiana', 'serif'],
 				karla: ['Karla', 'sans-serif'],
 				playfair: ['Playfair Display', 'serif'],
 				cormorant: ['Cormorant Garamond', 'serif'],
 				montserrat: ['Montserrat', 'sans-serif'],
-				sans: ['Karla', 'sans-serif'],
-				serif: ['Cormorant Garamond', 'Playfair Display', 'serif']
+				sans: ['Karla', 'sans-serif']
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
