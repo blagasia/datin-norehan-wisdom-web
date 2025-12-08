@@ -1,10 +1,7 @@
-
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
-import AuthComponent from '@/components/admin/AuthLogin';
 import { supabase } from '@/integrations/supabase/client';
-import { useToast } from '@/components/ui/use-toast';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -12,6 +9,12 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Lock, Mail, User, AlertCircle, Loader2 } from 'lucide-react';
+import { z } from 'zod';
+
+// Input validation schemas
+const emailSchema = z.string().email({ message: "Please enter a valid email address" }).max(255);
+const passwordSchema = z.string().min(6, { message: "Password must be at least 6 characters" }).max(128);
+const fullNameSchema = z.string().min(1, { message: "Name is required" }).max(100).trim();
 
 const Auth = () => {
   const { user, loading } = useAuth();
@@ -23,7 +26,6 @@ const Auth = () => {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const navigate = useNavigate();
-  const { toast } = useToast();
   
   // If loading, show loading state
   if (loading) {
@@ -41,59 +43,6 @@ const Auth = () => {
   if (user) {
     return <Navigate to="/admin" />;
   }
-
-  // Create admin account for blagasia@gmail.com if it doesn't exist
-  useEffect(() => {
-    const createDefaultAccount = async () => {
-      try {
-        // Check if the account exists first - profiles don't have email, so we skip this check
-        const { data: existingUser, error: checkError } = await (supabase
-          .from('profiles' as any)
-          .select('*')
-          .limit(1)
-          .maybeSingle() as any);
-        
-        if (checkError && checkError.code !== 'PGRST116') {
-          console.error("Error checking for existing user:", checkError);
-          return;
-        }
-        
-        // If user already exists, don't create a new one
-        if (existingUser) {
-          return;
-        }
-        
-        // Create the user account
-        const { data, error } = await supabase.auth.signUp({
-          email: 'blagasia@gmail.com',
-          password: 'norehanprevi3w',
-          options: {
-            data: {
-              full_name: 'Admin User',
-            },
-          },
-        });
-        
-        if (error) throw error;
-        
-        // Set user role to admin in the profiles table
-        if (data.user) {
-          const { error: updateError } = await (supabase
-            .from('profiles' as any)
-            .update({ role: 'admin' })
-            .eq('user_id', data.user.id) as any);
-          
-          if (updateError) throw updateError;
-          
-          console.log("Default admin account created successfully");
-        }
-      } catch (err: any) {
-        console.error("Error creating default account:", err.message);
-      }
-    };
-    
-    createDefaultAccount();
-  }, []);
   
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -101,8 +50,19 @@ const Auth = () => {
     setAuthLoading(true);
     
     try {
+      // Validate inputs
+      const emailResult = emailSchema.safeParse(email);
+      if (!emailResult.success) {
+        throw new Error(emailResult.error.errors[0].message);
+      }
+      
+      const passwordResult = passwordSchema.safeParse(password);
+      if (!passwordResult.success) {
+        throw new Error(passwordResult.error.errors[0].message);
+      }
+      
       const { data, error } = await supabase.auth.signInWithPassword({
-        email,
+        email: emailResult.data,
         password,
       });
       
@@ -124,24 +84,48 @@ const Auth = () => {
     setAuthLoading(true);
     
     try {
+      // Validate inputs
+      const emailResult = emailSchema.safeParse(email);
+      if (!emailResult.success) {
+        throw new Error(emailResult.error.errors[0].message);
+      }
+      
+      const passwordResult = passwordSchema.safeParse(password);
+      if (!passwordResult.success) {
+        throw new Error(passwordResult.error.errors[0].message);
+      }
+      
+      const fullNameResult = fullNameSchema.safeParse(fullName);
+      if (!fullNameResult.success) {
+        throw new Error(fullNameResult.error.errors[0].message);
+      }
+      
+      const redirectUrl = `${window.location.origin}/`;
+      
       const { data, error } = await supabase.auth.signUp({
-        email,
+        email: emailResult.data,
         password,
         options: {
           data: {
-            full_name: fullName,
+            full_name: fullNameResult.data,
           },
+          emailRedirectTo: redirectUrl,
         },
       });
       
       if (error) throw error;
       
       if (data.user) {
-        setSuccess("Registration successful! Please check your email to confirm your account.");
+        setSuccess("Registration successful! You can now log in.");
         setTab('login');
+        setPassword('');
       }
     } catch (err: any) {
-      setError(err.message || "Failed to sign up");
+      if (err.message?.includes('already registered')) {
+        setError("This email is already registered. Please log in instead.");
+      } else {
+        setError(err.message || "Failed to sign up");
+      }
     } finally {
       setAuthLoading(false);
     }
@@ -200,6 +184,7 @@ const Auth = () => {
                       onChange={(e) => setEmail(e.target.value)}
                       className="pl-10"
                       required
+                      autoComplete="email"
                     />
                   </div>
                 </div>
@@ -214,6 +199,7 @@ const Auth = () => {
                       onChange={(e) => setPassword(e.target.value)}
                       className="pl-10"
                       required
+                      autoComplete="current-password"
                     />
                   </div>
                 </div>
@@ -228,12 +214,6 @@ const Auth = () => {
                     'Sign In'
                   )}
                 </Button>
-                
-                <div className="text-center text-sm text-muted-foreground">
-                  <p className="mt-2">Default admin access:</p>
-                  <p className="font-medium">Email: blagasia@gmail.com</p>
-                  <p className="font-medium">Password: norehanprevi3w</p>
-                </div>
               </form>
             </TabsContent>
             
@@ -250,6 +230,7 @@ const Auth = () => {
                       onChange={(e) => setFullName(e.target.value)}
                       className="pl-10"
                       required
+                      autoComplete="name"
                     />
                   </div>
                 </div>
@@ -265,6 +246,7 @@ const Auth = () => {
                       onChange={(e) => setEmail(e.target.value)}
                       className="pl-10"
                       required
+                      autoComplete="email"
                     />
                   </div>
                 </div>
@@ -280,6 +262,7 @@ const Auth = () => {
                       className="pl-10"
                       required
                       minLength={6}
+                      autoComplete="new-password"
                     />
                   </div>
                 </div>

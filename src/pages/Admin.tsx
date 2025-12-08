@@ -1,14 +1,15 @@
-
 import React, { useState, useEffect } from 'react';
 import AdminDashboard from '@/components/admin/AdminDashboard';
 import { useToast } from '@/components/ui/use-toast';
 import { useAuth } from '@/context/AuthContext';
 import { Navigate, useNavigate } from 'react-router-dom';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { ShieldAlert } from 'lucide-react';
 
 const Admin = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const { toast } = useToast();
-  const { user, loading } = useAuth();
+  const { user, loading, isAdmin } = useAuth();
   const navigate = useNavigate();
   
   useEffect(() => {
@@ -44,7 +45,25 @@ const Admin = () => {
     return <Navigate to="/auth" />;
   }
 
-  // If authenticated, show dashboard
+  // If authenticated but not admin, show access denied
+  if (!isAdmin()) {
+    return (
+      <div className="min-h-screen flex items-center justify-center p-4">
+        <div className="max-w-md w-full">
+          <Alert variant="destructive">
+            <ShieldAlert className="h-4 w-4" />
+            <AlertTitle>Access Denied</AlertTitle>
+            <AlertDescription>
+              You do not have admin privileges to access this dashboard. 
+              Please contact an administrator if you believe this is an error.
+            </AlertDescription>
+          </Alert>
+        </div>
+      </div>
+    );
+  }
+
+  // If authenticated and admin, show dashboard
   return <AdminDashboard />;
 };
 

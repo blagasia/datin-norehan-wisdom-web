@@ -1,6 +1,6 @@
-
 import React from 'react';
 import { Label } from '@/components/ui/label';
+import DOMPurify from 'dompurify';
 
 interface TextBlockContent {
   text: string;
@@ -12,14 +12,23 @@ interface TextBlockEditorProps {
   readOnly?: boolean;
 }
 
+// Configure DOMPurify with allowed tags and attributes
+const sanitizeConfig = {
+  ALLOWED_TAGS: ['p', 'br', 'strong', 'em', 'u', 'a', 'ul', 'ol', 'li', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'blockquote', 'span', 'div'],
+  ALLOWED_ATTR: ['href', 'target', 'rel', 'class', 'style'],
+};
+
 const TextBlockEditor: React.FC<TextBlockEditorProps> = ({ 
   content, 
   onChange,
   readOnly = false
 }) => {
+  // Sanitize HTML before rendering to prevent XSS attacks
+  const sanitizedHtml = DOMPurify.sanitize(content.text, sanitizeConfig);
+
   if (readOnly) {
     return (
-      <div dangerouslySetInnerHTML={{ __html: content.text }} className="prose max-w-none" />
+      <div dangerouslySetInnerHTML={{ __html: sanitizedHtml }} className="prose max-w-none" />
     );
   }
 
@@ -41,7 +50,7 @@ const TextBlockEditor: React.FC<TextBlockEditorProps> = ({
         <h4 className="text-sm font-medium mb-2">Preview</h4>
         <div 
           className="p-4 border rounded-md bg-white prose max-w-none"
-          dangerouslySetInnerHTML={{ __html: content.text }}
+          dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
         />
       </div>
     </div>
