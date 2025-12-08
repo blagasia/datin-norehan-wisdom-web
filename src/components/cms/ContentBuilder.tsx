@@ -241,14 +241,14 @@ const ContentBuilder: React.FC<ContentBuilderProps> = ({
 
     setIsSaving(true);
     try {
-      const { error } = await supabase
-        .from('content_pages')
+      const { error } = await (supabase
+        .from('content_pages' as any)
         .update({ 
           content: { 
             blocks: blocks.map(block => serializeBlockForStorage(block))
           } 
         })
-        .eq('id', pageId);
+        .eq('id', pageId) as any);
       
       if (error) throw error;
       

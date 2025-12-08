@@ -88,10 +88,10 @@ const PageManager = () => {
   const fetchPages = async () => {
     setLoading(true);
     try {
-      const { data, error } = await supabase
-        .from('content_pages')
+      const { data, error } = await (supabase
+        .from('content_pages' as any)
         .select('*')
-        .order('created_at', { ascending: false });
+        .order('created_at', { ascending: false }) as any);
       
       if (error) throw error;
       
@@ -130,8 +130,8 @@ const PageManager = () => {
           .replace(/^-+/, '')
           .replace(/-+$/, '');
       
-      const { data, error } = await supabase
-        .from('content_pages')
+      const { data, error } = await (supabase
+        .from('content_pages' as any)
         .insert([{
           title: newPage.title,
           slug,
@@ -139,7 +139,7 @@ const PageManager = () => {
           published: newPage.published,
           content: { blocks: [] }
         }])
-        .select();
+        .select() as any);
       
       if (error) throw error;
       
@@ -181,10 +181,10 @@ const PageManager = () => {
     }
     
     try {
-      const { error } = await supabase
-        .from('content_pages')
+      const { error } = await (supabase
+        .from('content_pages' as any)
         .delete()
-        .eq('id', id);
+        .eq('id', id) as any);
       
       if (error) throw error;
       
@@ -212,10 +212,10 @@ const PageManager = () => {
 
   const handleUpdatePageStatus = async (id: string, published: boolean) => {
     try {
-      const { error } = await supabase
-        .from('content_pages')
+      const { error } = await (supabase
+        .from('content_pages' as any)
         .update({ published })
-        .eq('id', id);
+        .eq('id', id) as any);
       
       if (error) throw error;
       

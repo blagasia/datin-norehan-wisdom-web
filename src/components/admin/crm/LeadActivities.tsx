@@ -47,11 +47,11 @@ const LeadActivities: React.FC<LeadActivitiesProps> = ({ leadId }) => {
   const fetchActivities = async () => {
     setLoading(true);
     try {
-      const { data, error } = await supabase
-        .from('lead_activities')
+      const { data, error } = await (supabase
+        .from('lead_activities' as any)
         .select('*')
         .eq('lead_id', leadId)
-        .order('created_at', { ascending: false });
+        .order('created_at', { ascending: false }) as any);
       
       if (error) throw error;
       
@@ -79,14 +79,14 @@ const LeadActivities: React.FC<LeadActivitiesProps> = ({ leadId }) => {
         return;
       }
       
-      const { data, error } = await supabase
-        .from('lead_activities')
+      const { data, error } = await (supabase
+        .from('lead_activities' as any)
         .insert([{
           lead_id: leadId,
           activity_type: newActivity.activity_type,
           description: newActivity.description
         }])
-        .select();
+        .select() as any);
       
       if (error) throw error;
       

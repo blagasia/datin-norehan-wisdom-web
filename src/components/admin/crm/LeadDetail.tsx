@@ -66,8 +66,8 @@ const LeadDetail: React.FC<LeadDetailProps> = ({ lead, onLeadUpdated, formatDate
 
   const handleSaveChanges = async () => {
     try {
-      const { error } = await supabase
-        .from('leads')
+      const { error } = await (supabase
+        .from('leads' as any)
         .update({
           full_name: editedLead.full_name,
           email: editedLead.email,
@@ -78,18 +78,18 @@ const LeadDetail: React.FC<LeadDetailProps> = ({ lead, onLeadUpdated, formatDate
           notes: editedLead.notes,
           updated_at: new Date().toISOString(),
         })
-        .eq('id', lead.id);
+        .eq('id', lead.id) as any);
 
       if (error) throw error;
 
       // Log activity
-      await supabase
-        .from('lead_activities')
+      await (supabase
+        .from('lead_activities' as any)
         .insert({
           lead_id: lead.id,
           activity_type: 'update',
           description: 'Lead details updated',
-        });
+        }) as any);
 
       toast({
         title: "Success",

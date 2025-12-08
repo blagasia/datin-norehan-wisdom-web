@@ -110,7 +110,7 @@ const AdminCRM = () => {
   const fetchLeads = async () => {
     setLoading(true);
     try {
-      let query = supabase.from('leads').select('*');
+      let query = (supabase.from('leads' as any) as any).select('*');
       
       // Apply filters if needed
       if (statusFilter) {
@@ -166,8 +166,8 @@ const AdminCRM = () => {
         return;
       }
       
-      const { data, error } = await supabase
-        .from('leads')
+      const { data, error } = await (supabase
+        .from('leads' as any)
         .insert([{
           full_name: newLead.full_name || null,
           email: newLead.email,
@@ -177,7 +177,7 @@ const AdminCRM = () => {
           tags: newLead.tags.length > 0 ? newLead.tags : null,
           notes: newLead.notes || null
         }])
-        .select();
+        .select() as any);
       
       if (error) throw error;
       
@@ -224,10 +224,10 @@ const AdminCRM = () => {
     }
     
     try {
-      const { error } = await supabase
-        .from('leads')
+      const { error } = await (supabase
+        .from('leads' as any)
         .delete()
-        .eq('id', id);
+        .eq('id', id) as any);
       
       if (error) throw error;
       
