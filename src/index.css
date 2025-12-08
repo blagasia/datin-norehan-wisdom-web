@@ -185,15 +185,24 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: #F8F3E6;
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #ccc;
+  background: #C99A96;
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #b3b3b3;
+  background: #B3A99A;
+}
+
+/* Hide scrollbar for horizontal scroll sections */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
