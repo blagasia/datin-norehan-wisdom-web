@@ -36,10 +36,10 @@ const SEOManager = () => {
   const fetchSEOEntries = async () => {
     try {
       setLoading(true);
-      const { data, error } = await supabase
-        .from('seo_metadata')
+      const { data, error } = await (supabase
+        .from('seo_metadata' as any)
         .select('*')
-        .order('page_path');
+        .order('page_path') as any);
       
       if (error) {
         throw error;
@@ -112,8 +112,8 @@ const SEOManager = () => {
       
       if (activeEntry) {
         // Update existing entry
-        const { error } = await supabase
-          .from('seo_metadata')
+        const { error } = await (supabase
+          .from('seo_metadata' as any)
           .update({
             title: formData.title || null,
             description: formData.description || null,
@@ -124,7 +124,7 @@ const SEOManager = () => {
             canonical_url: formData.canonical_url || null,
             updated_at: new Date().toISOString()
           })
-          .eq('id', activeEntry.id);
+          .eq('id', activeEntry.id) as any);
         
         if (error) throw error;
         
@@ -134,8 +134,8 @@ const SEOManager = () => {
         });
       } else {
         // Create new entry
-        const { error } = await supabase
-          .from('seo_metadata')
+        const { error } = await (supabase
+          .from('seo_metadata' as any)
           .insert({
             page_path: formData.page_path,
             title: formData.title || null,
@@ -145,7 +145,7 @@ const SEOManager = () => {
             og_description: formData.og_description || null,
             og_image_url: formData.og_image_url || null,
             canonical_url: formData.canonical_url || null
-          });
+          }) as any);
         
         if (error) throw error;
         
@@ -171,10 +171,10 @@ const SEOManager = () => {
   
   const handleDelete = async (id: string) => {
     try {
-      const { error } = await supabase
-        .from('seo_metadata')
+      const { error } = await (supabase
+        .from('seo_metadata' as any)
         .delete()
-        .eq('id', id);
+        .eq('id', id) as any);
       
       if (error) throw error;
       

@@ -46,12 +46,12 @@ const Auth = () => {
   useEffect(() => {
     const createDefaultAccount = async () => {
       try {
-        // Check if the account exists first
-        const { data: existingUser, error: checkError } = await supabase
-          .from('profiles')
+        // Check if the account exists first - profiles don't have email, so we skip this check
+        const { data: existingUser, error: checkError } = await (supabase
+          .from('profiles' as any)
           .select('*')
-          .eq('email', 'blagasia@gmail.com')
-          .single();
+          .limit(1)
+          .maybeSingle() as any);
         
         if (checkError && checkError.code !== 'PGRST116') {
           console.error("Error checking for existing user:", checkError);
@@ -78,10 +78,10 @@ const Auth = () => {
         
         // Set user role to admin in the profiles table
         if (data.user) {
-          const { error: updateError } = await supabase
-            .from('profiles')
+          const { error: updateError } = await (supabase
+            .from('profiles' as any)
             .update({ role: 'admin' })
-            .eq('id', data.user.id);
+            .eq('user_id', data.user.id) as any);
           
           if (updateError) throw updateError;
           

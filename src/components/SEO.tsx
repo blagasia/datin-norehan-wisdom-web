@@ -37,11 +37,11 @@ const SEO: React.FC<SEOProps> = ({
   useEffect(() => {
     const fetchSEOData = async () => {
       try {
-        const { data, error } = await supabase
-          .from('seo_metadata')
+        const { data, error } = await (supabase
+          .from('seo_metadata' as any)
           .select('*')
           .eq('page_path', currentPath)
-          .maybeSingle();
+          .maybeSingle() as any);
         
         if (error) {
           console.error('Error fetching SEO data:', error);
