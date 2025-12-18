@@ -1,0 +1,269 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Datin Norehan Theme Content Schema",
+  "description": "JSON schema for all content blocks - maps to WordPress ACF fields",
+  "definitions": {
+    "image": {
+      "type": "object",
+      "properties": {
+        "url": { "type": "string", "format": "uri" },
+        "alt": { "type": "string" },
+        "width": { "type": "integer" },
+        "height": { "type": "integer" }
+      },
+      "required": ["url"]
+    },
+    "link": {
+      "type": "object",
+      "properties": {
+        "url": { "type": "string" },
+        "label": { "type": "string" },
+        "target": { "enum": ["_self", "_blank"] }
+      },
+      "required": ["url", "label"]
+    }
+  },
+  "blocks": {
+    "hero": {
+      "type": "object",
+      "properties": {
+        "video": {
+          "type": "object",
+          "properties": {
+            "url": { "type": "string", "format": "uri" },
+            "fallbackImage": { "$ref": "#/definitions/image" }
+          }
+        },
+        "badge": {
+          "type": "object",
+          "properties": {
+            "text": { "type": "string", "maxLength": 50 },
+            "icon": { "enum": ["sparkles", "feather", "leaf", "heart", "star"] }
+          }
+        },
+        "headline": { "type": "string", "maxLength": 100 },
+        "subheadline": { "type": "string", "maxLength": 300 },
+        "cta": { "$ref": "#/definitions/link" },
+        "carousel": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "image": { "$ref": "#/definitions/image" },
+              "title": { "type": "string" },
+              "description": { "type": "string" }
+            }
+          },
+          "maxItems": 6
+        },
+        "quote": {
+          "type": "object",
+          "properties": {
+            "text": { "type": "string" },
+            "author": { "type": "string" }
+          }
+        },
+        "categories": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": { "type": "string" },
+              "image": { "$ref": "#/definitions/image" },
+              "link": { "type": "string" },
+              "comingSoon": { "type": "boolean", "default": false }
+            }
+          },
+          "maxItems": 6
+        }
+      },
+      "required": ["headline", "cta"]
+    },
+    "features": {
+      "type": "object",
+      "properties": {
+        "sectionTitle": { "type": "string" },
+        "sectionSubtitle": { "type": "string" },
+        "columns": { "enum": [2, 3, 4], "default": 4 },
+        "background": { "enum": ["white", "cream", "sage"], "default": "white" },
+        "features": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "icon": { "enum": ["check", "book", "leaf", "pill", "heart", "star"] },
+              "title": { "type": "string", "maxLength": 50 },
+              "description": { "type": "string", "maxLength": 200 }
+            },
+            "required": ["icon", "title", "description"]
+          },
+          "minItems": 2,
+          "maxItems": 6
+        }
+      },
+      "required": ["sectionTitle", "features"]
+    },
+    "products": {
+      "type": "object",
+      "properties": {
+        "sectionTitle": { "type": "string" },
+        "sectionDescription": { "type": "string" },
+        "displayMode": { "enum": ["featured", "category", "manual"], "default": "featured" },
+        "category": { "type": "string" },
+        "productIds": { "type": "array", "items": { "type": "string" } },
+        "columns": { "enum": [2, 3, 4], "default": 4 },
+        "showCartButton": { "type": "boolean", "default": true },
+        "showReferralButton": { "type": "boolean", "default": false },
+        "cta": { "$ref": "#/definitions/link" }
+      },
+      "required": ["sectionTitle", "displayMode"]
+    },
+    "rituals": {
+      "type": "object",
+      "properties": {
+        "sectionTitle": { "type": "string" },
+        "sectionDescription": { "type": "string" },
+        "rituals": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "title": { "type": "string" },
+              "description": { "type": "string" },
+              "image": { "$ref": "#/definitions/image" },
+              "price": { "type": "string" },
+              "link": { "type": "string" },
+              "benefits": { "type": "array", "items": { "type": "string" } }
+            },
+            "required": ["id", "title", "image", "price"]
+          }
+        },
+        "cta": { "$ref": "#/definitions/link" }
+      },
+      "required": ["sectionTitle", "rituals"]
+    },
+    "articles": {
+      "type": "object",
+      "properties": {
+        "sectionTitle": { "type": "string" },
+        "sectionDescription": { "type": "string" },
+        "displayMode": { "enum": ["recent", "featured", "category"], "default": "recent" },
+        "category": { "type": "string" },
+        "postIds": { "type": "array", "items": { "type": "string" } },
+        "count": { "type": "integer", "minimum": 1, "maximum": 12, "default": 3 },
+        "layout": { "enum": ["grid", "carousel", "list"], "default": "grid" },
+        "cta": { "$ref": "#/definitions/link" }
+      },
+      "required": ["sectionTitle", "displayMode"]
+    },
+    "events": {
+      "type": "object",
+      "properties": {
+        "sectionTitle": { "type": "string" },
+        "sectionDescription": { "type": "string" },
+        "displayMode": { "enum": ["upcoming", "featured", "manual"], "default": "upcoming" },
+        "events": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "title": { "type": "string" },
+              "date": { "type": "string", "format": "date" },
+              "time": { "type": "string" },
+              "location": { "type": "string" },
+              "type": { "enum": ["virtual", "in-person", "hybrid"] },
+              "image": { "$ref": "#/definitions/image" },
+              "description": { "type": "string" },
+              "registrationUrl": { "type": "string", "format": "uri" }
+            },
+            "required": ["id", "title", "date", "type"]
+          }
+        }
+      },
+      "required": ["sectionTitle"]
+    },
+    "quote": {
+      "type": "object",
+      "properties": {
+        "text": { "type": "string", "maxLength": 500 },
+        "author": { "type": "string", "maxLength": 100 },
+        "icon": { "enum": ["feather", "leaf", "sparkles"], "default": "feather" },
+        "background": { "enum": ["blush", "sage", "lavender", "gradient"], "default": "blush" }
+      },
+      "required": ["text", "author"]
+    },
+    "newsletter": {
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "placeholder": { "type": "string", "default": "Your email address" },
+        "buttonText": { "type": "string", "default": "Subscribe" },
+        "successMessage": { "type": "string" },
+        "integration": { "enum": ["mailchimp", "convertkit", "custom"], "default": "custom" }
+      },
+      "required": ["title", "buttonText"]
+    },
+    "about": {
+      "type": "object",
+      "properties": {
+        "sectionTitle": { "type": "string" },
+        "heading": { "type": "string" },
+        "description": { "type": "string" },
+        "image": { "$ref": "#/definitions/image" },
+        "cta": { "$ref": "#/definitions/link" },
+        "layout": { "enum": ["image-left", "image-right", "image-top"], "default": "image-left" }
+      },
+      "required": ["heading", "description", "image"]
+    },
+    "socialFeed": {
+      "type": "object",
+      "properties": {
+        "sectionTitle": { "type": "string" },
+        "sectionDescription": { "type": "string" },
+        "platform": { "enum": ["tiktok", "instagram", "youtube"], "default": "tiktok" },
+        "videos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "title": { "type": "string" },
+              "thumbnail": { "$ref": "#/definitions/image" },
+              "url": { "type": "string", "format": "uri" }
+            },
+            "required": ["id", "url"]
+          },
+          "maxItems": 12
+        }
+      },
+      "required": ["sectionTitle", "platform"]
+    }
+  },
+  "pages": {
+    "homepage": {
+      "type": "object",
+      "properties": {
+        "blocks": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              { "$ref": "#/blocks/hero" },
+              { "$ref": "#/blocks/features" },
+              { "$ref": "#/blocks/products" },
+              { "$ref": "#/blocks/rituals" },
+              { "$ref": "#/blocks/articles" },
+              { "$ref": "#/blocks/events" },
+              { "$ref": "#/blocks/quote" },
+              { "$ref": "#/blocks/newsletter" },
+              { "$ref": "#/blocks/about" },
+              { "$ref": "#/blocks/socialFeed" }
+            ]
+          }
+        }
+      }
+    }
+  }
+}
