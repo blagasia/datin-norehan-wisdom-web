@@ -34,6 +34,13 @@
     --ring: 142 76.2% 29.4%;
 
     --radius: 0.5rem;
+
+    /* Apothecary Brand Colors - HSL Values */
+    --apothecary-ivory: 45 56% 94%;
+    --apothecary-blush: 6 65% 90%;
+    --apothecary-sage: 108 23% 84%;
+    --apothecary-deep-teal: 184 52% 32%;
+    --apothecary-muted-rose: 4 28% 69%;
   }
 
   .dark {
@@ -64,6 +71,13 @@
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
     --ring: 240 4.9% 83.9%;
+
+    /* Apothecary Brand Colors (dark mode adjustments) */
+    --apothecary-ivory: 45 20% 15%;
+    --apothecary-blush: 6 30% 25%;
+    --apothecary-sage: 108 15% 20%;
+    --apothecary-deep-teal: 184 52% 40%;
+    --apothecary-muted-rose: 4 28% 50%;
   }
 }
 

@@ -77,6 +77,14 @@ export default {
 					"soft-gray": "#8E9196",     // Kept as is
 					"dark": "#3A3A3A",          // Kept as is
 				},
+				// Apothecary semantic colors using CSS variables
+				apothecary: {
+					ivory: 'hsl(var(--apothecary-ivory))',
+					blush: 'hsl(var(--apothecary-blush))',
+					sage: 'hsl(var(--apothecary-sage))',
+					teal: 'hsl(var(--apothecary-deep-teal))',
+					rose: 'hsl(var(--apothecary-muted-rose))',
+				},
 				natural: {
 					green: '#D2DFCD',           // Updated to match sage-mist
 					purple: '#E5DEFF',          // Updated to new soft-lavender
