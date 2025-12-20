@@ -20,7 +20,7 @@ import DnaBrand from '@/pages/DnaBrand';
 import Rituals from '@/pages/Rituals';
 import Curations from '@/pages/Curations';
 import Home from '@/pages/Home';
-import Apothecary from '@/pages/Apothecary';
+
 
 function App() {
   return (
@@ -32,7 +32,7 @@ function App() {
               <Routes>
                 <Route path="/" element={<Index />} />
                 <Route path="/home" element={<Home />} />
-                <Route path="/apothecary" element={<Apothecary />} />
+                
                 <Route path="/about" element={<About />} />
                 <Route path="/products" element={<Products />} />
                 <Route path="/products/:id" element={<ProductDetail />} />
